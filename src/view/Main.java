@@ -1,20 +1,23 @@
 package view;
 
+import com.k33ptoo.utils.ComponentMoverUtil;
+import com.k33ptoo.utils.ComponentResizerUtil;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
  */
-public class Main extends javax.swing.JFrame implements MouseListener, MouseMotionListener{
+public class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
@@ -23,27 +26,28 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        iniciarMovimento(Main.this);
-        
+        moverFrame(this);
+        //redimensionarFrame(this);
+    }
+   
+    
+    private void redimensionarFrame(JFrame frame) {
+        SwingUtilities.invokeLater(() -> {
+
+        //Para redimensionar o frame
+        ComponentResizerUtil cr = new ComponentResizerUtil();
+        frame.getRootPane().setBorder(new EmptyBorder(0, 0, 0, 0));
+        cr.setSnapSize(new Dimension(5, 5));
+        cr.setDragInsets(new Insets(5, 5, 5, 5));
+       
+        //always register frame to resize
+        cr.registerComponent(frame); 
+
+        });
     }
     
-    private int  x, y;
-    
-    /**
-     * 
-     * @param frame Janela a que se pretende ajustar a posição
-     * Ajusta a posição do frame na tela
-     */
-    public void iniciarMovimento(JFrame frame){
-        topPanel.addMouseMotionListener(this);
-        topPanel.addMouseListener(this);
-        topPanel1.addMouseMotionListener(this);
-        topPanel1.addMouseListener(this);
-        topPanel2.addMouseMotionListener(this);
-        topPanel2.addMouseListener(this);
-        topPanel3.addMouseMotionListener(this);
-        topPanel3.addMouseListener(this);
-        this.frame = frame;
+    private void moverFrame(JFrame frame) {
+        ComponentMoverUtil.moveFrame(frame, false, frame.getComponents());
     }
 
     /**
@@ -55,24 +59,18 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder2 = new view.PanelBorder();
         panelBorder1 = new view.PanelBorder();
         painelInicial = new view.PanelBorder();
-        topPanel = new javax.swing.JPanel();
         loadingLabel = new javax.swing.JLabel();
         loadingBar = new javax.swing.JProgressBar();
         lblValor = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         lblIcone = new javax.swing.JLabel();
-        painelLogin = new view.PanelBorder();
-        topPanel1 = new javax.swing.JPanel();
         painelMenu = new view.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        topPanel2 = new javax.swing.JPanel();
         menu1 = new view.Menu();
         painelFerramentas = new view.PanelBorder();
         painelRegistro = new view.ColorPanel();
-        topPanel3 = new javax.swing.JPanel();
         painelLateral = new javax.swing.JPanel();
         txtPNome = new javax.swing.JTextField();
         txtApelido = new javax.swing.JTextField();
@@ -89,38 +87,21 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         lblSlogan = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
         lblExit3 = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
-        panelBorder2.setLayout(panelBorder2Layout);
-        panelBorder2Layout.setHorizontalGroup(
-            panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelBorder2Layout.setVerticalGroup(
-            panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        painelLogin = new view.ColorPanel();
+        txtUsuario = new javax.swing.JTextField();
+        pfPassword = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1186, 621));
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new java.awt.CardLayout());
 
         painelInicial.setBackground(new java.awt.Color(255, 255, 255));
-
-        topPanel.setOpaque(false);
-
-        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
-        topPanel.setLayout(topPanelLayout);
-        topPanelLayout.setHorizontalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        topPanelLayout.setVerticalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 21, Short.MAX_VALUE)
-        );
+        painelInicial.setPreferredSize(new java.awt.Dimension(1186, 621));
 
         loadingLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         loadingLabel.setText("A carregar...");
@@ -153,18 +134,13 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         painelInicialLayout.setHorizontalGroup(
             painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelInicialLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(painelInicialLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(painelInicialLayout.createSequentialGroup()
-                                .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(loadingBar, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelInicialLayout.createSequentialGroup()
+                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(879, 879, 879)
+                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loadingBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(painelInicialLayout.createSequentialGroup()
@@ -175,12 +151,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         painelInicialLayout.setVerticalGroup(
             painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104)
                 .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblValor)
                     .addComponent(loadingLabel))
@@ -191,40 +165,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         panelBorder1.add(painelInicial, "card2");
 
-        painelLogin.setBackground(new java.awt.Color(255, 255, 255));
-
-        topPanel1.setOpaque(false);
-
-        javax.swing.GroupLayout topPanel1Layout = new javax.swing.GroupLayout(topPanel1);
-        topPanel1.setLayout(topPanel1Layout);
-        topPanel1Layout.setHorizontalGroup(
-            topPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1127, Short.MAX_VALUE)
-        );
-        topPanel1Layout.setVerticalGroup(
-            topPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 21, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
-        painelLogin.setLayout(painelLoginLayout);
-        painelLoginLayout.setHorizontalGroup(
-            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLoginLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(topPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        painelLoginLayout.setVerticalGroup(
-            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLoginLayout.createSequentialGroup()
-                .addComponent(topPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 604, Short.MAX_VALUE))
-        );
-
-        panelBorder1.add(painelLogin, "card2");
-
         painelMenu.setBackground(new java.awt.Color(255, 255, 255));
+        painelMenu.setPreferredSize(new java.awt.Dimension(1186, 621));
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -238,43 +180,27 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             }
         });
 
-        topPanel2.setOpaque(false);
-
-        javax.swing.GroupLayout topPanel2Layout = new javax.swing.GroupLayout(topPanel2);
-        topPanel2.setLayout(topPanel2Layout);
-        topPanel2Layout.setHorizontalGroup(
-            topPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
-        );
-        topPanel2Layout.setVerticalGroup(
-            topPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
         painelMenu.setLayout(painelMenuLayout);
         painelMenuLayout.setHorizontalGroup(
             painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelMenuLayout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(topPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 931, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         painelMenuLayout.setVerticalGroup(
             painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelMenuLayout.createSequentialGroup()
-                .addGroup(painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(topPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
         );
 
         panelBorder1.add(painelMenu, "card2");
 
         painelFerramentas.setBackground(new java.awt.Color(255, 255, 255));
+        painelFerramentas.setPreferredSize(new java.awt.Dimension(1186, 621));
 
         javax.swing.GroupLayout painelFerramentasLayout = new javax.swing.GroupLayout(painelFerramentas);
         painelFerramentas.setLayout(painelFerramentasLayout);
@@ -284,25 +210,13 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         );
         painelFerramentasLayout.setVerticalGroup(
             painelFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
 
         panelBorder1.add(painelFerramentas, "card2");
 
         painelRegistro.setkEndColor(new java.awt.Color(0, 8, 78));
-
-        topPanel3.setOpaque(false);
-
-        javax.swing.GroupLayout topPanel3Layout = new javax.swing.GroupLayout(topPanel3);
-        topPanel3.setLayout(topPanel3Layout);
-        topPanel3Layout.setHorizontalGroup(
-            topPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        topPanel3Layout.setVerticalGroup(
-            topPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        painelRegistro.setPreferredSize(new java.awt.Dimension(1186, 621));
 
         painelLateral.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -337,7 +251,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pfSenha.setForeground(new java.awt.Color(102, 102, 102));
         pfSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-        pfSenha.setPreferredSize(new java.awt.Dimension(64, 22));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 102, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(12, 91, 160));
@@ -385,7 +298,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                         .addComponent(lblApelido)
                         .addComponent(lblEmail)
                         .addComponent(lblSenha)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(pfSenha)))
                 .addContainerGap(71, Short.MAX_VALUE))
             .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
@@ -450,27 +363,26 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         painelRegistro.setLayout(painelRegistroLayout);
         painelRegistroLayout.setHorizontalGroup(
             painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelRegistroLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblSlogan, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                    .addComponent(lblSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-                .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelRegistroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(topPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(painelRegistroLayout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelRegistroLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblSlogan, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                            .addComponent(lblSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152))
+                    .addGroup(painelRegistroLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         painelRegistroLayout.setVerticalGroup(
             painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelRegistroLayout.createSequentialGroup()
-                .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblExit3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(topPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblExit3)
                 .addGap(56, 56, 56)
                 .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelRegistroLayout.createSequentialGroup()
@@ -480,10 +392,72 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         panelBorder1.add(painelRegistro, "card6");
+
+        painelLogin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                painelLoginMouseDragged(evt);
+            }
+        });
+        painelLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                painelLoginKeyPressed(evt);
+            }
+        });
+
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtUsuario.setCaretColor(new java.awt.Color(204, 0, 255));
+        txtUsuario.setOpaque(true);
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
+
+        pfPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        pfPassword.setCaretColor(new java.awt.Color(204, 0, 255));
+        pfPassword.setOpaque(true);
+
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setText("usuário");
+
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setText("senha");
+
+        javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
+        painelLogin.setLayout(painelLoginLayout);
+        painelLoginLayout.setHorizontalGroup(
+            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLoginLayout.createSequentialGroup()
+                .addContainerGap(451, Short.MAX_VALUE)
+                .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtUsuario)
+                        .addComponent(pfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(451, 451, 451))
+        );
+        painelLoginLayout.setVerticalGroup(
+            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLoginLayout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(274, Short.MAX_VALUE))
+        );
+
+        panelBorder1.add(painelLogin, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -504,10 +478,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblExitMouseClicked
-
     private void lblExit3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExit3MouseClicked
         System.exit(0);
     }//GEN-LAST:event_lblExit3MouseClicked
@@ -520,6 +490,22 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lblContinuarMouseClicked
+
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void painelLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelLoginKeyPressed
+        
+    }//GEN-LAST:event_painelLoginKeyPressed
+
+    private void painelLoginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLoginMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_painelLoginMouseDragged
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+       
+    }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
@@ -584,7 +570,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             }
             //Atraso antes de realizar a troca das telas
             Thread.sleep(2000);
-            exibirPainel(main.painelRegistro);
+            exibirPainel(main.painelLogin);
         } catch (Exception ex){
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -603,6 +589,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lblApelido;
     private javax.swing.JLabel lblCadastre;
@@ -623,47 +611,17 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private view.PanelBorder painelFerramentas;
     private view.PanelBorder painelInicial;
     private javax.swing.JPanel painelLateral;
-    private view.PanelBorder painelLogin;
+    private view.ColorPanel painelLogin;
     private view.PanelBorder painelMenu;
     private view.ColorPanel painelRegistro;
     private view.PanelBorder panelBorder1;
-    private view.PanelBorder panelBorder2;
+    private javax.swing.JPasswordField pfPassword;
     private javax.swing.JPasswordField pfSenha;
-    private javax.swing.JPanel topPanel;
-    private javax.swing.JPanel topPanel1;
-    private javax.swing.JPanel topPanel2;
-    private javax.swing.JPanel topPanel3;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtPNome;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
     private static Main main;
-    private JFrame frame;
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        x = e.getX();
-        y = getY();
-    }
-    
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        frame.setLocation(e.getXOnScreen() - x, e.getYOnScreen() - y);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-
-    @Override
-    public void mouseMoved(MouseEvent e) {}
     
 }
