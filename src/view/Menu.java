@@ -29,6 +29,26 @@ public class Menu extends javax.swing.JPanel {
         setOpaque(false);
         listMenu1.setOpaque(false);
         init();
+        
+        listMenu1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                switch (listMenu1.getSelectedIndex()) {
+                    case 0:
+                        System.out.println("Voce clicou sobre Rendimentos.");
+                        break;
+                    case 1:
+                        System.out.println("Voce clicou sobre Despesas");
+                        break;
+                    case 2:
+                        System.out.println("Voce clicou sobre Objectivos Financeiros");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+        });
     }
     
     /**
@@ -112,6 +132,7 @@ public class Menu extends javax.swing.JPanel {
         g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
         super.paintChildren(g);
     }
+    
     
     private int x;
     private int y;

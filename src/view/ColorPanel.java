@@ -4,22 +4,24 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.JFrame;
 
 /**
  *
- * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
+ * @author Grácio Macuácua
  */
-public class PanelBorder extends javax.swing.JPanel {
+public class ColorPanel extends keeptoo.KGradientPanel {
 
     /**
-     * Creates new form PanelBorder
+     * Creates new form LoginForm
      */
-    public PanelBorder() {
+    public ColorPanel() {
         initComponents();
-        setOpaque(false);
     }
 
     /**
@@ -31,15 +33,19 @@ public class PanelBorder extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setkEndColor(new java.awt.Color(255, 102, 255));
+        setkGradientFocus(200);
+        setkStartColor(new java.awt.Color(0, 102, 102));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 248, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 207, Short.MAX_VALUE)
+            .addGap(0, 203, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -47,12 +53,11 @@ public class PanelBorder extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
+        GradientPaint gp = new GradientPaint(0, 0, getkStartColor(), 0, getHeight(), getkEndColor());
+        g2.setPaint(gp);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        super.paintComponent(g);
+        super.paintChildren(g);
     }
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
