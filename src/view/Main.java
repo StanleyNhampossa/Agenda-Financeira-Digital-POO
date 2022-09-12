@@ -5,10 +5,7 @@ import com.k33ptoo.utils.ComponentResizerUtil;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -59,344 +56,25 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new view.PanelBorder();
-        painelInicial = new view.PanelBorder();
-        loadingLabel = new javax.swing.JLabel();
-        loadingBar = new javax.swing.JProgressBar();
-        lblValor = new javax.swing.JLabel();
-        lblExit = new javax.swing.JLabel();
-        lblIcone = new javax.swing.JLabel();
-        painelMenu = new view.PanelBorder();
-        jLabel1 = new javax.swing.JLabel();
-        menu1 = new view.Menu();
-        painelFerramentas = new view.PanelBorder();
-        painelRegistro = new view.ColorPanel();
-        painelLateral = new javax.swing.JPanel();
-        txtPNome = new javax.swing.JTextField();
-        txtApelido = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
-        lblPNome = new javax.swing.JLabel();
-        lblApelido = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        lblSenha = new javax.swing.JLabel();
-        pfSenha = new javax.swing.JPasswordField();
-        kGradientPanel1 = new keeptoo.KGradientPanel();
-        lblContinuar = new javax.swing.JLabel();
-        lblCadastre = new javax.swing.JLabel();
-        lblSistema = new javax.swing.JLabel();
-        lblSlogan = new javax.swing.JLabel();
-        lblLogo = new javax.swing.JLabel();
-        lblExit3 = new javax.swing.JLabel();
+        painelControlador = new javax.swing.JPanel();
+        painelInicial = new view.PainelInicial();
         painelLogin = new view.ColorPanel();
-        txtUsuario = new javax.swing.JTextField();
-        pfPassword = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        painelRegistro = new view.PainelRegistro();
+        painelMenu = new view.MenuView();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1186, 621));
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder1.setLayout(new java.awt.CardLayout());
+        painelControlador.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        painelControlador.setLayout(new java.awt.CardLayout());
+        painelControlador.add(painelInicial, "card6");
 
-        painelInicial.setBackground(new java.awt.Color(255, 255, 255));
-        painelInicial.setPreferredSize(new java.awt.Dimension(1186, 621));
-
-        loadingLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        loadingLabel.setText("A carregar...");
-
-        loadingBar.setBackground(new java.awt.Color(204, 204, 204));
-        loadingBar.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblValor.setText("0%");
-
-        lblExit.setBackground(new java.awt.Color(153, 153, 153));
-        lblExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblExit.setForeground(new java.awt.Color(153, 153, 153));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblExit.setText("X");
-        lblExit.setToolTipText("Fechar");
-        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExitMouseClicked(evt);
-            }
-        });
-
-        lblIcone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblIcone.setForeground(new java.awt.Color(153, 153, 153));
-        lblIcone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcone.setText("NOME DO PROGRAMA E/OU OUTROS ITENS PODERÃO FICAR AQUI");
-
-        javax.swing.GroupLayout painelInicialLayout = new javax.swing.GroupLayout(painelInicial);
-        painelInicial.setLayout(painelInicialLayout);
-        painelInicialLayout.setHorizontalGroup(
-            painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelInicialLayout.createSequentialGroup()
-                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(879, 879, 879)
-                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(loadingBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 307, Short.MAX_VALUE))
-        );
-        painelInicialLayout.setVerticalGroup(
-            painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
-                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValor)
-                    .addComponent(loadingLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadingBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-
-        panelBorder1.add(painelInicial, "card2");
-
-        painelMenu.setBackground(new java.awt.Color(255, 255, 255));
-        painelMenu.setPreferredSize(new java.awt.Dimension(1186, 621));
-
-        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-        jLabel1.setToolTipText("Fechar");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
-        painelMenu.setLayout(painelMenuLayout);
-        painelMenuLayout.setHorizontalGroup(
-            painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelMenuLayout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 931, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        painelMenuLayout.setVerticalGroup(
-            painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelMenuLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-        );
-
-        panelBorder1.add(painelMenu, "card2");
-
-        painelFerramentas.setBackground(new java.awt.Color(255, 255, 255));
-        painelFerramentas.setPreferredSize(new java.awt.Dimension(1186, 621));
-
-        javax.swing.GroupLayout painelFerramentasLayout = new javax.swing.GroupLayout(painelFerramentas);
-        painelFerramentas.setLayout(painelFerramentasLayout);
-        painelFerramentasLayout.setHorizontalGroup(
-            painelFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1186, Short.MAX_VALUE)
-        );
-        painelFerramentasLayout.setVerticalGroup(
-            painelFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
-        );
-
-        panelBorder1.add(painelFerramentas, "card2");
-
-        painelRegistro.setkEndColor(new java.awt.Color(0, 8, 78));
-        painelRegistro.setPreferredSize(new java.awt.Dimension(1186, 621));
-
-        painelLateral.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtPNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPNome.setForeground(new java.awt.Color(102, 102, 102));
-        txtPNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-
-        txtApelido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtApelido.setForeground(new java.awt.Color(102, 102, 102));
-        txtApelido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEmail.setForeground(new java.awt.Color(102, 102, 102));
-        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-
-        lblPNome.setBackground(new java.awt.Color(255, 255, 255));
-        lblPNome.setForeground(new java.awt.Color(0, 102, 102));
-        lblPNome.setText("Primeiro Nome");
-
-        lblApelido.setBackground(new java.awt.Color(255, 255, 255));
-        lblApelido.setForeground(new java.awt.Color(0, 102, 102));
-        lblApelido.setText("Apelido");
-
-        lblEmail.setBackground(new java.awt.Color(255, 255, 255));
-        lblEmail.setForeground(new java.awt.Color(0, 102, 102));
-        lblEmail.setText("E-mail");
-
-        lblSenha.setBackground(new java.awt.Color(255, 255, 255));
-        lblSenha.setForeground(new java.awt.Color(0, 102, 102));
-        lblSenha.setText("Senha");
-
-        pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pfSenha.setForeground(new java.awt.Color(102, 102, 102));
-        pfSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-
-        kGradientPanel1.setkEndColor(new java.awt.Color(0, 102, 255));
-        kGradientPanel1.setkStartColor(new java.awt.Color(12, 91, 160));
-
-        lblContinuar.setBackground(new java.awt.Color(255, 255, 255));
-        lblContinuar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblContinuar.setForeground(new java.awt.Color(255, 255, 255));
-        lblContinuar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblContinuar.setText("CONTINUAR");
-        lblContinuar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblContinuarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-        );
-
-        lblCadastre.setBackground(new java.awt.Color(255, 255, 255));
-        lblCadastre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCadastre.setForeground(new java.awt.Color(0, 102, 102));
-        lblCadastre.setText("CADASTRE-SE");
-
-        javax.swing.GroupLayout painelLateralLayout = new javax.swing.GroupLayout(painelLateral);
-        painelLateral.setLayout(painelLateralLayout);
-        painelLateralLayout.setHorizontalGroup(
-            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLateralLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                        .addComponent(txtApelido)
-                        .addComponent(txtPNome)
-                        .addComponent(lblPNome)
-                        .addComponent(lblApelido)
-                        .addComponent(lblEmail)
-                        .addComponent(lblSenha)
-                        .addComponent(pfSenha)))
-                .addContainerGap(71, Short.MAX_VALUE))
-            .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
-                    .addContainerGap(156, Short.MAX_VALUE)
-                    .addComponent(lblCadastre)
-                    .addGap(151, 151, 151)))
-        );
-        painelLateralLayout.setVerticalGroup(
-            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(lblPNome, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(lblApelido, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painelLateralLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(lblCadastre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(418, Short.MAX_VALUE)))
-        );
-
-        lblSistema.setBackground(new java.awt.Color(255, 255, 255));
-        lblSistema.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblSistema.setForeground(new java.awt.Color(255, 255, 255));
-        lblSistema.setText("<html>Sistema de\n<br>\nGestão Financeira</html>");
-
-        lblSlogan.setForeground(new java.awt.Color(255, 255, 255));
-        lblSlogan.setText("O SEU PROGRAMA AMIGO PARA GESTÃO DAS SUAS FINANÇAS");
-
-        lblLogo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblLogo.setForeground(new java.awt.Color(204, 204, 204));
-        lblLogo.setText("LOGOTIPO");
-
-        lblExit3.setBackground(new java.awt.Color(153, 153, 153));
-        lblExit3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblExit3.setForeground(new java.awt.Color(153, 153, 153));
-        lblExit3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblExit3.setText("X");
-        lblExit3.setToolTipText("Fechar");
-        lblExit3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExit3MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelRegistroLayout = new javax.swing.GroupLayout(painelRegistro);
-        painelRegistro.setLayout(painelRegistroLayout);
-        painelRegistroLayout.setHorizontalGroup(
-            painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRegistroLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelRegistroLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblSlogan, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                            .addComponent(lblSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                        .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(152, 152, 152))
-                    .addGroup(painelRegistroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-        painelRegistroLayout.setVerticalGroup(
-            painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRegistroLayout.createSequentialGroup()
-                .addComponent(lblExit3)
-                .addGap(56, 56, 56)
-                .addGroup(painelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painelRegistroLayout.createSequentialGroup()
-                        .addComponent(lblSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSlogan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
-        );
-
-        panelBorder1.add(painelRegistro, "card6");
-
+        painelLogin.setkEndColor(new java.awt.Color(153, 255, 255));
+        painelLogin.setkGradientFocus(100);
+        painelLogin.setkStartColor(new java.awt.Color(0, 51, 204));
         painelLogin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 painelLoginMouseDragged(evt);
@@ -408,92 +86,39 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtUsuario.setCaretColor(new java.awt.Color(204, 0, 255));
-        txtUsuario.setOpaque(true);
-        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtUsuarioKeyPressed(evt);
-            }
-        });
-
-        pfPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pfPassword.setCaretColor(new java.awt.Color(204, 0, 255));
-        pfPassword.setOpaque(true);
-
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("usuário");
-
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("senha");
-
         javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
         painelLogin.setLayout(painelLoginLayout);
         painelLoginLayout.setHorizontalGroup(
             painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLoginLayout.createSequentialGroup()
-                .addContainerGap(451, Short.MAX_VALUE)
-                .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtUsuario)
-                        .addComponent(pfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(451, 451, 451))
+            .addGap(0, 1186, Short.MAX_VALUE)
         );
         painelLoginLayout.setVerticalGroup(
             painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLoginLayout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+            .addGap(0, 621, Short.MAX_VALUE)
         );
 
-        panelBorder1.add(painelLogin, "card6");
+        painelControlador.add(painelLogin, "card6");
+        painelControlador.add(painelRegistro, "card6");
+        painelControlador.add(painelMenu, "card5");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1186, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
+
+        painelControlador.add(jPanel1, "card5");
+
+        getContentPane().add(painelControlador, "card4");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void lblExit3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExit3MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblExit3MouseClicked
-
-    private void lblContinuarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblContinuarMouseClicked
-        try {
-            Thread.sleep(500);
-            exibirPainel(main.painelMenu);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_lblContinuarMouseClicked
-
-    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblExitMouseClicked
 
     private void painelLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelLoginKeyPressed
         
@@ -502,10 +127,6 @@ public class Main extends javax.swing.JFrame {
     private void painelLoginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLoginMouseDragged
         // TODO add your handling code here:
     }//GEN-LAST:event_painelLoginMouseDragged
-
-    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
-       
-    }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
@@ -542,86 +163,29 @@ public class Main extends javax.swing.JFrame {
                 main.setVisible(true);
             }
         });
-        
-        try{
-            
-            for(int i= 0; i<= 100; i++){
-                Thread.sleep(100);
-                main.lblValor.setText(i+"%");
-                
-                if(i==10){
-                  main.loadingLabel.setText("Habilitando Módulos...");
-                }else if(i==20){
-                  main.loadingLabel.setText("Carregando Módulos...");
-                  i = i*2;
-                  Thread.sleep(500);
-                }
-                if(i==50){
-                  main.loadingLabel.setText("Conectando ao Servidor...");
-                }
-                if(i==70){
-                  main.loadingLabel.setText("Conexão Estabelecida!");
-                }
-                if(i==80){
-                  main.loadingLabel.setText("Iniciando Aplicação...");
-                }
-                  main.loadingBar.setValue(i);
-                
-            }
-            //Atraso antes de realizar a troca das telas
-            Thread.sleep(2000);
-            exibirPainel(main.painelLogin);
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(null, ex);
-        }
+        main.painelInicial.iniciarContagem();
+        exibirPainel(main.painelRegistro);
     }
     
     /**
      * Remove todos os painéis da tela de modo a exibir um novo
      * @param add Tela a ser adicionada
      */
-    private static void exibirPainel(JPanel add) {
-        main.panelBorder1.removeAll();
-        main.panelBorder1.repaint();
-        main.panelBorder1.revalidate();
-        main.panelBorder1.add(add);
+    public static void exibirPainel(JPanel add) {
+        main.painelControlador.removeAll();
+        main.painelControlador.repaint();
+        main.painelControlador.revalidate();
+        main.painelControlador.add(add);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JLabel lblApelido;
-    private javax.swing.JLabel lblCadastre;
-    private javax.swing.JLabel lblContinuar;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblExit3;
-    private javax.swing.JLabel lblIcone;
-    private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblPNome;
-    private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblSistema;
-    private javax.swing.JLabel lblSlogan;
-    private javax.swing.JLabel lblValor;
-    private javax.swing.JProgressBar loadingBar;
-    private javax.swing.JLabel loadingLabel;
-    private view.Menu menu1;
-    private view.PanelBorder painelFerramentas;
-    private view.PanelBorder painelInicial;
-    private javax.swing.JPanel painelLateral;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel painelControlador;
+    private view.PainelInicial painelInicial;
     private view.ColorPanel painelLogin;
-    private view.PanelBorder painelMenu;
-    private view.ColorPanel painelRegistro;
-    private view.PanelBorder panelBorder1;
-    private javax.swing.JPasswordField pfPassword;
-    private javax.swing.JPasswordField pfSenha;
-    private javax.swing.JTextField txtApelido;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtPNome;
-    private javax.swing.JTextField txtUsuario;
+    private view.MenuView painelMenu;
+    private view.PainelRegistro painelRegistro;
     // End of variables declaration//GEN-END:variables
-    private static Main main;
+    public static Main main;
     
 }

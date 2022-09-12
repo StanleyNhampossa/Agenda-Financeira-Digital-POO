@@ -4,7 +4,6 @@
  */
 package view;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -69,6 +68,9 @@ public class PainelInicial extends javax.swing.JPanel {
         colorPanel1.setLayout(colorPanel1Layout);
         colorPanel1Layout.setHorizontalGroup(
             colorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(colorPanel1Layout.createSequentialGroup()
                 .addGroup(colorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colorPanel1Layout.createSequentialGroup()
@@ -81,18 +83,15 @@ public class PainelInicial extends javax.swing.JPanel {
                                 .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(colorPanel1Layout.createSequentialGroup()
                         .addGap(307, 307, 307)
-                        .addComponent(lblIcone)))
+                        .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         colorPanel1Layout.setVerticalGroup(
             colorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorPanel1Layout.createSequentialGroup()
                 .addComponent(lblExit)
-                .addGap(72, 72, 72)
-                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105)
+                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(colorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loadingLabel)
@@ -117,44 +116,38 @@ public class PainelInicial extends javax.swing.JPanel {
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
-
     
-    public static void main(String[] args) {
-        JFrame f = new JFrame("");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1200,650);
-        PainelInicial p = new PainelInicial();
-        f.add(p);
-        f.setVisible(true);
-        
+    public void iniciarContagem() {
         try{
             
             for(int i= 0; i<= 100; i++){
                 Thread.sleep(100);
-                p.lblValor.setText(i+"%");
+                lblValor.setText(i+"%");
                 
                 if(i==10){
-                  p.loadingLabel.setText("Habilitando Módulos...");
+                  loadingLabel.setText("Habilitando módulos...");
                 }else if(i==20){
-                  p.loadingLabel.setText("Carregando Módulos...");
+                  loadingLabel.setText("Carregando módulos...");
                   i = i*2;
+                }else if(i == 40){
+                  Thread.sleep(300);
+                  loadingLabel.setText("Módulos carregados...");
+                }else if(i == 45){
                   Thread.sleep(500);
-                }
-                if(i==50){
-                  p.loadingLabel.setText("Conectando ao Servidor...");
-                }
-                if(i==70){
-                  p.loadingLabel.setText("Conexão Estabelecida!");
-                }
-                if(i==80){
-                  p.loadingLabel.setText("Iniciando Aplicação...");
-                }
-                  p.loadingBar.setValue(i);
+                  loadingLabel.setText("Verificando serviços...");
+                }else if(i==50){
+                  loadingLabel.setText("Conectando ao servidor...");
+                }else if(i==70){
+                  loadingLabel.setText("Conexão estabelecida...");
+                }else if(i==80){
+                  loadingLabel.setText("Iniciando a aplicação...");
+                }else if(i == 90)
+                  loadingLabel.setText("Aguarde");
+                loadingBar.setValue(i);
                 
             }
             //Atraso antes de realizar a troca das telas
             Thread.sleep(2000);
-            //main.exibirPainel();
         } catch (Exception ex){
             JOptionPane.showMessageDialog(null, ex);
         }
