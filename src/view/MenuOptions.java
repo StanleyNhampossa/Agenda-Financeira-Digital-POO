@@ -19,12 +19,12 @@ import javax.swing.JFrame;
  *
  * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
  */
-public class Menu extends javax.swing.JPanel {
+public class MenuOptions extends javax.swing.JPanel {
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public MenuOptions() {
         initComponents();
         setOpaque(false);
         listMenu1.setOpaque(false);
@@ -79,11 +79,11 @@ public class Menu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelMoving = new javax.swing.JPanel();
+        painelLateral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         listMenu1 = new view.ListMenu<>();
 
-        panelMoving.setOpaque(false);
+        painelLateral.setOpaque(false);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,18 +92,18 @@ public class Menu extends javax.swing.JPanel {
 
         listMenu1.setOpaque(false);
 
-        javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
-        panelMoving.setLayout(panelMovingLayout);
-        panelMovingLayout.setHorizontalGroup(
-            panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelLateralLayout = new javax.swing.GroupLayout(painelLateral);
+        painelLateral.setLayout(painelLateralLayout);
+        painelLateralLayout.setHorizontalGroup(
+            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
                 .addGap(0, 17, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        panelMovingLayout.setVerticalGroup(
-            panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
+        painelLateralLayout.setVerticalGroup(
+            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -114,11 +114,11 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMoving, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMoving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,43 +132,10 @@ public class Menu extends javax.swing.JPanel {
         g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
         super.paintChildren(g);
     }
-    
-    
-    private int x;
-    private int y;
-    
-    /**
-     * 
-     * @param frame Janela a ser executada. 
-     * Este método serve para alterar a localização da janela na tela.
-     */
-    public void iniciarMovimento(JFrame frame){
-        panelMoving.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                x = e.getX();
-                y = getY();
-            }
-        });
-        
-        panelMoving.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                frame.setLocation(e.getXOnScreen() - x, e.getYOnScreen() - y);
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {                
-            }
-            
-        });
-    }
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private view.ListMenu<String> listMenu1;
-    private javax.swing.JPanel panelMoving;
+    private javax.swing.JPanel painelLateral;
     // End of variables declaration//GEN-END:variables
 }

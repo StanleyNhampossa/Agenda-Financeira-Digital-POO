@@ -61,7 +61,7 @@ public class MenuItem extends javax.swing.JPanel {
         lblIcone.setForeground(new java.awt.Color(255, 255, 255));
 
         lblNome.setForeground(new java.awt.Color(255, 255, 255));
-        lblNome.setText("Menu Name");
+        lblNome.setText("Nome do Menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,7 +72,7 @@ public class MenuItem extends javax.swing.JPanel {
                 .addComponent(lblIcone)
                 .addGap(18, 18, 18)
                 .addComponent(lblNome)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
