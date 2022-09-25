@@ -1,18 +1,20 @@
 package view;
 
+import com.k33ptoo.utils.ComponentMoverUtil;
+import com.k33ptoo.utils.ComponentResizerUtil;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.Dimension;
+import java.awt.Insets;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
  */
-public class Main extends javax.swing.JFrame implements MouseListener, MouseMotionListener{
+public class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
@@ -21,25 +23,28 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        iniciarMovimento(Main.this);
-        
+        moverFrame(this);
+        //redimensionarFrame(this);
+    }
+   
+    
+    private void redimensionarFrame(JFrame frame) {
+        SwingUtilities.invokeLater(() -> {
+
+        //Para redimensionar o frame
+        ComponentResizerUtil cr = new ComponentResizerUtil();
+        frame.getRootPane().setBorder(new EmptyBorder(0, 0, 0, 0));
+        cr.setSnapSize(new Dimension(5, 5));
+        cr.setDragInsets(new Insets(5, 5, 5, 5));
+       
+        //always register frame to resize
+        cr.registerComponent(frame); 
+
+        });
     }
     
-    private int  x, y;
-    
-    /**
-     * 
-     * @param frame Janela a que se pretende ajustar a posição
-     * Ajusta a posição do frame na tela
-     */
-    public void iniciarMovimento(JFrame frame){
-        topPanel.addMouseMotionListener(this);
-        topPanel.addMouseListener(this);
-        topPanel1.addMouseMotionListener(this);
-        topPanel1.addMouseListener(this);
-        topPanel2.addMouseMotionListener(this);
-        topPanel2.addMouseListener(this);
-        this.frame = frame;
+    private void moverFrame(JFrame frame) {
+        ComponentMoverUtil.moveFrame(frame, false, frame.getComponents());
     }
 
     /**
@@ -51,227 +56,77 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorder1 = new view.PanelBorder();
-        painelInicial = new view.PanelBorder();
-        topPanel = new javax.swing.JPanel();
-        loadingLabel = new javax.swing.JLabel();
-        loadingBar = new javax.swing.JProgressBar();
-        lblValor = new javax.swing.JLabel();
-        lblExit = new javax.swing.JLabel();
-        lblIcone = new javax.swing.JLabel();
-        painelLogin = new view.PanelBorder();
-        topPanel1 = new javax.swing.JPanel();
-        painelMenu = new view.PanelBorder();
-        jLabel1 = new javax.swing.JLabel();
-        topPanel2 = new javax.swing.JPanel();
-        menu1 = new view.Menu();
-        painelFerramentas = new view.PanelBorder();
+        painelControlador = new javax.swing.JPanel();
+        painelInicial = new view.PainelInicial();
+        painelLogin = new view.ColorPanel();
+        painelRegistro = new view.PainelRegistro();
+        painelMenu = new view.MenuView();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1186, 621));
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder1.setLayout(new java.awt.CardLayout());
+        painelControlador.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        painelControlador.setLayout(new java.awt.CardLayout());
+        painelControlador.add(painelInicial, "card6");
 
-        painelInicial.setBackground(null);
-
-        topPanel.setOpaque(false);
-
-        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
-        topPanel.setLayout(topPanelLayout);
-        topPanelLayout.setHorizontalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        topPanelLayout.setVerticalGroup(
-            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 21, Short.MAX_VALUE)
-        );
-
-        loadingLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        loadingLabel.setText("A carregar...");
-
-        loadingBar.setBackground(new java.awt.Color(204, 204, 204));
-        loadingBar.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblValor.setText("0%");
-
-        lblExit.setBackground(new java.awt.Color(153, 153, 153));
-        lblExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblExit.setForeground(new java.awt.Color(153, 153, 153));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblExit.setText("X");
-        lblExit.setToolTipText("Fechar");
-        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExitMouseClicked(evt);
+        painelLogin.setkEndColor(new java.awt.Color(153, 255, 255));
+        painelLogin.setkGradientFocus(100);
+        painelLogin.setkStartColor(new java.awt.Color(0, 51, 204));
+        painelLogin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                painelLoginMouseDragged(evt);
             }
         });
-
-        lblIcone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblIcone.setForeground(new java.awt.Color(153, 153, 153));
-        lblIcone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcone.setText("NOME DO PROGRAMA E/OU OUTROS ITENS PODERÃO FICAR AQUI");
-
-        javax.swing.GroupLayout painelInicialLayout = new javax.swing.GroupLayout(painelInicial);
-        painelInicial.setLayout(painelInicialLayout);
-        painelInicialLayout.setHorizontalGroup(
-            painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelInicialLayout.createSequentialGroup()
-                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(loadingBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 307, Short.MAX_VALUE))
-        );
-        painelInicialLayout.setVerticalGroup(
-            painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelInicialLayout.createSequentialGroup()
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(104, 104, 104)
-                .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                .addGroup(painelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValor)
-                    .addComponent(loadingLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadingBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-
-        panelBorder1.add(painelInicial, "card2");
-
-        painelLogin.setBackground(null);
-
-        topPanel1.setOpaque(false);
-
-        javax.swing.GroupLayout topPanel1Layout = new javax.swing.GroupLayout(topPanel1);
-        topPanel1.setLayout(topPanel1Layout);
-        topPanel1Layout.setHorizontalGroup(
-            topPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1127, Short.MAX_VALUE)
-        );
-        topPanel1Layout.setVerticalGroup(
-            topPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 21, Short.MAX_VALUE)
-        );
+        painelLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                painelLoginKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
         painelLogin.setLayout(painelLoginLayout);
         painelLoginLayout.setHorizontalGroup(
             painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLoginLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(topPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addGap(0, 1186, Short.MAX_VALUE)
         );
         painelLoginLayout.setVerticalGroup(
             painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelLoginLayout.createSequentialGroup()
-                .addComponent(topPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 600, Short.MAX_VALUE))
-        );
-
-        panelBorder1.add(painelLogin, "card2");
-
-        painelMenu.setBackground(null);
-
-        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-        jLabel1.setToolTipText("Fechar");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
-        topPanel2.setOpaque(false);
-
-        javax.swing.GroupLayout topPanel2Layout = new javax.swing.GroupLayout(topPanel2);
-        topPanel2.setLayout(topPanel2Layout);
-        topPanel2Layout.setHorizontalGroup(
-            topPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
-        );
-        topPanel2Layout.setVerticalGroup(
-            topPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
-        painelMenu.setLayout(painelMenuLayout);
-        painelMenuLayout.setHorizontalGroup(
-            painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelMenuLayout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(topPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        painelMenuLayout.setVerticalGroup(
-            painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelMenuLayout.createSequentialGroup()
-                .addGroup(painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(topPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-        );
-
-        panelBorder1.add(painelMenu, "card2");
-
-        painelFerramentas.setBackground(null);
-
-        javax.swing.GroupLayout painelFerramentasLayout = new javax.swing.GroupLayout(painelFerramentas);
-        painelFerramentas.setLayout(painelFerramentasLayout);
-        painelFerramentasLayout.setHorizontalGroup(
-            painelFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1192, Short.MAX_VALUE)
-        );
-        painelFerramentasLayout.setVerticalGroup(
-            painelFerramentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 621, Short.MAX_VALUE)
         );
 
-        panelBorder1.add(painelFerramentas, "card2");
+        painelControlador.add(painelLogin, "card6");
+        painelControlador.add(painelRegistro, "card6");
+        painelControlador.add(painelMenu, "card5");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1186, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
+
+        painelControlador.add(jPanel1, "card5");
+
+        getContentPane().add(painelControlador, "card4");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void painelLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelLoginKeyPressed
+        
+    }//GEN-LAST:event_painelLoginKeyPressed
 
-    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblExitMouseClicked
+    private void painelLoginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLoginMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_painelLoginMouseDragged
 
     /**
      * @param args the command line arguments
@@ -308,95 +163,29 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 main.setVisible(true);
             }
         });
-        
-        try{
-            
-            for(int i= 0; i<= 100; i++){
-                Thread.sleep(100);
-                main.lblValor.setText(i+"%");
-                
-                if(i==10){
-                  main.loadingLabel.setText("Habilitando Módulos...");
-                }else if(i==20){
-                  main.loadingLabel.setText("Carregando Módulos...");
-                  i = i*2;
-                  Thread.sleep(500);
-                }
-                if(i==50){
-                  main.loadingLabel.setText("Conectando ao Servidor...");
-                }
-                if(i==70){
-                  main.loadingLabel.setText("Conexão Estabelecida!");
-                }
-                if(i==80){
-                  main.loadingLabel.setText("Iniciando Aplicação...");
-                }
-                  main.loadingBar.setValue(i);
-                
-            }
-            //Atraso antes de realizar a troca das telas
-            Thread.sleep(2000);
-            removerPainel(main.painelMenu);
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(null, ex);
-        }
+        main.painelInicial.iniciarContagem();
+        exibirPainel(main.painelRegistro);
     }
     
     /**
      * Remove todos os painéis da tela de modo a exibir um novo
-     * @param add Tela a adicionar
+     * @param add Tela a ser adicionada
      */
-    private static void removerPainel(JPanel add) {
-        main.panelBorder1.removeAll();
-        main.panelBorder1.repaint();
-        main.panelBorder1.revalidate();
-        main.panelBorder1.add(add);
+    public static void exibirPainel(JPanel add) {
+        main.painelControlador.removeAll();
+        main.painelControlador.repaint();
+        main.painelControlador.revalidate();
+        main.painelControlador.add(add);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblIcone;
-    private javax.swing.JLabel lblValor;
-    private javax.swing.JProgressBar loadingBar;
-    private javax.swing.JLabel loadingLabel;
-    private view.Menu menu1;
-    private view.PanelBorder painelFerramentas;
-    private view.PanelBorder painelInicial;
-    private view.PanelBorder painelLogin;
-    private view.PanelBorder painelMenu;
-    private view.PanelBorder panelBorder1;
-    private javax.swing.JPanel topPanel;
-    private javax.swing.JPanel topPanel1;
-    private javax.swing.JPanel topPanel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel painelControlador;
+    private view.PainelInicial painelInicial;
+    private view.ColorPanel painelLogin;
+    private view.MenuView painelMenu;
+    private view.PainelRegistro painelRegistro;
     // End of variables declaration//GEN-END:variables
-    private static Main main;
-    private JFrame frame;
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        x = e.getX();
-        y = getY();
-    }
-    
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        frame.setLocation(e.getXOnScreen() - x, e.getYOnScreen() - y);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-
-    @Override
-    public void mouseMoved(MouseEvent e) {}
+    public static Main main;
     
 }

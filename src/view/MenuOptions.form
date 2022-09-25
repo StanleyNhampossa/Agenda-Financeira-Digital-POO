@@ -16,17 +16,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelMoving" max="32767" attributes="0"/>
+          <Component id="painelLateral" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelMoving" min="-2" max="-2" attributes="0"/>
+          <Component id="painelLateral" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panelMoving">
+    <Container class="javax.swing.JPanel" name="painelLateral">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
