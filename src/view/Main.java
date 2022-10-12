@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import view.entrada.PainelEntrada;
 
 /**
  *
@@ -56,77 +57,34 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelControlador = new javax.swing.JPanel();
-        painelInicial = new view.PainelInicial();
-        painelLogin = new view.ColorPanel();
-        painelRegistro = new view.PainelRegistro();
-        painelMenu = new view.MenuView();
-        jPanel1 = new javax.swing.JPanel();
+        painelControlador = new view.geral.ColorPanel();
+        painelInicial = new view.inicio.PainelInicial();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1186, 621));
-        getContentPane().setLayout(new java.awt.CardLayout());
 
-        painelControlador.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        painelControlador.setkEndColor(new java.awt.Color(255, 255, 255));
+        painelControlador.setkStartColor(new java.awt.Color(255, 255, 255));
         painelControlador.setLayout(new java.awt.CardLayout());
-        painelControlador.add(painelInicial, "card6");
+        painelControlador.add(painelInicial, "card2");
 
-        painelLogin.setkEndColor(new java.awt.Color(153, 255, 255));
-        painelLogin.setkGradientFocus(100);
-        painelLogin.setkStartColor(new java.awt.Color(0, 51, 204));
-        painelLogin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                painelLoginMouseDragged(evt);
-            }
-        });
-        painelLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                painelLoginKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
-        painelLogin.setLayout(painelLoginLayout);
-        painelLoginLayout.setHorizontalGroup(
-            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1186, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelControlador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        painelLoginLayout.setVerticalGroup(
-            painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(painelControlador, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        painelControlador.add(painelLogin, "card6");
-        painelControlador.add(painelRegistro, "card6");
-        painelControlador.add(painelMenu, "card5");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1186, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
-        );
-
-        painelControlador.add(jPanel1, "card5");
-
-        getContentPane().add(painelControlador, "card4");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void painelLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelLoginKeyPressed
-        
-    }//GEN-LAST:event_painelLoginKeyPressed
-
-    private void painelLoginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLoginMouseDragged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_painelLoginMouseDragged
 
     /**
      * @param args the command line arguments
@@ -163,8 +121,8 @@ public class Main extends javax.swing.JFrame {
                 main.setVisible(true);
             }
         });
-        main.painelInicial.iniciarContagem();
-        exibirPainel(main.painelRegistro);
+        //main.painelInicial.iniciarContagem();
+        exibirPainel(new PainelEntrada());
     }
     
     /**
@@ -179,13 +137,8 @@ public class Main extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel painelControlador;
-    private view.PainelInicial painelInicial;
-    private view.ColorPanel painelLogin;
-    private view.MenuView painelMenu;
-    private view.PainelRegistro painelRegistro;
+    private view.geral.ColorPanel painelControlador;
+    private view.inicio.PainelInicial painelInicial;
     // End of variables declaration//GEN-END:variables
     public static Main main;
-    
 }
