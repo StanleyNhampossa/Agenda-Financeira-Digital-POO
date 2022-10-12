@@ -24,11 +24,14 @@ public class Main extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        moverFrame(this);
         //redimensionarFrame(this);
+        ComponentMoverUtil.moveFrame(this, false, this.getComponents());
     }
    
-    
+    /***
+     * Faz o redimensionamento do frame segundo as necessidades do usuário
+     * @param frame o frame que se deseja redimensionar
+     */
     private void redimensionarFrame(JFrame frame) {
         SwingUtilities.invokeLater(() -> {
 
@@ -42,10 +45,6 @@ public class Main extends javax.swing.JFrame {
         cr.registerComponent(frame); 
 
         });
-    }
-    
-    private void moverFrame(JFrame frame) {
-        ComponentMoverUtil.moveFrame(frame, false, frame.getComponents());
     }
 
     /**
@@ -126,14 +125,14 @@ public class Main extends javax.swing.JFrame {
     }
     
     /**
-     * Remove todos os painéis da tela de modo a exibir um novo
-     * @param add Tela a ser adicionada
+     * Exibe o painel fornecido no container principal do frame
+     * @param painel o painel a ser exibido
      */
-    public static void exibirPainel(JPanel add) {
+    public static void exibirPainel(JPanel painel) {
         main.painelControlador.removeAll();
         main.painelControlador.repaint();
         main.painelControlador.revalidate();
-        main.painelControlador.add(add);
+        main.painelControlador.add(painel);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

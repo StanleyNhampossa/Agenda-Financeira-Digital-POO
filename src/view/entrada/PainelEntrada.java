@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import view.Main;
+import view.menu.MenuView;
 
 /**
  *
@@ -303,7 +304,7 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        System.out.println("AINDA EM DESENVOLVIMENTO!");
+        Main.exibirPainel(new MenuView());
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

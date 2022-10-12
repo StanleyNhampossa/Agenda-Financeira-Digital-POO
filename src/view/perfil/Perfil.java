@@ -7,8 +7,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -22,15 +20,9 @@ public class Perfil extends javax.swing.JPanel {
      */
     public Perfil() {
         initComponents(); 
-        File file = new File("C:\\InShot_20190107_005145760.jpg");
-        BufferedImage bffImage = null;
-        try {            
-            bffImage = new BufferedImage(100, 200, BufferedImage.TYPE_INT_ARGB);
-            bffImage = ImageIO.read(file);            
-            circulo1.setIcon(new ImageIcon(arredondar(bffImage).getScaledInstance(200, 200, 1)));
-        }catch(Exception ex) {
-            ex.printStackTrace();
-        }
+        ImageIcon imgi = new ImageIcon(getClass().getResource("/icones/icons8_user_120px.png"));
+        imgi.setImage(imgi.getImage().getScaledInstance(160, 170, 1));
+        circulo1.setIcon(imgi);
     }
 
     /**
@@ -176,6 +168,11 @@ public class Perfil extends javax.swing.JPanel {
         add(colorPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 232, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
         
+    /**
+     * Faz o arredondamento de uma imagem qualquer
+     * @param imagemInicial a imagem que deve ser arredondada
+     * @return a imagem já arredondada
+     */
     public static BufferedImage arredondar(BufferedImage imagemInicial) {
         int largura = imagemInicial.getWidth();
         int altura = imagemInicial.getHeight();

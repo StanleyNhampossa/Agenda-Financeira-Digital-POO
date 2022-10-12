@@ -1,6 +1,5 @@
 package view.registro;
 
-import view.registro.PainelRegistro;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,6 +28,10 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
         txtEmail.addKeyListener(this);
         pfSenha.addKeyListener(this);
         
+        //Coloca a foto padrão como da fotografia de perfil no início do painel
+        ImageIcon imgi = new ImageIcon(getClass().getResource("/icones/profile_picture.png"));
+        imgi.setImage(imgi.getImage().getScaledInstance(70, 72, 1));
+        lblImagem.setIcon(imgi);
     }
 
     /**
@@ -111,6 +114,7 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
             }
         });
 
+        lblImagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagem.setCorDoCirculo(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -184,23 +188,29 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_pfSenhaMouseClicked
 
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
-         JFileChooser file = new JFileChooser();
-         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-         int i= file.showSaveDialog(null);
-       if (i == 0) {
-           File arquivo = file.getSelectedFile();
-           System.out.println(arquivo.getPath());
-           try {
-               BufferedImage imagenInicial = ImageIO.read(arquivo);
-               BufferedImage imagemFinal = Perfil.arredondar(imagenInicial);
-               lblImagem.setIcon(new ImageIcon(imagemFinal.getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), 1)));
-           } catch (IOException ex) {
-               Logger.getLogger(DadosCadastroP2.class.getName()).log(Level.SEVERE, null, ex);
-           }
-       }
+        alterarImagem();
     }//GEN-LAST:event_lblAlterarMouseClicked
-
-
+    
+    /**
+     * Permite que o utilizador escolha uma fotografia
+     * de sua preferência como fotografia de perfil
+     */
+    private void alterarImagem() {
+        JFileChooser file = new JFileChooser();
+        file.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int i= file.showSaveDialog(null);
+        if (i == 0) {
+            File arquivo = file.getSelectedFile();
+            try {
+                BufferedImage imagenInicial = ImageIO.read(arquivo);
+                BufferedImage imagemFinal = Perfil.arredondar(imagenInicial);
+                lblImagem.setIcon(new ImageIcon(imagemFinal.getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), 1)));
+            } catch (IOException ex) {
+                Logger.getLogger(DadosCadastroP2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAlterar;
     private javax.swing.JLabel lblEmail;

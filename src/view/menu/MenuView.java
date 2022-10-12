@@ -18,6 +18,7 @@ public class MenuView extends javax.swing.JPanel {
      */
     public MenuView() {
         initComponents();
+        //Passagem da referência do painel central a uma variável de outra classe
         container = menucontainer;
     }
 
@@ -104,6 +105,10 @@ public class MenuView extends javax.swing.JPanel {
         System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
     
+    /**
+     * Exibe o painel fornecido no container central do MenuView
+     * @param painel o painel a ser exibido
+     */
     public static void exibirPainel(JPanel painel) {
         container.removeAll();
         container.repaint();

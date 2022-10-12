@@ -10,6 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.Main;
+import view.entrada.PainelEntrada;
 import view.perfil.Perfil;
 
 /**
@@ -47,7 +48,7 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new Perfil());
                         break;
                     case 11:
-                        Main.exibirPainel(new PainelRegistro());
+                        Main.exibirPainel(new PainelEntrada());
                         break;
                     default:
                         break;
