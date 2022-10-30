@@ -24,6 +24,7 @@ public class TelaDespesa extends javax.swing.JPanel {
      */
     public TelaDespesa() {
         initComponents();
+       
     }
 
     
@@ -53,7 +54,7 @@ public class TelaDespesa extends javax.swing.JPanel {
         
         //create chartPanel to display chart(graph)
         ChartPanel barChartPanel = new ChartPanel(piechart);
-        barChartPanel.setBounds(600, 400,800,550);
+        barChartPanel.setBounds(100,200,300,200);
         graficoCircularDespesa.removeAll();
         graficoCircularDespesa.add(barChartPanel, BorderLayout.CENTER);
         graficoCircularDespesa.validate();
