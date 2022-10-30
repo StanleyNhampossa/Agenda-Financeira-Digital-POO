@@ -43,7 +43,7 @@ public class MenuView extends javax.swing.JPanel {
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
             }
         };
-        menuOptions1 = new view.menu.MenuOptions();
+        menuOptions2 = new view.menu.MenuOptions();
 
         colorPanel1.setkEndColor(new java.awt.Color(255, 255, 255));
         colorPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
@@ -80,10 +80,13 @@ public class MenuView extends javax.swing.JPanel {
         colorPanel1.add(lblMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 24, -1));
 
         menucontainer.setBackground(new java.awt.Color(255, 255, 255));
+        menucontainer.setMaximumSize(new java.awt.Dimension(960, 593));
+        menucontainer.setMinimumSize(new java.awt.Dimension(960, 593));
         menucontainer.setOpaque(false);
+        menucontainer.setPreferredSize(new java.awt.Dimension(960, 593));
         menucontainer.setLayout(new java.awt.CardLayout());
-        colorPanel1.add(menucontainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 23, 960, 593));
-        colorPanel1.add(menuOptions1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+        colorPanel1.add(menucontainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 23, 950, 593));
+        colorPanel1.add(menuOptions2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,7 +123,7 @@ public class MenuView extends javax.swing.JPanel {
     private view.geral.ColorPanel colorPanel1;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMinimizar;
-    private view.menu.MenuOptions menuOptions1;
+    private view.menu.MenuOptions menuOptions2;
     private javax.swing.JPanel menucontainer;
     // End of variables declaration//GEN-END:variables
     public static JPanel container;

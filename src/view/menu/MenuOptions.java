@@ -1,6 +1,5 @@
 package view.menu;
 
-import view.registro.PainelRegistro;
 import model.Model_Menu;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -10,6 +9,10 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.Main;
+import view.PainelDeclaracaoRendimentos;
+import view.PainelEmuladorDeEmprestimos;
+import view.PainelObjectivosFinanceiros;
+import view.TelaDespesa;
 import view.entrada.PainelEntrada;
 import view.perfil.Perfil;
 
@@ -32,22 +35,22 @@ public class MenuOptions extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 switch (listMenu1.getSelectedIndex()) {
-                    case 0:
-                        System.out.println("Voce clicou sobre Rendimentos.");
-                        MenuView.container.setBackground(Color.red);
-                        break;
                     case 1:
-                        System.out.println("Voce clicou sobre Despesas");
-                        MenuView.container.setBackground(Color.blue);
+                        MenuView.exibirPainel(new PainelDeclaracaoRendimentos());
                         break;
                     case 2:
-                        System.out.println("Voce clicou sobre Objectivos Financeiros");
-                        MenuView.container.setBackground(Color.green);
+                        MenuView.exibirPainel(new TelaDespesa());
                         break;
-                    case 9:
+                    case 3:
+                        MenuView.exibirPainel(new PainelObjectivosFinanceiros());
+                        break;
+                    case 7:
+                        MenuView.exibirPainel(new PainelEmuladorDeEmprestimos());
+                        break;
+                    case 11: 
                         MenuView.exibirPainel(new Perfil());
                         break;
-                    case 11:
+                    case 13:
                         Main.exibirPainel(new PainelEntrada());
                         break;
                     default:
@@ -62,20 +65,22 @@ public class MenuOptions extends javax.swing.JPanel {
      * Faz a adição dos elementos que compõem o menu ao painel lateral
      */
     private void init(){
+        listMenu1.addItem(new Model_Menu("", "Utilitários", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("rendimentos", "Rendimentos", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("despesas", "Despesas", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("informacoes", "Objectivos Financeiros", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("informacoes", "Plano Financeiro", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("estatisticas", "Estatísticas", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         
-        listMenu1.addItem(new Model_Menu("", "Mais Ferramentas", Model_Menu.MenuType.TITLE));
+        listMenu1.addItem(new Model_Menu("", "Ferramentas Financeiras", Model_Menu.MenuType.TITLE));
+        listMenu1.addItem(new Model_Menu("informacoes", "Emulador de Empréstimos", Model_Menu.MenuType.MENU));               
+        listMenu1.addItem(new Model_Menu("informacoes", "Calculadora de Juros", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
-        listMenu1.addItem(new Model_Menu("informacoes", "Ferramentas Financeiras", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("estatisticas", "Estatísticas", Model_Menu.MenuType.MENU));
+        
+        listMenu1.addItem(new Model_Menu("", "Outros", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("perfil", "Meu Perfil", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("ajuda", "Ajuda", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("logout", "Terminar Sessão", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));        
     }
 
     /**
@@ -92,31 +97,16 @@ public class MenuOptions extends javax.swing.JPanel {
         listMenu1 = new view.menu.ListMenu<>();
 
         painelLateral.setOpaque(false);
+        painelLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Aplicação");
         jLabel1.setToolTipText("");
+        painelLateral.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 9, 198, 64));
 
         listMenu1.setOpaque(false);
-
-        javax.swing.GroupLayout painelLateralLayout = new javax.swing.GroupLayout(painelLateral);
-        painelLateral.setLayout(painelLateralLayout);
-        painelLateralLayout.setHorizontalGroup(
-            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
-                .addGap(0, 17, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        painelLateralLayout.setVerticalGroup(
-            painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLateralLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(listMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        painelLateral.add(listMenu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 73, 230, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,7 +116,9 @@ public class MenuOptions extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

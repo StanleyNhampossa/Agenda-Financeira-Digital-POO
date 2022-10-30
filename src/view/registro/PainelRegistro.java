@@ -44,7 +44,8 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
         lblMinimizar = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
 
-        colorPanel1.setkEndColor(new java.awt.Color(0, 8, 78));
+        colorPanel1.setkEndColor(new java.awt.Color(0, 153, 255));
+        colorPanel1.setkStartColor(new java.awt.Color(0, 102, 255));
 
         lblSistema.setBackground(new java.awt.Color(255, 255, 255));
         lblSistema.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
