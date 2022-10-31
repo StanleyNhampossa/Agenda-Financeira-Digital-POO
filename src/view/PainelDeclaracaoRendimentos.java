@@ -1,10 +1,15 @@
 package view;
 
+import Banco.Conectar;
 import Dao.RendimentoDao;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Rendimento;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -191,7 +196,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tipo", "Rendimento", "Periodo", "Fonte"
+                "ID", "Tipo", "Rendimento", "Periodo", "Fonte"
             }
         ));
         jScrollPane2.setViewportView(tabelaRendimento);
@@ -212,11 +217,21 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         btnActualizarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
         btnActualizarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
         btnActualizarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
+        btnActualizarRendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarRendimentoActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnActualizarRendimento);
 
         btnExcluirRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
         btnExcluirRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
         btnExcluirRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
+        btnExcluirRendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirRendimentoActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnExcluirRendimento);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -261,6 +276,40 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         preencherTabela();
     }//GEN-LAST:event_btnSalvarRendimentoActionPerformed
 
+    private void btnExcluirRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirRendimentoActionPerformed
+//metodo para excluir dados numa tabela 
+        int opcao = tabelaRendimento.getSelectedRow();
+        if (opcao >= 0) {
+            Rendimento p = new Rendimento();
+            p.setId(Integer.parseInt(tabelaRendimento.getValueAt(opcao, 0).toString()));
+            p.setTipoRendimento(tabelaRendimento.getValueAt(opcao, 1).toString());
+            p.setRendimento(Double.parseDouble(tabelaRendimento.getValueAt(opcao, 2).toString()));
+            p.setPeriodo(tabelaRendimento.getValueAt(opcao, 3).toString());
+            p.setFonteRendimento(tabelaRendimento.getValueAt(opcao, 4).toString());
+            RendimentoDao rendeDao = new RendimentoDao();
+            rendeDao.excluir(p);
+            preencherTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirRendimentoActionPerformed
+
+    private void btnActualizarRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarRendimentoActionPerformed
+ //metodo para actualizar
+        Rendimento p = new Rendimento();
+        p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
+        p.setRendimento((double) spRendimentos.getValue());
+        p.setPeriodo((String)cbPeridoRendimento.getSelectedItem());
+        p.setFonteRendimento(txtFonte.getText());
+        RendimentoDao rendeDao = new RendimentoDao();
+        rendeDao.actualizar(p);
+        preencherTabela();
+
+    }//GEN-LAST:event_btnActualizarRendimentoActionPerformed
+
     //metodo para preencher a tabela
     public void preencherTabela() {
         // metodo para preencher a tabela 
@@ -273,9 +322,20 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         });
         
     }
+    //metodo para pesquisar
+     public void pesquisar() {
+        //metodo que perimte pesquisar dados 
+        Connection con =Conectar.getConectar();
+        String sql = "SELECT * FROM rendimento WHERE nome like?";
+        try(PreparedStatement smt =con.prepareStatement(sql)){
+          smt.setString(1,txtPesquisaRendimento.getText()+"%");
+          smt.executeQuery();
+          tabelaRendimento.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro!");
+        }
     
-    
-    
+    }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
     private javax.swing.JButton btnExcluirRendimento;
