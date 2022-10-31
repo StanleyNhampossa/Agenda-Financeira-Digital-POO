@@ -10,10 +10,27 @@ package model;
  * @author Massingue
  */
 public class Rendimento {
+    private int id;
     private String tipoRendimento;
     private double rendimento;
-    private String perido;
+    private String periodo;
     private String fonteRendimento;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
 
     public String getTipoRendimento() {
         return tipoRendimento;
@@ -32,11 +49,11 @@ public class Rendimento {
     }
 
     public String getPerido() {
-        return perido;
+        return periodo;
     }
 
     public void setPerido(String perido) {
-        this.perido = perido;
+        this.periodo = perido;
     }
 
     public String getFonteRendimento() {
