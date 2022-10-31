@@ -54,6 +54,7 @@ public class Ajuda extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -100,6 +101,7 @@ public class Ajuda extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("                               Guia de Rendimento");
 
+        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
@@ -140,6 +142,7 @@ public class Ajuda extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Despesa", jPanel5);
 
+        jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane4.setViewportView(jTextArea3);
@@ -188,6 +191,7 @@ public class Ajuda extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Objectivo financeiro", jPanel6);
 
+        jTextArea4.setEditable(false);
         jTextArea4.setColumns(20);
         jTextArea4.setRows(5);
         jScrollPane5.setViewportView(jTextArea4);
