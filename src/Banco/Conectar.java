@@ -10,7 +10,7 @@ public class Conectar {
     
     private static final String usuario="root";
     private static final String senha="";
-    private static final String url="jdbc:mysql://localhost/teste2poo";
+    private static final String url="jdbc:mysql://localhost/gestaofinanceira";
     
     public static Connection getConectar(){
     Connection conexao=null;
@@ -25,5 +25,6 @@ public class Conectar {
    
     } 
     
-    
+   
+   
 }
