@@ -1,7 +1,10 @@
 package view;
 
+import Dao.RendimentoDao;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Rendimento;
 
 /**
  *
@@ -14,6 +17,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
      */
     public PainelDeclaracaoRendimentos() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -30,7 +34,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         spRendimentos = new javax.swing.JSpinner();
         cbTipoRendimento = new javax.swing.JComboBox<>();
         cbPeridoRendimento = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisaRendimento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnPesquisaRendimento = new javax.swing.JButton();
         txtFonte = new javax.swing.JTextField();
@@ -122,7 +126,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(btnPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(168, 168, 168)
@@ -164,7 +168,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +248,34 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRendimentoActionPerformed
-        DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
+        /*DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
         Object dados[] = {cbTipoRendimento.getSelectedItem(),spRendimentos.getValue(),cbPeridoRendimento.getSelectedItem(),txtFonte.getText()};
-        modeloTabela.addRow(dados);
+        modeloTabela.addRow(dados);*/
+        Rendimento p = new Rendimento();
+        p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
+        p.setRendimento((double) spRendimentos.getValue());
+        p.setPeriodo((String) cbPeridoRendimento.getSelectedItem());
+        p.setFonteRendimento(txtFonte.getText());
+        RendimentoDao rendeDao = new  RendimentoDao();
+        rendeDao.cadastrar(p);
+        preencherTabela();
     }//GEN-LAST:event_btnSalvarRendimentoActionPerformed
 
+    //metodo para preencher a tabela
+    public void preencherTabela() {
+        // metodo para preencher a tabela 
+        RendimentoDao rendeDao= new RendimentoDao ();
+        List<Rendimento> lista = rendeDao.listar();
+        DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
+        modeloTabela.setRowCount(0);
+        lista.forEach((p) -> {
+            modeloTabela.addRow(new Object[]{cbTipoRendimento.getSelectedItem(),spRendimentos.getValue(),cbPeridoRendimento.getSelectedItem(),txtFonte.getText()});
+        });
+        
+    }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
     private javax.swing.JButton btnExcluirRendimento;
@@ -269,9 +296,9 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JSpinner spRendimentos;
     private javax.swing.JTable tabelaRendimento;
     private javax.swing.JTextField txtFonte;
+    private javax.swing.JTextField txtPesquisaRendimento;
     // End of variables declaration//GEN-END:variables
 }

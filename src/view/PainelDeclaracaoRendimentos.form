@@ -98,7 +98,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="txtPesquisaRendimento" min="-2" pref="170" max="-2" attributes="0"/>
                   <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                   <Component id="btnPesquisaRendimento" min="-2" pref="20" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
@@ -149,7 +149,7 @@
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPesquisaRendimento" min="-2" max="-2" attributes="0"/>
                           <Component id="btnPesquisaRendimento" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -215,7 +215,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtPesquisaRendimento">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
