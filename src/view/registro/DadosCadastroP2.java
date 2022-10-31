@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import view.perfil.Perfil;
+import view.perfil.PainelPerfil;
 
 /**
  *
@@ -203,7 +203,7 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
             File arquivo = file.getSelectedFile();
             try {
                 BufferedImage imagenInicial = ImageIO.read(arquivo);
-                BufferedImage imagemFinal = Perfil.arredondar(imagenInicial);
+                BufferedImage imagemFinal = PainelPerfil.arredondar(imagenInicial);
                 lblImagem.setIcon(new ImageIcon(imagemFinal.getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), 1)));
             } catch (IOException ex) {
                 Logger.getLogger(DadosCadastroP2.class.getName()).log(Level.SEVERE, null, ex);

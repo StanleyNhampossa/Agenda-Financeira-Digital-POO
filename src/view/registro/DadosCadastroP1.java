@@ -1,12 +1,12 @@
 package view.registro;
 
-import view.registro.PainelRegistro;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import model.Formatador;
 
 /**
  *
@@ -71,14 +71,16 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         txtPNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPNome.setForeground(new java.awt.Color(102, 102, 102));
         txtPNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtPNome.setDocument(new Formatador(40, Formatador.TipoEntrada.TEXTO));
 
         lblPNome.setBackground(new java.awt.Color(255, 255, 255));
         lblPNome.setForeground(new java.awt.Color(0, 102, 102));
-        lblPNome.setText("Primeiro Nome");
+        lblPNome.setText("Outros Nomes");
 
         txtApelido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtApelido.setForeground(new java.awt.Color(102, 102, 102));
         txtApelido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtApelido.setDocument(new Formatador(15, Formatador.TipoEntrada.TEXTO));
 
         jdcNascimento.setBackground(new java.awt.Color(255, 255, 255));
         jdcNascimento.setForeground(new java.awt.Color(0, 102, 102));

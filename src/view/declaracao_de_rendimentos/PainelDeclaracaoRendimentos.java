@@ -1,4 +1,4 @@
-package view;
+package view.declaracao_de_rendimentos;
 
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;

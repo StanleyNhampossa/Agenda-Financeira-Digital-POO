@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.despesas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,12 +17,12 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Massingue
  */
-public class TelaDespesa extends javax.swing.JPanel {
+public class PainelDespesas extends javax.swing.JPanel {
 
     /**
      * Creates new form Despeza
      */
-    public TelaDespesa() {
+    public PainelDespesas() {
         initComponents();
     }
 

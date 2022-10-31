@@ -9,12 +9,12 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.Main;
-import view.PainelDeclaracaoRendimentos;
-import view.PainelEmuladorDeEmprestimos;
-import view.PainelObjectivosFinanceiros;
-import view.TelaDespesa;
+import view.declaracao_de_rendimentos.PainelDeclaracaoRendimentos;
+import view.emulador_de_emprestimos.PainelEmuladorDeEmprestimos;
+import view.objectivos_financeiros.PainelObjectivosFinanceiros;
+import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
-import view.perfil.Perfil;
+import view.perfil.PainelPerfil;
 
 /**
  *
@@ -39,7 +39,7 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelDeclaracaoRendimentos());
                         break;
                     case 2:
-                        MenuView.exibirPainel(new TelaDespesa());
+                        MenuView.exibirPainel(new PainelDespesas());
                         break;
                     case 3:
                         MenuView.exibirPainel(new PainelObjectivosFinanceiros());
@@ -48,7 +48,7 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelEmuladorDeEmprestimos());
                         break;
                     case 11: 
-                        MenuView.exibirPainel(new Perfil());
+                        MenuView.exibirPainel(new PainelPerfil());
                         break;
                     case 13:
                         Main.exibirPainel(new PainelEntrada());
@@ -126,8 +126,9 @@ public class MenuOptions extends javax.swing.JPanel {
     protected void paintChildren(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gp = new GradientPaint(0, 0, Color.decode("#1CB5E0"), 0, getHeight(), Color.decode("#000046"));
-        g2.setPaint(gp);
+        //GradientPaint gp = new GradientPaint(0, 0, Color.decode("#1CB5E0"), 0, getHeight(), Color.decode("#000046"));
+        //g2.setPaint(gp);
+        g2.setColor(new Color(0,102,255));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
         super.paintChildren(g);
