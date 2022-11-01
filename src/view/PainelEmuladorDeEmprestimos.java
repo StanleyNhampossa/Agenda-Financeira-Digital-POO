@@ -5,8 +5,8 @@
 package view;
 
 //import Backup.*;
-
-
+import javax.swing.JOptionPane;
+import model.SimuladorEmprestimos;
 
 /**
  *
@@ -32,17 +32,17 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        tfCapital = new javax.swing.JTextField();
+        tfTaxaJuros = new javax.swing.JTextField();
+        spinnerParcelas = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSimular = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        tableVisaoGeral = new javax.swing.JTable();
+        btnAderir = new javax.swing.JButton();
+        lbDivida = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
@@ -55,9 +55,29 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
 
         jLabel3.setText("Taxa de Juros");
 
-        jButton1.setText("Prever");
+        btnSimular.setText("Simular");
+        btnSimular.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btnSimularMouseDragged(evt);
+            }
+        });
+        btnSimular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btnSimularFocusGained(evt);
+            }
+        });
+        btnSimular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSimularMouseEntered(evt);
+            }
+        });
+        btnSimular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimularActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableVisaoGeral.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -68,11 +88,11 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
                 "Nr Parcela", "Valor "
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableVisaoGeral);
 
-        jButton2.setText("Aderir");
+        btnAderir.setText("Aderir");
 
-        jLabel4.setText("Valor Total a pagar");
+        lbDivida.setText("Valor Total a pagar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,22 +101,22 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinner1))
+                    .addComponent(spinnerParcelas))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSimular)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnAderir, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbDivida, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(82, 82, 82))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -113,23 +133,19 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
                                 .addComponent(jLabel3))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
-                .addGap(59, 59, 59)
+                        .addComponent(lbDivida)))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSimular)
+                    .addComponent(btnAderir))
+                .addGap(65, 65, 65)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("EMULADOR", jPanel1);
+        jTabbedPane1.addTab("Simulador", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,20 +165,58 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSimularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnSimularFocusGained
+
+    }//GEN-LAST:event_btnSimularFocusGained
+
+    private void btnSimularMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimularMouseDragged
+
+    }//GEN-LAST:event_btnSimularMouseDragged
+
+    private void btnSimularMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimularMouseEntered
+
+        validar();
+
+    }//GEN-LAST:event_btnSimularMouseEntered
+
+    private void btnSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimularActionPerformed
+        //Secção de colecta de dados introduzidos nos inputs
+        double capital = Double.parseDouble(tfCapital.getText()), taxaDejuro = Double.parseDouble(tfTaxaJuros.getText());
+        int nParcelas = (int) spinnerParcelas.getValue();
+
+        SimuladorEmprestimos simuladorEmprestimos = new SimuladorEmprestimos(taxaDejuro, capital, nParcelas);
+        
+        simuladorEmprestimos.simularEmprestimo();
+        
+        lbDivida.setText(String.valueOf(simuladorEmprestimos.getDivida()));
+        
+        
+        
+    }//GEN-LAST:event_btnSimularActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAderir;
+    private javax.swing.JButton btnSimular;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lbDivida;
+    private javax.swing.JSpinner spinnerParcelas;
+    private javax.swing.JTable tableVisaoGeral;
+    private javax.swing.JTextField tfCapital;
+    private javax.swing.JTextField tfTaxaJuros;
     // End of variables declaration//GEN-END:variables
+
+    //Metodo usado para validação dos três inputs
+    public void validar() {
+        if (tfCapital.getText().isBlank()
+                || tfTaxaJuros.getText().isBlank()
+                || spinnerParcelas.getValue().equals(0)) {
+            JOptionPane.showMessageDialog(null, "Por Favor Preencha todos os campos");
+        }
+    }
 }
