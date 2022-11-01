@@ -3,6 +3,7 @@ package view;
 import Banco.Conectar;
 import Dao.RendimentoDao;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -69,10 +70,25 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel2.setText("Rendimento");
 
         spRendimentos.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spRendimentos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spRendimentosKeyPressed(evt);
+            }
+        });
 
         cbTipoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixo", " Variavel" }));
+        cbTipoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbTipoRendimentoKeyPressed(evt);
+            }
+        });
 
         cbPeridoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diario", "Semanal", "Mensal", " ", " " }));
+        cbPeridoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbPeridoRendimentoKeyPressed(evt);
+            }
+        });
 
         txtPesquisaRendimento.setForeground(new java.awt.Color(153, 153, 153));
         txtPesquisaRendimento.setText("Pesquisar Rendimento");
@@ -95,6 +111,17 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel4.setText("Fonte de Rendimento:");
 
         btnPesquisaRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
+
+        txtFonte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFonteActionPerformed(evt);
+            }
+        });
+        txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFonteKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Tipo");
@@ -359,6 +386,37 @@ pesquisar();
         
     }//GEN-LAST:event_txtPesquisaRendimentoFocusLost
 
+    private void cbTipoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoRendimentoKeyPressed
+if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+    spRendimentos.requestFocus();
+}
+    }//GEN-LAST:event_cbTipoRendimentoKeyPressed
+
+    private void spRendimentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spRendimentosKeyPressed
+
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+    cbPeridoRendimento.requestFocus();
+    }//GEN-LAST:event_spRendimentosKeyPressed
+    }
+    private void cbPeridoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPeridoRendimentoKeyPressed
+       // foco
+     if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+    txtFonte.requestFocus(); 
+     }
+    }//GEN-LAST:event_cbPeridoRendimentoKeyPressed
+
+    private void txtFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFonteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFonteActionPerformed
+
+    private void txtFonteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFonteKeyPressed
+     // foco para botao gravar
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        btnSalvarRendimento.requestFocus(); 
+     }
+    
+    }//GEN-LAST:event_txtFonteKeyPressed
+    
     //metodo para preencher a tabela
     public void preencherTabela() {
         // metodo para preencher a tabela 
