@@ -19,7 +19,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
      */
     public DadosCadastroP1() {
         initComponents();
-        txtPNome.addKeyListener(this);
+        txtOutrosNomes.addKeyListener(this);
         txtApelido.addKeyListener(this);
         jdcNascimento.addKeyListener(this);
         cbGenero.addKeyListener(this);
@@ -28,9 +28,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         String data = sdf.format(Calendar.getInstance().getTime());  
         
         try{
-            jdcNascimento.setDate(sdf.parse(data));
-            jdcNascimento.setMaxSelectableDate(sdf.parse(data));
-            
+            jdcNascimento.setMaxSelectableDate(sdf.parse(data));            
         }catch (ParseException ex){
             JOptionPane.showMessageDialog(null, "Erro na conversão da data!");
         }
@@ -48,7 +46,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         lblNascimento = new javax.swing.JLabel();
         lblGenero = new javax.swing.JLabel();
         lblApelido = new javax.swing.JLabel();
-        txtPNome = new javax.swing.JTextField();
+        txtOutrosNomes = new javax.swing.JTextField();
         lblPNome = new javax.swing.JLabel();
         txtApelido = new javax.swing.JTextField();
         jdcNascimento = new com.toedter.calendar.JDateChooser();
@@ -68,10 +66,10 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         lblApelido.setForeground(new java.awt.Color(0, 102, 102));
         lblApelido.setText("Apelido");
 
-        txtPNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPNome.setForeground(new java.awt.Color(102, 102, 102));
-        txtPNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
-        txtPNome.setDocument(new Formatador(40, Formatador.TipoEntrada.TEXTO));
+        txtOutrosNomes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtOutrosNomes.setForeground(new java.awt.Color(102, 102, 102));
+        txtOutrosNomes.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtOutrosNomes.setDocument(new Formatador(40, Formatador.TipoEntrada.TEXTO));
 
         lblPNome.setBackground(new java.awt.Color(255, 255, 255));
         lblPNome.setForeground(new java.awt.Color(0, 102, 102));
@@ -100,7 +98,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNascimento)
-                    .addComponent(txtPNome, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOutrosNomes, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPNome, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblApelido, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -112,7 +110,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblPNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOutrosNomes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(lblApelido, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -128,6 +126,27 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean efectuarValidacao() {
+        if(!txtOutrosNomes.getText().isBlank())
+            if(!txtApelido.getText().isBlank())
+                if(jdcNascimento.getDate() != null) {
+                    if(cbGenero.getSelectedIndex() != 0) {
+                        PainelRegistro.user.setNome(txtOutrosNomes.getText() + " " + txtApelido.getText());
+                        PainelRegistro.user.setDataNascimento(jdcNascimento.getDate());
+                        PainelRegistro.user.setGenero(cbGenero.getSelectedItem().toString());
+
+                        return true;
+                    } else
+                         System.out.println("Por favor, selecione o seu gênero!");
+                } else
+                     System.out.println("Por favor, introduza a sua data de nascimento!");
+            else
+                System.out.println("Por favor, introduza o seu apelido!");
+        else
+            System.out.println("Por favor, introduza o seu nome!");
+        
+        return false;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbGenero;
@@ -137,7 +156,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JLabel lblNascimento;
     private javax.swing.JLabel lblPNome;
     private javax.swing.JTextField txtApelido;
-    private javax.swing.JTextField txtPNome;
+    private javax.swing.JTextField txtOutrosNomes;
     // End of variables declaration//GEN-END:variables
     
     
@@ -152,7 +171,7 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(txtPNome.hasFocus())
+            if(txtOutrosNomes.hasFocus())
                 txtApelido.requestFocus();
             else if(txtApelido.hasFocus())
                 jdcNascimento.requestFocus();

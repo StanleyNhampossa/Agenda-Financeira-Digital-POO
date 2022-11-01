@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
+ * @author Grácio Macuácua
  */
 public class ListMenu<E extends Object> extends JList<E>{
 

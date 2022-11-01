@@ -8,8 +8,10 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import view.menu.MenuView;
 
 /**
  *
@@ -21,11 +23,9 @@ public class PainelPerfil extends javax.swing.JPanel {
      * Creates new form Perfil
      */
     public PainelPerfil() {
-        initComponents(); 
-        /*ImageIcon imgi = new ImageIcon(getClass().getResource("/icones/icons8_user_120px.png"));
-        imgi.setImage(imgi.getImage().getScaledInstance(160, 170, 1));
-        circulo1.setIcon(imgi);*/
-        File file = new File("C:\\InShot_20190107_005145760.jpg");
+        initComponents();
+        
+        File file = new File(MenuView.user.getFotoPerfil());
         BufferedImage bffImage = null;
         try {            
             bffImage = new BufferedImage(100, 200, BufferedImage.TYPE_INT_ARGB);
@@ -34,6 +34,12 @@ public class PainelPerfil extends javax.swing.JPanel {
         }catch(Exception ex) {
             ex.printStackTrace();
         }
+        lblNome.setText(MenuView.user.getNome().toUpperCase());
+        lblEmail.setText(MenuView.user.getEmail().toUpperCase());
+        lblGenero.setText(MenuView.user.getGenero().toUpperCase());
+        int data1 = Calendar.getInstance().getTime().getYear();
+        int data2 = MenuView.user.getDataNascimento().getYear();
+        lblIdade.setText(Integer.toString(data1 - data2) + "ANOS");
     }
 
     /**
@@ -51,10 +57,10 @@ public class PainelPerfil extends javax.swing.JPanel {
         colorPanel2 = new view.geral.ColorPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        lblGenero = new javax.swing.JLabel();
+        lblIdade = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -107,28 +113,28 @@ public class PainelPerfil extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/email.png"))); // NOI18N
         jLabel9.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("GRÁCIO FERNANDO DA GRAÇA MACUÁCUA");
-        jLabel2.setMaximumSize(new java.awt.Dimension(513, 32));
-        jLabel2.setMinimumSize(new java.awt.Dimension(513, 32));
-        jLabel2.setPreferredSize(new java.awt.Dimension(513, 32));
+        lblNome.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(153, 153, 153));
+        lblNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNome.setText("NOME DO UTILIZADOR");
+        lblNome.setMaximumSize(new java.awt.Dimension(513, 32));
+        lblNome.setMinimumSize(new java.awt.Dimension(513, 32));
+        lblNome.setPreferredSize(new java.awt.Dimension(513, 32));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("MASCULINO");
+        lblGenero.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblGenero.setForeground(new java.awt.Color(153, 153, 153));
+        lblGenero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGenero.setText("SEXO DO UTILIZADOR");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText(" 20 ANOS");
+        lblIdade.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblIdade.setForeground(new java.awt.Color(153, 153, 153));
+        lblIdade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIdade.setText("IDADE DE UTILIZADOR");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("GRACIO.MACUACUA@UEM.AC.MZ");
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(153, 153, 153));
+        lblEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEmail.setText("EMAIL DO UTILIZADOR");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/genero.png"))); // NOI18N
@@ -151,10 +157,10 @@ public class PainelPerfil extends javax.swing.JPanel {
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(210, Short.MAX_VALUE))
         );
         colorPanel2Layout.setVerticalGroup(
@@ -163,18 +169,18 @@ public class PainelPerfil extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3))
+                    .addComponent(lblGenero))
                 .addGap(24, 24, 24)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(593, Short.MAX_VALUE))
         );
@@ -235,14 +241,14 @@ public class PainelPerfil extends javax.swing.JPanel {
     private view.geral.Circulo circulo1;
     private view.geral.ColorPanel colorPanel1;
     private view.geral.ColorPanel colorPanel2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblIdade;
+    private javax.swing.JLabel lblNome;
     // End of variables declaration//GEN-END:variables
 }

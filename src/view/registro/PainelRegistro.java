@@ -1,15 +1,18 @@
 package view.registro;
 
+import Dao.UtilizadorDAO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
+import model.Utilizador;
 import view.Main;
+import view.geral.Notificacao;
 import view.menu.MenuView;
 
 
 /**
  *
- * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
+ * @author Grácio Macuácua
  */
 public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
 
@@ -19,7 +22,7 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
     public PainelRegistro() {
         initComponents();
         btnProsseguir.addKeyListener(this);
-        btn = btnProsseguir;
+        btn = btnProsseguir;        
     }
 
     /**
@@ -195,13 +198,21 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
 
     private void btnProsseguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsseguirActionPerformed
         if(dadosCadastroP1.isShowing()){
-            container.removeAll();
-            container.repaint();
-            container.revalidate();
-            container.add(dadosCadastroP2);
-            btnProsseguir.setText("REGISTAR");
-        }else 
-            Main.exibirPainel(new MenuView());
+            if(dadosCadastroP1.efectuarValidacao()) {
+                container.removeAll();
+                container.repaint();
+                container.revalidate();
+                container.add(dadosCadastroP2);                
+                btnProsseguir.setText("REGISTAR");
+            }
+        }else if(dadosCadastroP2.efectuarValidacao()) {
+            UtilizadorDAO dao = new UtilizadorDAO();
+            //if(dao.criar(user)) {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Utilizador cadastrado com sucesso!", Notificacao.ICONE_SUCESSO);
+                MenuView.user = user;
+                Main.exibirPainel(new MenuView());
+            //}                            
+        }
     }//GEN-LAST:event_btnProsseguirActionPerformed
 
     private void lblMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizarMouseClicked
@@ -211,7 +222,6 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnProsseguir;
@@ -228,6 +238,7 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
     private javax.swing.JPanel painelLateral;
     // End of variables declaration//GEN-END:variables
     public static JButton btn;
+    public static Utilizador user = new Utilizador();
     
     @Override
     public void keyTyped(KeyEvent e) {        

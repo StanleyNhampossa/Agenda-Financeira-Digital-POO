@@ -105,7 +105,6 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
 
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         pfSenha.setForeground(new java.awt.Color(102, 102, 102));
-        pfSenha.setText("jPasswordField1");
         pfSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
         pfSenha.setPreferredSize(new java.awt.Dimension(76, 22));
         pfSenha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,11 +203,34 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
             try {
                 BufferedImage imagenInicial = ImageIO.read(arquivo);
                 BufferedImage imagemFinal = PainelPerfil.arredondar(imagenInicial);
+                PainelRegistro.user.setFotoPerfil(arquivo.getPath());
                 lblImagem.setIcon(new ImageIcon(imagemFinal.getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), 1)));
             } catch (IOException ex) {
                 Logger.getLogger(DadosCadastroP2.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public boolean efectuarValidacao() {
+        if(!txtProfissao.getText().isEmpty())
+            if(!txtEmail.getText().isEmpty())
+                if(txtEmail.getText().contains("@"))
+                    if(!pfSenha.getText().isEmpty()) {
+                        PainelRegistro.user.setProfissao(txtProfissao.getText());
+                        PainelRegistro.user.setEmail(txtEmail.getText());
+                        PainelRegistro.user.setSenha(pfSenha.getText());
+                        
+                        return true;
+                    } else
+                         System.out.println("Por favor, introduza a sua senha!");
+                else
+                    System.out.println("E-mail inválido.\nPor favor, introduza um e-mail válido!");
+            else
+                System.out.println("Por favor, introduza o seu e-mail!");
+        else
+            System.out.println("Por favor, introduza a sua profissão!");
+        
+        return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

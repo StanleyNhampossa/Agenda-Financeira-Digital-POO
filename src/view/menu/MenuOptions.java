@@ -2,16 +2,16 @@ package view.menu;
 
 import model.Model_Menu;
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.Main;
-import view.declaracao_de_rendimentos.PainelDeclaracaoRendimentos;
-import view.emulador_de_emprestimos.PainelEmuladorDeEmprestimos;
-import view.objectivos_financeiros.PainelObjectivosFinanceiros;
+import view.ajuda.PainelAjuda;
+import view.declaracaoderendimentos.PainelDeclaracaoRendimentos;
+import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
+import view.objectivosfinanceiros.PainelObjectivosFinanceiros;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
 import view.perfil.PainelPerfil;
@@ -49,6 +49,9 @@ public class MenuOptions extends javax.swing.JPanel {
                         break;
                     case 11: 
                         MenuView.exibirPainel(new PainelPerfil());
+                        break;
+                    case 12:
+                        MenuView.exibirPainel(new PainelAjuda());
                         break;
                     case 13:
                         Main.exibirPainel(new PainelEntrada());
@@ -126,8 +129,6 @@ public class MenuOptions extends javax.swing.JPanel {
     protected void paintChildren(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //GradientPaint gp = new GradientPaint(0, 0, Color.decode("#1CB5E0"), 0, getHeight(), Color.decode("#000046"));
-        //g2.setPaint(gp);
         g2.setColor(new Color(0,102,255));
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
