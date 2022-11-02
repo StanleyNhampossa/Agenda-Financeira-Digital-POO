@@ -10,16 +10,33 @@ package model;
  * @author Massingue
  */
 public class Despesa {
-    private String tipoRendimento;
+    private int id;
+    private String tipoDespesa;
     private double custo;
     private String categoria;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTipoDespesa() {
+        return tipoDespesa;
+    }
+
+    public void setTipoDespesa(String tipoDespesa) {
+        this.tipoDespesa = tipoDespesa;
+    }
+
     public String getTipoRendimento() {
-        return tipoRendimento;
+        return tipoDespesa;
     }
 
     public void setTipoRendimento(String tipoRendimento) {
-        this.tipoRendimento = tipoRendimento;
+        this.tipoDespesa = tipoRendimento;
     }
 
     public double getCusto() {
