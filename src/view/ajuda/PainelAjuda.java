@@ -9,12 +9,12 @@ package view.ajuda;
  *
  * @author Massingue
  */
-public class Ajuda extends javax.swing.JPanel {
+public class PainelAjuda extends javax.swing.JPanel {
 
     /**
      * Creates new form Ajuda
      */
-    public Ajuda() {
+    public PainelAjuda() {
         initComponents();
     }
 

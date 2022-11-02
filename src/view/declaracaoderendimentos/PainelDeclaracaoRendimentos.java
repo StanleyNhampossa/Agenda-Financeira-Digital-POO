@@ -432,7 +432,7 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
     //metodo para pesquisar
      public void pesquisar() {
         //metodo que perimte pesquisar dados 
-        Connection con =Conectar.getConectar();
+        Connection con =Conectar.getConection();
         String sql = "SELECT * FROM rendimento WHERE nome like?";
         try(PreparedStatement smt =con.prepareStatement(sql)){
           smt.setString(1,txtPesquisaRendimento.getText()+"%");

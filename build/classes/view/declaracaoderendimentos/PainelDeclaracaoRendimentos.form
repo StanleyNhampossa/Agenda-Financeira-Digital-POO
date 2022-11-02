@@ -239,7 +239,6 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pesquisar Rendimento"/>
-            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPesquisaRendimentoFocusGained"/>
