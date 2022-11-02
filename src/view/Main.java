@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import model.Utilizador;
 import view.entrada.PainelEntrada;
+import view.menu.MenuView;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         //redimensionarFrame(this);
         ComponentMoverUtil.moveFrame(this, false, this.getComponents());
+        MenuView.user = new Utilizador();
     }
    
     /***

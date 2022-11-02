@@ -51,7 +51,7 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         txtUsuario.setBackground(new java.awt.Color(255, 255, 255));
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(102, 102, 102));
-        txtUsuario.setText("nome de usuário");
+        txtUsuario.setText("email do usuário");
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 102, 255)));
         txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

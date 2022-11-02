@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
+import model.Utilizador;
 import view.Main;
 
 /**
@@ -127,4 +128,5 @@ public class MenuView extends javax.swing.JPanel {
     private javax.swing.JPanel menucontainer;
     // End of variables declaration//GEN-END:variables
     public static JPanel container;
+    public static Utilizador user;
 }
