@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Rendimento;
@@ -24,6 +25,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     public PainelDeclaracaoRendimentos() {
         initComponents();
         preencherTabela();
+        inserirValores();
     }
 
     /**
@@ -47,11 +49,11 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblRendimentoFixo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblRendimentoVariavel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblRendimentoTotal = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaRendimento = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -92,7 +94,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         txtPesquisaRendimento.setForeground(new java.awt.Color(153, 153, 153));
         txtPesquisaRendimento.setText("Pesquisar Rendimento");
-        txtPesquisaRendimento.setOpaque(false);
         txtPesquisaRendimento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPesquisaRendimentoFocusGained(evt);
@@ -132,22 +133,19 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Rendimento Fixo");
 
-        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel9.setText("2000");
+        lblRendimentoFixo.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Rendimento Variavel");
 
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("2000");
+        lblRendimentoVariavel.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Total");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("0");
+        lblRendimentoTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRendimentoTotal.setForeground(new java.awt.Color(102, 102, 102));
+        lblRendimentoTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,15 +180,15 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                         .addGap(168, 168, 168)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6))
         );
         jPanel1Layout.setVerticalGroup(
@@ -231,13 +229,13 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                         .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         tabelaRendimento.getTableHeader().setBackground(Color.WHITE);
@@ -416,7 +414,24 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
      }
     
     }//GEN-LAST:event_txtFonteKeyPressed
-    
+     
+//metodo que permite inserir os valores nos rendimentos total,fixo,variavel
+    Double fixoRendimento;
+    Double variavelRendimento;
+    Double SomaRendimento;
+  public void inserirValores(){
+    Rendimento p=new Rendimento();  
+   if(p.tipoRendimento.equals("Fixo")){
+     JLabel lblRendimentoFixo=new JLabel((String) spRendimentos.getValue());
+     fixoRendimento= (Double) spRendimentos.getValue();
+   }else if(p.tipoRendimento.equals("Variavel")){
+     JLabel lblRendimentoVariavel=new JLabel((String) spRendimentos.getValue()); 
+      variavelRendimento =(Double) spRendimentos.getValue(); 
+   }else{
+    SomaRendimento=fixoRendimento+variavelRendimento;
+    JLabel lblRendimentoTotal=new JLabel(Double.toString(SomaRendimento)); 
+   }   
+  }  
     //metodo para preencher a tabela
     public void preencherTabela() {
         // metodo para preencher a tabela 
@@ -441,7 +456,10 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Ocorreu um erro!");
         }
+   
     
+  
+        
     }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
@@ -451,18 +469,18 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
     private javax.swing.JComboBox<String> cbPeridoRendimento;
     private javax.swing.JComboBox<String> cbTipoRendimento;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblRendimentoFixo;
+    private javax.swing.JLabel lblRendimentoTotal;
+    private javax.swing.JLabel lblRendimentoVariavel;
     private javax.swing.JSpinner spRendimentos;
     private javax.swing.JTable tabelaRendimento;
     private javax.swing.JTextField txtFonte;

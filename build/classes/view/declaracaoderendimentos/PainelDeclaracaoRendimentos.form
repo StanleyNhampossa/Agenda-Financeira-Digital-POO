@@ -102,15 +102,15 @@
                           <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" pref="149" max="-2" attributes="0"/>
                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="jLabel9" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="lblRendimentoFixo" min="-2" pref="52" max="-2" attributes="0"/>
                           <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" pref="159" max="-2" attributes="0"/>
                           <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="jLabel10" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="lblRendimentoVariavel" min="-2" pref="52" max="-2" attributes="0"/>
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="lblRendimentoTotal" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -165,15 +165,15 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                          <Component id="jLabel9" min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="lblRendimentoFixo" min="-2" pref="21" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel7" min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                          <Component id="jLabel10" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="lblRendimentoVariavel" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel5" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jLabel8" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lblRendimentoTotal" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -291,12 +291,11 @@
             <Property name="text" type="java.lang.String" value="Rendimento Fixo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
+        <Component class="javax.swing.JLabel" name="lblRendimentoFixo">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2000"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -307,12 +306,11 @@
             <Property name="text" type="java.lang.String" value="Rendimento Variavel"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="lblRendimentoVariavel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2000"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -323,7 +321,7 @@
             <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="lblRendimentoTotal">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -332,7 +330,6 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
       </SubComponents>

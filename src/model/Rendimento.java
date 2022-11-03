@@ -11,7 +11,7 @@ package model;
  */
 public class Rendimento {
     private int id;
-    private String tipoRendimento;
+    public String tipoRendimento;
     private double rendimento;
     private String periodo;
     private String fonteRendimento;
