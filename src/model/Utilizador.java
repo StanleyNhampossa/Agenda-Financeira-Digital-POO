@@ -8,13 +8,13 @@ import java.util.Date;
  */
 public class Utilizador {
     
-    private String nome = "";
+    private String nome = "";//
     private Date dataNascimento;
-    private String genero = "";
-    private String profissao = "";
-    private String email = "";
+    private String genero = "";//
+    private String profissao = "";//
+    private String email = "";//
     private String senha = "";
-    private String fotoPerfil = "src\\icones\\icons8_user_120px.png";
+    private String fotoPerfil = "src\\icones\\icons8_user_120px.png";//
 
     public Utilizador(String nome, String apelido, Date dataNascimento, String genero, String profissao, String email, String senha, String fotoPerfil) {
         this.nome = nome + " " + apelido;

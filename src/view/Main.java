@@ -1,5 +1,6 @@
 package view;
 
+import Dao.TabelasSQL;
 import com.k33ptoo.utils.ComponentMoverUtil;
 import com.k33ptoo.utils.ComponentResizerUtil;
 import java.awt.Color;
@@ -29,6 +30,7 @@ public class Main extends javax.swing.JFrame {
         //redimensionarFrame(this);
         ComponentMoverUtil.moveFrame(this, false, this.getComponents());
         MenuView.user = new Utilizador();
+        TabelasSQL.criarTabelas();
     }
    
     /***

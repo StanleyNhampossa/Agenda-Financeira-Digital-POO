@@ -1,11 +1,13 @@
 package view.entrada;
 
+import Dao.UtilizadorDAO;
 import view.registro.PainelRegistro;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import view.Main;
+import view.geral.Notificacao;
 import view.menu.MenuView;
 
 /**
@@ -22,6 +24,7 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         txtUsuario.addKeyListener(this);
         pfSenha.addKeyListener(this);
         btnEntrar.addKeyListener(this);
+        charset = pfSenha.getEchoChar();
     }
 
     /**
@@ -285,7 +288,7 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
             jLabel1.setIcon(new ImageIcon(getClass().getResource("/icones/invisivel.png")));
             jLabel1.setToolTipText("Ocultar senha");
         } else if(jLabel1.getToolTipText().equalsIgnoreCase("ocultar senha")) {
-            pfSenha.setEchoChar('*');
+            pfSenha.setEchoChar(charset);
             jLabel1.setIcon(new ImageIcon(getClass().getResource("/icones/visivel.png")));
             jLabel1.setToolTipText("Mostrar senha");
         }           
@@ -304,7 +307,12 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Main.exibirPainel(new MenuView());
+        UtilizadorDAO dao = new UtilizadorDAO();
+        MenuView.user = dao.autenticar(txtUsuario.getText(), pfSenha.getText());
+        if(MenuView.user != null) {
+            Main.exibirPainel(new MenuView());
+        } else
+            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Usuário ou senha incorrectos!", Notificacao.ICONE_ERRO);
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,7 +329,8 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
+    private char charset;
+    
     @Override
     public void keyTyped(KeyEvent e) {
     }

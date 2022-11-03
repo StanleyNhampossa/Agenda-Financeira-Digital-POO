@@ -21,20 +21,24 @@ public class UtilizadorDAO {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "INSERT INTO tbUtilizadores VALUES(?, ?, ?, ?, ?, ?, ?)";        
+        String cmd = "INSERT INTO utilizadores(nome, dataNascimento, genero, profissao, email, senha, fotoPerfil)"
+                   + " VALUES(?, ?, ?, ?, ?, ?, ?)";        
                 
         try {
             connection = Conectar.getConection();
             statement = connection.prepareStatement(cmd);
+            Date data = new Date(user.getDataNascimento().getYear(), user.getDataNascimento().getMonth(), user.getDataNascimento().getDay());
             
             statement.setString(1, user.getNome());
-            statement.setDate(2, ((Date) user.getDataNascimento()));
+            statement.setDate(2, data);
             statement.setString(3, user.getGenero());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getSenha());
-            statement.setString(6, user.getFotoPerfil());            
+            statement.setString(4, user.getProfissao());
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getSenha());
+            statement.setString(7, user.getFotoPerfil());
             statement.execute();            
             Conectar.closeConnection(connection, statement);
+            
             return true;            
         } catch (SQLException ex) {
             Logger.getLogger(UtilizadorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,20 +51,22 @@ public class UtilizadorDAO {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "UPDATE tbUtilizadores SET nome = ?, dataNascimento = ?, genero = ?, email = ?,"
+        String cmd = "UPDATE utilizadores SET nome = ?, dataNascimento = ?, genero = ?, profissao = ?, email = ?,"
                    + " senha = ?, fotoPerfil = ? WHERE email = ?";
         
         try {
             connection = Conectar.getConection();
             statement = connection.prepareStatement(cmd);
+            Date data = new Date(user.getDataNascimento().getYear(), user.getDataNascimento().getMonth(), user.getDataNascimento().getDay());
             
             statement.setString(1, user.getNome());
-            statement.setDate(2, ((Date) user.getDataNascimento()));
+            statement.setDate(2, data);
             statement.setString(3, user.getGenero());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getSenha());
-            statement.setString(6, user.getFotoPerfil());
-            statement.setString(7, user.getEmail());
+            statement.setString(4, user.getProfissao());
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getSenha());
+            statement.setString(7, user.getFotoPerfil());
+            statement.setString(8, user.getEmail());
             statement.executeUpdate();
             Conectar.closeConnection(connection, statement);
             
@@ -76,11 +82,12 @@ public class UtilizadorDAO {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "DELETE FROM tbUtilizadores WHERE email = '" + chave + "'";
+        String cmd = "DELETE FROM utilizadores WHERE email = '" + chave + "'";
                 
         try {
             connection = Conectar.getConection();
-            statement.execute(cmd);
+            statement = connection.prepareStatement(cmd);
+            statement.execute();
             Conectar.closeConnection(connection, statement);
             
             return true;
@@ -97,13 +104,15 @@ public class UtilizadorDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Utilizador user = null;
-        String cmd = "SELECT * FROM tbUtilizadores WHERE email = '" + userEmail + "' AND senha = '" + senha + "'";
+        String cmd = "SELECT * FROM utilizadores WHERE email = '" + userEmail + "' AND senha = '" + senha + "'";
                 
         try {
             connection = Conectar.getConection();
-            resultSet = statement.executeQuery(cmd);
+            statement = connection.prepareStatement(cmd);
+            resultSet = statement.executeQuery();
             
             while(resultSet.next()) {
+                user = new Utilizador();
                 user.setNome(resultSet.getString("nome"));
                 user.setDataNascimento(resultSet.getDate("dataNascimento"));
                 user.setGenero(resultSet.getString("genero"));

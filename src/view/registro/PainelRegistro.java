@@ -17,7 +17,7 @@ import view.menu.MenuView;
 public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
 
     /**
-     * Creates new form PainelRegistro2
+     * Creates new form PainelRegistro
      */
     public PainelRegistro() {
         initComponents();
@@ -207,11 +207,13 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
             }
         }else if(dadosCadastroP2.efectuarValidacao()) {
             UtilizadorDAO dao = new UtilizadorDAO();
-            //if(dao.criar(user)) {
-                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Utilizador cadastrado com sucesso!", Notificacao.ICONE_SUCESSO);
+            if(dao.criar(user)) {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Cadastro realizado com sucesso!", Notificacao.ICONE_SUCESSO);
                 MenuView.user = user;
                 Main.exibirPainel(new MenuView());
-            //}                            
+            } else {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Utilizador não cadastrado.\nOcorreu um erro ao guardar os dados!", Notificacao.ICONE_ERRO);
+            }                           
         }
     }//GEN-LAST:event_btnProsseguirActionPerformed
 

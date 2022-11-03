@@ -14,6 +14,7 @@ import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
 import view.objectivosfinanceiros.PainelObjectivosFinanceiros;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
+import view.geral.Notificacao;
 import view.perfil.PainelPerfil;
 
 /**
@@ -54,7 +55,8 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelAjuda());
                         break;
                     case 13:
-                        Main.exibirPainel(new PainelEntrada());
+                        if(Notificacao.BOTAO_SIM == Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Pretende terminar a sessão actual?", Notificacao.ICONE_QUESTAO))
+                            Main.exibirPainel(new PainelEntrada());
                         break;
                     default:
                         break;
