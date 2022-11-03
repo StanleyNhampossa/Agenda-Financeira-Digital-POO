@@ -7,7 +7,11 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+<<<<<<< Updated upstream
 import javax.swing.*;
+=======
+import javax.swing.JLabel;
+>>>>>>> Stashed changes
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Rendimento;
@@ -25,7 +29,11 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     public PainelDeclaracaoRendimentos() {
         initComponents();
         preencherTabela();
+<<<<<<< Updated upstream
         inserirValores();
+=======
+        metodoRendimentos();
+>>>>>>> Stashed changes
     }
 
     /**
@@ -414,6 +422,7 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
      }
     
     }//GEN-LAST:event_txtFonteKeyPressed
+<<<<<<< Updated upstream
      
 //metodo que permite inserir os valores nos rendimentos total,fixo,variavel
     Double fixoRendimento;
@@ -432,6 +441,27 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER){
     JLabel lblRendimentoTotal=new JLabel(Double.toString(SomaRendimento)); 
    }   
   }  
+=======
+   // metodo pra inserir valores de rendimento variavel fixo, total
+    Double fixoRendimento;
+    Double variavelRendimento;
+    Double somaRendimento;
+    
+   public void metodoRendimentos(){
+   Rendimento p =new Rendimento();
+   if(p.getTipoRendimento().equals("Fixo")){
+      JLabel  lblRendimentoFixo=new JLabel((String) spRendimentos.getValue());
+      fixoRendimento=(Double) spRendimentos.getValue();
+   }else if(p.getTipoRendimento().equals("Variavel")){
+      JLabel  lblRendimentoVariavel=new JLabel((String) spRendimentos.getValue());
+      variavelRendimento=(Double) spRendimentos.getValue();
+   }else{
+     somaRendimento= fixoRendimento+variavelRendimento; 
+   JLabel  lblRendimentoTotal=new JLabel(Double.toString(somaRendimento));
+   }
+}
+    
+>>>>>>> Stashed changes
     //metodo para preencher a tabela
     public void preencherTabela() {
         // metodo para preencher a tabela 
