@@ -2,12 +2,16 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
+    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[950, 594]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[950, 594]"/>
     </Property>
+    <Property name="opaque" type="boolean" value="false"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[950, 594]"/>
     </Property>
@@ -63,6 +67,9 @@
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Declaracao de rendimento"/>
           </Border>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -263,7 +270,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtFonte">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFonteActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFonteKeyPressed"/>
           </Events>
         </Component>
@@ -389,6 +395,7 @@
             </Property>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tabelaRendimento.setShowGrid(false);&#xa;tabelaRendimento.setShowVerticalLines(false);&#xa;tabelaRendimento.getTableHeader().setBackground(Color.WHITE);&#xa;tabelaRendimento.getTableHeader().setForeground(new Color(154, 154, 154));"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaRendimento.getTableHeader().setBackground(Color.WHITE);&#xa;tabelaRendimento.getTableHeader().setForeground(new Color(104,104,104));&#xa;tabelaRendimento.setRowHeight(30);"/>
           </AuxValues>
         </Component>
@@ -410,6 +417,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icones/adicionar-botao.png"/>
             </Property>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[30, 40]"/>
             </Property>
@@ -426,6 +434,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icones/atualizar-pares-de-setas-em-circulo.png"/>
             </Property>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[30, 40]"/>
             </Property>
@@ -442,6 +451,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icones/excluir.png"/>
             </Property>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[30, 40]"/>
             </Property>

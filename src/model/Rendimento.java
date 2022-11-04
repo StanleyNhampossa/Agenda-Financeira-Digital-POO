@@ -48,14 +48,6 @@ public class Rendimento {
         this.rendimento = rendimento;
     }
 
-    public String getPerido() {
-        return periodo;
-    }
-
-    public void setPerido(String perido) {
-        this.periodo = perido;
-    }
-
     public String getFonteRendimento() {
         return fonteRendimento;
     }

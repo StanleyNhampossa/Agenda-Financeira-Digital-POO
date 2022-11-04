@@ -26,7 +26,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     public PainelDeclaracaoRendimentos() {
         initComponents();
         preencherTabela();
-        inserirValores();
+        //inserirValores();
     }
 
     /**
@@ -62,11 +62,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         btnActualizarRendimento = new javax.swing.JButton();
         btnExcluirRendimento = new javax.swing.JButton();
 
+        setForeground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(950, 594));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Declaracao de rendimento"));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -114,11 +117,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         btnPesquisaRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
 
-        txtFonte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFonteActionPerformed(evt);
-            }
-        });
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
@@ -251,12 +249,17 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 "ID", "Tipo", "Rendimento", "Periodo", "Fonte"
             }
         ));
+        tabelaRendimento.setShowGrid(false);
+        tabelaRendimento.setShowVerticalLines(false);
+        tabelaRendimento.getTableHeader().setBackground(Color.WHITE);
+        tabelaRendimento.getTableHeader().setForeground(new Color(154, 154, 154));
         jScrollPane2.setViewportView(tabelaRendimento);
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridLayout(1, 3, 100, 0));
 
         btnSalvarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
+        btnSalvarRendimento.setContentAreaFilled(false);
         btnSalvarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
         btnSalvarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
         btnSalvarRendimento.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +270,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jPanel3.add(btnSalvarRendimento);
 
         btnActualizarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
+        btnActualizarRendimento.setContentAreaFilled(false);
         btnActualizarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
         btnActualizarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
         btnActualizarRendimento.addActionListener(new java.awt.event.ActionListener() {
@@ -277,6 +281,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jPanel3.add(btnActualizarRendimento);
 
         btnExcluirRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
+        btnExcluirRendimento.setContentAreaFilled(false);
         btnExcluirRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
         btnExcluirRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
         btnExcluirRendimento.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +325,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         modeloTabela.addRow(dados);*/
         Rendimento p = new Rendimento();
         p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
-        p.setRendimento((double) spRendimentos.getValue());
+        p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
         p.setPeriodo((String) cbPeridoRendimento.getSelectedItem());
         p.setFonteRendimento(txtFonte.getText());
         RendimentoDao rendeDao = new  RendimentoDao();
@@ -329,7 +334,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSalvarRendimentoActionPerformed
 
     private void btnExcluirRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirRendimentoActionPerformed
-//metodo para excluir dados numa tabela 
         int opcao = tabelaRendimento.getSelectedRow();
         if (opcao >= 0) {
             Rendimento p = new Rendimento();
@@ -344,13 +348,9 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         }
-
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirRendimentoActionPerformed
 
     private void btnActualizarRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarRendimentoActionPerformed
- //metodo para actualizar
         Rendimento p = new Rendimento();
         p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
         p.setRendimento((double) spRendimentos.getValue());
@@ -363,106 +363,90 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarRendimentoActionPerformed
 
     private void txtPesquisaRendimentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoKeyReleased
-//aplicar metodo de pesquisa 
-pesquisar();
+        pesquisar();
     }//GEN-LAST:event_txtPesquisaRendimentoKeyReleased
 
     private void txtPesquisaRendimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoFocusGained
-    // permite focar e desfocar txt de pesquisa
-     if(txtPesquisaRendimento.getText().equals("")){
-     txtPesquisaRendimento.setText("Pesquisar Rendimento");
-     txtPesquisaRendimento.setForeground(new Color(152,153,153));
-}
+        if(txtPesquisaRendimento.getText().equals("")){
+            txtPesquisaRendimento.setText("Pesquisar Rendimento");
+            txtPesquisaRendimento.setForeground(new Color(152,153,153));
+        }
         
     }//GEN-LAST:event_txtPesquisaRendimentoFocusGained
 
     private void txtPesquisaRendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoFocusLost
-     //desfoque na pesquisa
         if(txtPesquisaRendimento.getText().equals("Pesquisar Rendimento")){
-     txtPesquisaRendimento.setText("");
-     txtPesquisaRendimento.setForeground(new Color(152,153,153));
-}
+            txtPesquisaRendimento.setText("");
+            txtPesquisaRendimento.setForeground(new Color(152,153,153));
+        }
         
     }//GEN-LAST:event_txtPesquisaRendimentoFocusLost
 
     private void cbTipoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoRendimentoKeyPressed
-if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-    spRendimentos.requestFocus();
-}
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            spRendimentos.requestFocus();
     }//GEN-LAST:event_cbTipoRendimentoKeyPressed
 
     private void spRendimentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spRendimentosKeyPressed
-
-    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-    cbPeridoRendimento.requestFocus();
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            cbPeridoRendimento.requestFocus();
     }//GEN-LAST:event_spRendimentosKeyPressed
     }
     private void cbPeridoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPeridoRendimentoKeyPressed
-       // foco
-     if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-    txtFonte.requestFocus(); 
-     }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            txtFonte.requestFocus(); 
     }//GEN-LAST:event_cbPeridoRendimentoKeyPressed
 
-    private void txtFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFonteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFonteActionPerformed
-
     private void txtFonteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFonteKeyPressed
-     // foco para botao gravar
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        btnSalvarRendimento.requestFocus(); 
-     }
-    
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            btnSalvarRendimento.requestFocus(); 
     }//GEN-LAST:event_txtFonteKeyPressed
-
-     
-//metodo que permite inserir os valores nos rendimentos total,fixo,variavel
+   
+    //metodo que permite inserir os valores nos rendimentos total,fixo,variavel
     Double fixoRendimento;
     Double variavelRendimento;
     Double SomaRendimento;
-  public void inserirValores(){
-    Rendimento p=new Rendimento();  
-   if(p.tipoRendimento.equals("Fixo")){
-     JLabel lblRendimentoFixo=new JLabel((String) spRendimentos.getValue());
-     fixoRendimento= (Double) spRendimentos.getValue();
-   }else if(p.tipoRendimento.equals("Variavel")){
-     JLabel lblRendimentoVariavel=new JLabel((String) spRendimentos.getValue()); 
-      variavelRendimento =(Double) spRendimentos.getValue(); 
-   }else{
-    SomaRendimento=fixoRendimento+variavelRendimento;
-    JLabel lblRendimentoTotal=new JLabel(Double.toString(SomaRendimento)); 
-   }   
+    public void inserirValores(){
+        Rendimento p = new Rendimento();  
+        if(p.tipoRendimento.equals("Fixo")){
+            JLabel lblRendimentoFixo = new JLabel((String) spRendimentos.getValue());
+            fixoRendimento= (Double) spRendimentos.getValue();
+        }else if(p.tipoRendimento.equals("Variavel")){
+            JLabel lblRendimentoVariavel = new JLabel((String) spRendimentos.getValue()); 
+            variavelRendimento = (Double) spRendimentos.getValue(); 
+        }else{
+            SomaRendimento = fixoRendimento+variavelRendimento;
+            JLabel lblRendimentoTotal = new JLabel(Double.toString(SomaRendimento)); 
+        }   
   }  
-//metodo para preencher a tabela
+  
+    //metodo para preencher a tabela
     public void preencherTabela() {
-        // metodo para preencher a tabela 
-        RendimentoDao rendeDao= new RendimentoDao ();
+        RendimentoDao rendeDao = new RendimentoDao ();
         List<Rendimento> lista = rendeDao.listar();
         DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
         modeloTabela.setRowCount(0);
         lista.forEach((p) -> {
-            modeloTabela.addRow(new Object[]{cbTipoRendimento.getSelectedItem(),spRendimentos.getValue(),cbPeridoRendimento.getSelectedItem(),txtFonte.getText()});
+            modeloTabela.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getPeriodo(), p.getFonteRendimento()});
         });
         
     }
+    
     //metodo para pesquisar
-     public void pesquisar() {
-        //metodo que perimte pesquisar dados 
+    public void pesquisar() {
         Connection con =Conectar.getConection();
         String sql = "SELECT * FROM rendimento WHERE nome like?";
-        try(PreparedStatement smt =con.prepareStatement(sql)){
-          smt.setString(1,txtPesquisaRendimento.getText()+"%");
-          smt.executeQuery();
-          tabelaRendimento.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
+        
+        try(
+            PreparedStatement smt =con.prepareStatement(sql)){
+            smt.setString(1,txtPesquisaRendimento.getText()+"%");
+            smt.executeQuery();
+            tabelaRendimento.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Ocorreu um erro!");
-        }
-   
-    
-  
-        
+        }   
     }  
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
     private javax.swing.JButton btnExcluirRendimento;
