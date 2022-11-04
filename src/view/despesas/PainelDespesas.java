@@ -10,9 +10,11 @@ import Dao.DespesaDao;
 import Dao.RendimentoDao;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Despesa;
@@ -129,9 +131,9 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         graficoCircularDespesa = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblDespesaTotal = new javax.swing.JLabel();
+        lblDespesaFixa = new javax.swing.JLabel();
+        lblDespesaVariavel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnSalvarDespesa = new javax.swing.JButton();
         btnActualizarDespesa = new javax.swing.JButton();
@@ -148,11 +150,21 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel1.setText("Tipo");
 
         cbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixa", "Variavel" }));
+        cbTipoDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbTipoDespesaKeyPressed(evt);
+            }
+        });
 
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Custo");
 
         spCusto.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spCusto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spCustoKeyPressed(evt);
+            }
+        });
 
         tbDespesa.setBackground(new java.awt.Color(255, 255, 255));
         tbDespesa.getTableHeader().setBackground(Color.WHITE);
@@ -184,10 +196,28 @@ public class PainelDespesas extends javax.swing.JPanel {
 
         txtPesquisaDespesa.setBackground(new java.awt.Color(255, 255, 255));
         txtPesquisaDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPesquisaDespesa.setText("Pesquisar despesa");
+        txtPesquisaDespesa.setText("Pesquisar despesas");
         txtPesquisaDespesa.setToolTipText("Pesquisar");
         txtPesquisaDespesa.setBorder(null);
         txtPesquisaDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtPesquisaDespesa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPesquisaDespesaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPesquisaDespesaFocusLost(evt);
+            }
+        });
+        txtPesquisaDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaDespesaActionPerformed(evt);
+            }
+        });
+        txtPesquisaDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaDespesaKeyReleased(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
 
@@ -214,16 +244,13 @@ public class PainelDespesas extends javax.swing.JPanel {
             .addGap(0, 320, Short.MAX_VALUE)
         );
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("0");
+        lblDespesaTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDespesaTotal.setForeground(new java.awt.Color(102, 102, 102));
+        lblDespesaTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel9.setText("2000");
+        lblDespesaFixa.setForeground(new java.awt.Color(102, 102, 102));
 
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("2000");
+        lblDespesaVariavel.setForeground(new java.awt.Color(102, 102, 102));
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridLayout(1, 3, 100, 0));
@@ -264,6 +291,11 @@ public class PainelDespesas extends javax.swing.JPanel {
         txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
         txtCategoria.setForeground(new java.awt.Color(51, 51, 51));
         txtCategoria.setOpaque(false);
+        txtCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCategoriaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -300,15 +332,15 @@ public class PainelDespesas extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,11 +370,11 @@ public class PainelDespesas extends javax.swing.JPanel {
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -392,6 +424,74 @@ public class PainelDespesas extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnExcluirDespesaActionPerformed
 
+    private void txtPesquisaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaDespesaActionPerformed
+    pesquisar();
+    }//GEN-LAST:event_txtPesquisaDespesaActionPerformed
+
+    private void txtPesquisaDespesaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaDespesaKeyReleased
+         pesquisar();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaDespesaKeyReleased
+
+    private void txtPesquisaDespesaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaDespesaFocusGained
+          if(txtPesquisaDespesa.getText().equals("")){
+            txtPesquisaDespesa.setText("Pesquisar despesas");
+            txtPesquisaDespesa.setForeground(new Color(152,153,153));
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaDespesaFocusGained
+
+    private void txtPesquisaDespesaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaDespesaFocusLost
+          if(txtPesquisaDespesa.getText().equals("Pesquisar despesas")){
+            txtPesquisaDespesa.setText("");
+            txtPesquisaDespesa.setForeground(new Color(152,153,153));
+        }
+      
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaDespesaFocusLost
+
+    private void cbTipoDespesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoDespesaKeyPressed
+           if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+              spCusto.requestFocus();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoDespesaKeyPressed
+
+    private void spCustoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spCustoKeyPressed
+          if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+              txtCategoria.requestFocus();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spCustoKeyPressed
+
+    private void txtCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaKeyPressed
+             if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+             btnSalvarDespesa.requestFocus();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaKeyPressed
+
+     //metodo que permite inserir os valores nos rendimentos total,fixo,variavel
+    Double fixaDespesa;
+    Double variavelDespesa;
+    Double SomaDespesa;
+    public void inserirValores(){
+        Despesa p = new Despesa();  
+        if(p.getTipoDespesa().equals("Fixa")){
+            JLabel lblDespesaFixa = new JLabel((String) spCusto.getValue());
+            fixaDespesa= (Double) spCusto.getValue();
+        }else if(p.getTipoDespesa().equals("Variavel")){
+            JLabel lblDespesaVariavel = new JLabel((String) spCusto.getValue()); 
+            variavelDespesa = (Double) spCusto.getValue(); 
+        }else{
+            SomaDespesa = fixaDespesa+variavelDespesa;
+            JLabel lblRendimentoTotal = new JLabel(Double.toString(SomaDespesa)); 
+        }   
+  }  
+  
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarDespesa;
@@ -400,17 +500,17 @@ public class PainelDespesas extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbTipoDespesa;
     private javax.swing.JPanel graficoCircularDespesa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDespesaFixa;
+    private javax.swing.JLabel lblDespesaTotal;
+    private javax.swing.JLabel lblDespesaVariavel;
     private javax.swing.JSpinner spCusto;
     private javax.swing.JTable tbDespesa;
     private javax.swing.JTextField txtCategoria;

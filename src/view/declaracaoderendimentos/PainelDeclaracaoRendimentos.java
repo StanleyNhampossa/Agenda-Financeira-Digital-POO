@@ -106,6 +106,11 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 txtPesquisaRendimentoFocusLost(evt);
             }
         });
+        txtPesquisaRendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaRendimentoActionPerformed(evt);
+            }
+        });
         txtPesquisaRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaRendimentoKeyReleased(evt);
@@ -117,6 +122,11 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         btnPesquisaRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
 
+        txtFonte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFonteActionPerformed(evt);
+            }
+        });
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
@@ -331,6 +341,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         RendimentoDao rendeDao = new  RendimentoDao();
         rendeDao.cadastrar(p);
         preencherTabela();
+        inserirValores();
     }//GEN-LAST:event_btnSalvarRendimentoActionPerformed
 
     private void btnExcluirRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirRendimentoActionPerformed
@@ -401,7 +412,15 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
             btnSalvarRendimento.requestFocus(); 
     }//GEN-LAST:event_txtFonteKeyPressed
-   
+
+    private void txtPesquisaRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaRendimentoActionPerformed
+
+    private void txtFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFonteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFonteActionPerformed
+
     //metodo que permite inserir os valores nos rendimentos total,fixo,variavel
     Double fixoRendimento;
     Double variavelRendimento;
