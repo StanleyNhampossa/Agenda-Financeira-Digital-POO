@@ -435,15 +435,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     //metodo para pesquisar
     public void pesquisar() {
         Connection con =Conectar.getConection();
-        String sql = "SELECT * FROM rendimento WHERE nome like?";
-        
+        String sql = "SELECT * FROM rendimento WHERE fonteRendimento like?";        
         try(
             PreparedStatement smt =con.prepareStatement(sql)){
             smt.setString(1,txtPesquisaRendimento.getText()+"%");
             smt.executeQuery();
             tabelaRendimento.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Ocorreu um erro!");
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao pesquisar!");
         }   
     }  
     

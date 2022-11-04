@@ -5,8 +5,19 @@
  */
 package view.despesas;
 
+import Banco.Conectar;
+import Dao.DespesaDao;
+import Dao.RendimentoDao;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Despesa;
+import model.Rendimento;
+import net.proteanit.sql.DbUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -60,9 +71,30 @@ public class PainelDespesas extends javax.swing.JPanel {
         graficoCircularDespesa.validate();
     }
     
-    
-    
-    
+    // metodos 
+     //metodo para preencher a tabela
+    public void preencherTabela() {
+        DespesaDao despesaDao = new DespesaDao ();
+        List<Despesa> lista = despesaDao.listar();
+        DefaultTableModel modeloTabela = (DefaultTableModel) tbDespesa.getModel();
+        modeloTabela.setRowCount(0);
+        lista.forEach((p) -> {
+        modeloTabela.addRow(new Object[]{p.getId(), p.getTipoDespesa(), p.getCusto(), p.getCategoria()});
+        });
+        
+    }
+     public void pesquisar() {
+        Connection con =Conectar.getConection();
+        String sql = "SELECT * FROM despesa WHERE categoria like?";
+        try(
+            PreparedStatement smt =con.prepareStatement(sql)){
+            smt.setString(1,txtPesquisaDespesa.getText()+"%");
+            smt.executeQuery();
+            tbDespesa.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao pesquisar!");
+        }   
+    }  
     
     
     
@@ -86,12 +118,12 @@ public class PainelDespesas extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbTipoDespesa = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spCusto = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDespesa = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisaDespesa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -101,11 +133,11 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnSalvarRendimento = new javax.swing.JButton();
-        btnActualizarRendimento = new javax.swing.JButton();
-        btnExcluirRendimento = new javax.swing.JButton();
+        btnSalvarDespesa = new javax.swing.JButton();
+        btnActualizarDespesa = new javax.swing.JButton();
+        btnExcluirDespesa = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCategoria = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
@@ -115,12 +147,12 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Tipo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixa", "Variavel" }));
+        cbTipoDespesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixa", "Variavel" }));
 
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Custo");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spCusto.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         tbDespesa.setBackground(new java.awt.Color(255, 255, 255));
         tbDespesa.getTableHeader().setBackground(Color.WHITE);
@@ -130,11 +162,11 @@ public class PainelDespesas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tipo", "Categoria", "Custo"
+                "ID", "Tipo", "Custo", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -147,13 +179,15 @@ public class PainelDespesas extends javax.swing.JPanel {
             tbDespesa.getColumnModel().getColumn(0).setResizable(false);
             tbDespesa.getColumnModel().getColumn(1).setResizable(false);
             tbDespesa.getColumnModel().getColumn(2).setResizable(false);
+            tbDespesa.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setToolTipText("Pesquisar");
-        jTextField1.setBorder(null);
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtPesquisaDespesa.setBackground(new java.awt.Color(255, 255, 255));
+        txtPesquisaDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPesquisaDespesa.setText("Pesquisar despesa");
+        txtPesquisaDespesa.setToolTipText("Pesquisar");
+        txtPesquisaDespesa.setBorder(null);
+        txtPesquisaDespesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
 
@@ -194,27 +228,42 @@ public class PainelDespesas extends javax.swing.JPanel {
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridLayout(1, 3, 100, 0));
 
-        btnSalvarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
-        btnSalvarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnSalvarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnSalvarRendimento);
+        btnSalvarDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
+        btnSalvarDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
+        btnSalvarDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
+        btnSalvarDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarDespesaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnSalvarDespesa);
 
-        btnActualizarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
-        btnActualizarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnActualizarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnActualizarRendimento);
+        btnActualizarDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
+        btnActualizarDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
+        btnActualizarDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
+        btnActualizarDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDespesaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnActualizarDespesa);
 
-        btnExcluirRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
-        btnExcluirRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnExcluirRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnExcluirRendimento);
+        btnExcluirDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
+        btnExcluirDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
+        btnExcluirDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
+        btnExcluirDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirDespesaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnExcluirDespesa);
 
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Categoria");
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setForeground(new java.awt.Color(51, 51, 51));
-        jTextField2.setOpaque(false);
+        txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        txtCategoria.setForeground(new java.awt.Color(51, 51, 51));
+        txtCategoria.setOpaque(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -226,7 +275,7 @@ public class PainelDespesas extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -234,16 +283,15 @@ public class PainelDespesas extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSpinner1)
+                                .addComponent(spCusto)
                                 .addGap(88, 88, 88)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(260, 260, 260))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
+                                .addComponent(txtPesquisaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,13 +328,13 @@ public class PainelDespesas extends javax.swing.JPanel {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,13 +354,51 @@ public class PainelDespesas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSalvarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarDespesaActionPerformed
+        Despesa p = new Despesa();
+        p.setTipoDespesa((String) cbTipoDespesa.getSelectedItem());
+        p.setCusto(Double.parseDouble(spCusto.getValue().toString()));
+        p.setCategoria(txtCategoria.getText());
+        DespesaDao DespesaDao = new  DespesaDao();
+        DespesaDao.cadastrar(p);
+        preencherTabela();
+    }//GEN-LAST:event_btnSalvarDespesaActionPerformed
+
+    private void btnActualizarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDespesaActionPerformed
+        Despesa p = new Despesa();
+        p.setTipoDespesa((String) cbTipoDespesa.getSelectedItem());
+        p.setCusto((double) spCusto.getValue());
+        p.setCategoria(txtCategoria.getText());
+        DespesaDao despesaDao = new DespesaDao();
+        despesaDao.actualizar(p);
+        preencherTabela();
+
+    }//GEN-LAST:event_btnActualizarDespesaActionPerformed
+
+    private void btnExcluirDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirDespesaActionPerformed
+            int opcao = tbDespesa.getSelectedRow();
+        if (opcao >= 0) {
+            Despesa p = new Despesa();
+            p.setId(Integer.parseInt(tbDespesa.getValueAt(opcao, 0).toString()));
+            p.setTipoDespesa(tbDespesa.getValueAt(opcao, 1).toString());
+            p.setCusto(Double.parseDouble(tbDespesa.getValueAt(opcao, 2).toString()));
+            p.setCategoria(tbDespesa.getValueAt(opcao, 3).toString());
+            DespesaDao DespesaDao = new DespesaDao();
+            DespesaDao.excluir(p);
+            preencherTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+
+    }//GEN-LAST:event_btnExcluirDespesaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarRendimento;
-    private javax.swing.JButton btnExcluirRendimento;
-    private javax.swing.JButton btnSalvarRendimento;
+    private javax.swing.JButton btnActualizarDespesa;
+    private javax.swing.JButton btnExcluirDespesa;
+    private javax.swing.JButton btnSalvarDespesa;
+    private javax.swing.JComboBox<String> cbTipoDespesa;
     private javax.swing.JPanel graficoCircularDespesa;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -325,9 +411,9 @@ public class PainelDespesas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JSpinner spCusto;
     private javax.swing.JTable tbDespesa;
+    private javax.swing.JTextField txtCategoria;
+    private javax.swing.JTextField txtPesquisaDespesa;
     // End of variables declaration//GEN-END:variables
 }
