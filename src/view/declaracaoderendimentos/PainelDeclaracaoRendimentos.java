@@ -104,15 +104,9 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 txtPesquisaRendimentoFocusLost(evt);
             }
         });
-<<<<<<< Updated upstream
-        txtPesquisaRendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisaRendimentoActionPerformed(evt);
-=======
         txtPesquisaRendimento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtPesquisaRendimentoMouseClicked(evt);
->>>>>>> Stashed changes
             }
         });
         txtPesquisaRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -123,16 +117,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         jLabel4.setText("Fonte de Rendimento:");
 
-<<<<<<< Updated upstream
-        btnPesquisaRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
-
-        txtFonte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFonteActionPerformed(evt);
-            }
-        });
-=======
->>>>>>> Stashed changes
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
@@ -335,22 +319,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRendimentoActionPerformed
-<<<<<<< Updated upstream
-        /*DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
-        Object dados[] = {cbTipoRendimento.getSelectedItem(),spRendimentos.getValue(),cbPeridoRendimento.getSelectedItem(),txtFonte.getText()};
-        modeloTabela.addRow(dados);*/
-        Rendimento p = new Rendimento();
-        p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
-        p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
-        p.setPeriodo((String) cbPeridoRendimento.getSelectedItem());
-        p.setFonteRendimento(txtFonte.getText());
-        RendimentoDao rendeDao = new  RendimentoDao();
-        rendeDao.cadastrar(p);
-        preencherTabela();
-        inserirValores();
-=======
         adicionar();
->>>>>>> Stashed changes
     }//GEN-LAST:event_btnSalvarRendimentoActionPerformed
 
     private void btnExcluirRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirRendimentoActionPerformed
@@ -392,17 +361,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             btnSalvarRendimento.requestFocus(); 
     }//GEN-LAST:event_txtFonteKeyPressed
 
-<<<<<<< Updated upstream
-    private void txtPesquisaRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisaRendimentoActionPerformed
-
-    private void txtFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFonteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFonteActionPerformed
-
-    //metodo que permite inserir os valores nos rendimentos total,fixo,variavel
-=======
     private void tabelaRendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRendimentoMouseClicked
         if(tabelaRendimento.getSelectedRow() != -1) {
             cbTipoRendimento.setSelectedItem(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 1));
@@ -432,7 +390,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             limparCampos();        
     }
     
->>>>>>> Stashed changes
     Double fixoRendimento;
     Double variavelRendimento;
     Double SomaRendimento;
@@ -442,7 +399,11 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
   
     
     private void preencherTabela() {
-        List<Rendimento> lista = RendimentoDao.listar(MenuView.user.getId(), "");
+        List<Rendimento> lista;
+        if(txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar fonte de rendimento"))
+            lista = RendimentoDao.listar(MenuView.user.getId(), "");
+        else
+            lista = RendimentoDao.listar(MenuView.user.getId(), txtPesquisaRendimento.getText());
         DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
         modeloTabela.setRowCount(0);
         lista.forEach((p) -> {
@@ -463,8 +424,8 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             int res = Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Deseja excluir o rendimento?", Notificacao.ICONE_QUESTAO);
             if(res == Notificacao.BOTAO_SIM)
                 if(RendimentoDao.excluir(p)) {
-                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);
                     preencherTabela();
+                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);                    
                     limparCampos();
                 }else
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A exclusão falhou!\nOcorreu um erro ao excluir o rendimento.", Notificacao.ICONE_ERRO);
@@ -473,21 +434,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         }
     }
     
-<<<<<<< Updated upstream
-    //metodo para pesquisar
-    public void pesquisar() {
-        Connection con =Conectar.getConection();
-        String sql = "SELECT * FROM rendimento WHERE fonteRendimento like?";        
-        try(
-            PreparedStatement smt =con.prepareStatement(sql)){
-            smt.setString(1,txtPesquisaRendimento.getText()+"%");
-            smt.executeQuery();
-            tabelaRendimento.setModel(DbUtils.resultSetToTableModel(smt.executeQuery()));
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao pesquisar!");
-        }   
-    }  
-=======
     private void actualizar() {
         if(tabelaRendimento.getSelectedRow() != -1) {
             if(Double.parseDouble(spRendimentos.getValue().toString()) != 0.0 && 
@@ -536,7 +482,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         cbPeridoRendimento.setSelectedItem("");
         txtFonte.setText("");
     }
->>>>>>> Stashed changes
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;

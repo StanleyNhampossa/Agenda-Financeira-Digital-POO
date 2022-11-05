@@ -262,11 +262,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPesquisaRendimentoFocusLost"/>
-<<<<<<< Updated upstream
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesquisaRendimentoActionPerformed"/>
-=======
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPesquisaRendimentoMouseClicked"/>
->>>>>>> Stashed changes
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesquisaRendimentoKeyReleased"/>
           </Events>
         </Component>
@@ -277,7 +273,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtFonte">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFonteActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFonteKeyPressed"/>
           </Events>
         </Component>

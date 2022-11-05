@@ -54,10 +54,10 @@ public class PainelDespesas extends javax.swing.JPanel {
       //create chart
        JFreeChart piechart = ChartFactory.createPieChart("Rendimentos",barDataset, false,true,false);//explain
       
-       PiePlot piePlot =(PiePlot) piechart.getPlot();
+      PiePlot piePlot =(PiePlot) piechart.getPlot();
       
        //changing pie chart blocks colors
-        piePlot.setSectionPaint("Rendimento Fixo", new Color(255,255,102));
+       piePlot.setSectionPaint("Rendimento Fixo", new Color(255,255,102));
         piePlot.setSectionPaint("Rendimento Variavel", new Color(102,255,102));
         /* piePlot.setSectionPaint("MotoG", new Color(255,102,153));
         piePlot.setSectionPaint("Nokia Lumia", new Color(0,204,204));*/
@@ -141,7 +141,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         txtCategoria = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
         setOpaque(false);
@@ -232,7 +231,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Despesa Variavel");
 
-        graficoCircularDespesa.setBackground(new java.awt.Color(255, 255, 255));
         graficoCircularDespesa.setOpaque(false);
 
         javax.swing.GroupLayout graficoCircularDespesaLayout = new javax.swing.GroupLayout(graficoCircularDespesa);
@@ -257,7 +255,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridLayout(1, 3, 100, 0));
 
-<<<<<<< Updated upstream
         btnSalvarDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
         btnSalvarDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
         btnSalvarDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
@@ -287,30 +284,10 @@ public class PainelDespesas extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnExcluirDespesa);
-=======
-        btnSalvarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
-        btnSalvarRendimento.setContentAreaFilled(false);
-        btnSalvarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnSalvarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnSalvarRendimento);
-
-        btnActualizarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
-        btnActualizarRendimento.setContentAreaFilled(false);
-        btnActualizarRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnActualizarRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnActualizarRendimento);
-
-        btnExcluirRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
-        btnExcluirRendimento.setContentAreaFilled(false);
-        btnExcluirRendimento.setMaximumSize(new java.awt.Dimension(30, 40));
-        btnExcluirRendimento.setPreferredSize(new java.awt.Dimension(30, 40));
-        jPanel3.add(btnExcluirRendimento);
->>>>>>> Stashed changes
 
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Categoria");
 
-<<<<<<< Updated upstream
         txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
         txtCategoria.setForeground(new java.awt.Color(51, 51, 51));
         txtCategoria.setOpaque(false);
@@ -319,10 +296,6 @@ public class PainelDespesas extends javax.swing.JPanel {
                 txtCategoriaKeyPressed(evt);
             }
         });
-=======
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setForeground(new java.awt.Color(51, 51, 51));
->>>>>>> Stashed changes
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
