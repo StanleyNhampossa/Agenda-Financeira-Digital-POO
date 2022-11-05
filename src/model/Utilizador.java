@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Utilizador {
     
+    private int id;
     private String nome = "";//
     private Date dataNascimento;
     private String genero = "";//
@@ -85,9 +86,17 @@ public class Utilizador {
         this.fotoPerfil = fotoPerfil;
     }   
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }        
+
     @Override
     public String toString() {
-        return "Utilizador{" + "nome=" + nome + ", dataNascimento=" + dataNascimento + ", genero=" + genero + ", profissao=" + profissao + ", email=" + email + ", senha=" + senha + ", fotoPerfil=" + fotoPerfil + '}';
-    }
+        return "Utilizador{" + "id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", genero=" + genero + ", profissao=" + profissao + ", email=" + email + ", senha=" + senha + ", fotoPerfil=" + fotoPerfil + '}';
+    }    
        
 }

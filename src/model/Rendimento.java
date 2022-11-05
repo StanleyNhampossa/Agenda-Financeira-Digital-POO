@@ -15,6 +15,7 @@ public class Rendimento {
     private double rendimento;
     private String periodo;
     private String fonteRendimento;
+    private int utilizador_fk;    
 
     public int getId() {
         return id;
@@ -55,6 +56,15 @@ public class Rendimento {
     public void setFonteRendimento(String fonteRendimento) {
         this.fonteRendimento = fonteRendimento;
     }
+    
+    public int getUtilizador_fk() {
+        return utilizador_fk;
+    }
+
+    public void setUtilizador_fk(int utilizador_fk) {
+        this.utilizador_fk = utilizador_fk;
+    }
+
     
     
 }

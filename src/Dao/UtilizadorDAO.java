@@ -21,7 +21,7 @@ public class UtilizadorDAO {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "INSERT INTO utilizadores(nome, dataNascimento, genero, profissao, email, senha, fotoPerfil)"
+        String cmd = "INSERT INTO `gestaofinanceira`.`utilizadores`(`nome`, `dataNascimento`, `genero`, `profissao`, `email`, `senha`, `fotoPerfil`)"
                    + " VALUES(?, ?, ?, ?, ?, ?, ?)";        
                 
         try {
@@ -51,8 +51,8 @@ public class UtilizadorDAO {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "UPDATE utilizadores SET nome = ?, dataNascimento = ?, genero = ?, profissao = ?, email = ?,"
-                   + " senha = ?, fotoPerfil = ? WHERE email = ?";
+        String cmd = "UPDATE `gestaofinanceira`.`utilizadores` SET `nome` = ?, `dataNascimento` = ?, `genero` = ?, `profissao` = ?, `email` = ?,"
+                   + " `senha` = ?, `fotoPerfil` = ? WHERE `id` = ?";
         
         try {
             connection = Conectar.getConection();
@@ -66,7 +66,7 @@ public class UtilizadorDAO {
             statement.setString(5, user.getEmail());
             statement.setString(6, user.getSenha());
             statement.setString(7, user.getFotoPerfil());
-            statement.setString(8, user.getEmail());
+            statement.setInt(8, user.getId());
             statement.executeUpdate();
             Conectar.closeConnection(connection, statement);
             
@@ -78,11 +78,11 @@ public class UtilizadorDAO {
         return false;
     }
     
-    public boolean apagar(String chave) {
+    public boolean apagar(int id) {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "DELETE FROM utilizadores WHERE email = '" + chave + "'";
+        String cmd = "DELETE FROM `gestaofinanceira`.`utilizadores` WHERE `id` = '" + id + "'";
                 
         try {
             connection = Conectar.getConection();
@@ -104,7 +104,7 @@ public class UtilizadorDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Utilizador user = null;
-        String cmd = "SELECT * FROM utilizadores WHERE email = '" + userEmail + "' AND senha = '" + senha + "'";
+        String cmd = "SELECT * FROM `gestaofinanceira`.`utilizadores` WHERE `email` = '" + userEmail + "' AND `senha` = '" + senha + "'";
                 
         try {
             connection = Conectar.getConection();
@@ -113,13 +113,14 @@ public class UtilizadorDAO {
             
             while(resultSet.next()) {
                 user = new Utilizador();
+                user.setId(resultSet.getInt("id"));
                 user.setNome(resultSet.getString("nome"));
                 user.setDataNascimento(resultSet.getDate("dataNascimento"));
                 user.setGenero(resultSet.getString("genero"));
                 user.setProfissao(resultSet.getString("profissao"));
                 user.setEmail(resultSet.getString("email"));
                 user.setSenha(resultSet.getString("senha"));
-                user.setFotoPerfil(resultSet.getString("fotoPerfil"));
+                user.setFotoPerfil(resultSet.getString("fotoPerfil"));                
             }
             
             Conectar.closeConnection(connection, statement, resultSet);
