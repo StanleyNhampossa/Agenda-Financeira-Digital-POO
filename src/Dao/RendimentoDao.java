@@ -15,7 +15,7 @@ import model.Rendimento;
 public class RendimentoDao {
     
     public static boolean cadastrar(Rendimento p){        
-        String sql="INSERT INTO `gestaofinanceira`.`rendimentos` (`tipoRendimento`, `rendimento`, `periodo`, `fonteRendimento`, `utilizador_fk`) VALUES (?, ?, ?, ?, ?)";
+        String sql="INSERT INTO `gestaofinanceira`.`rendimentos` (`tipoRendimento`, `rendimento`, `periodo`, `fonteRendimento`, `utilizador_id`) VALUES (?, ?, ?, ?, ?)";
         
         try{
             Connection con = Conectar.getConection();
@@ -24,7 +24,7 @@ public class RendimentoDao {
             smt.setDouble(2, p.getRendimento());
             smt.setString(3, p.getPeriodo());
             smt.setString(4,p.getFonteRendimento());        
-            smt.setInt(5, p.getUtilizador_fk());
+            smt.setInt(5, p.getUtilizador_id());
             smt.executeUpdate();
             Conectar.closeConnection(con, smt);
             
@@ -78,8 +78,8 @@ public class RendimentoDao {
     
     public static List<Rendimento> listar(int id, String chave){        
         List<Rendimento> lista=new ArrayList<>();
-        String sql="SELECT * FROM `gestaofinanceira`.`rendimentos` WHERE `utilizador_fk` = ? ORDER BY `fonteRendimento`";// para ordenar atraves da fonte de rendimento 
-        String sql2 = "SELECT * FROM `gestaofinanceira`.`rendimentos` WHERE `fonteRendimento` LIKE '" + chave + "%' AND `utilizador_fk` = " + id;
+        String sql="SELECT * FROM `gestaofinanceira`.`rendimentos` WHERE `utilizador_id` = ? ORDER BY `fonteRendimento`";// para ordenar atraves da fonte de rendimento 
+        String sql2 = "SELECT * FROM `gestaofinanceira`.`rendimentos` WHERE `fonteRendimento` LIKE '" + chave + "%' AND `utilizador_id` = " + id;
         try{
             Connection con = Conectar.getConection();
             PreparedStatement smt;
@@ -100,7 +100,7 @@ public class RendimentoDao {
                 p.setRendimento(resulto.getDouble("rendimento"));
                 p.setPeriodo(resulto.getNString("periodo"));
                 p.setFonteRendimento(resulto.getNString("fonteRendimento"));
-                p.setUtilizador_fk(resulto.getInt("utilizador_fk"));
+                p.setUtilizador_id(resulto.getInt("utilizador_id"));
                 lista.add(p);
             }
 

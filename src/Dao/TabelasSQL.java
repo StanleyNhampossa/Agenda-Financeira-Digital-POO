@@ -32,8 +32,8 @@ public class TabelasSQL {
                     "rendimento DOUBLE," +
                     "periodo MEDIUMTEXT," +
                     "fonteRendimento MEDIUMTEXT UNIQUE," +
-                    "utilizador_fk INT, " +
-                    "FOREIGN KEY (utilizador_fk) REFERENCES utilizadores(id))";
+                    "utilizador_id INT," +
+		    "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
 
 
         cmds[2] = "CREATE TABLE IF NOT EXISTS despesas(" +
