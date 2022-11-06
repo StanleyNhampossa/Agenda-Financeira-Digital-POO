@@ -208,9 +208,9 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
         }else if(dadosCadastroP2.efectuarValidacao()) {
             UtilizadorDAO dao = new UtilizadorDAO();
             if(dao.criar(user)) {
-                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Cadastro realizado com sucesso!", Notificacao.ICONE_SUCESSO);
-                MenuView.user = user;
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Cadastro realizado com sucesso!", Notificacao.ICONE_SUCESSO);                
                 Main.exibirPainel(new MenuView());
+                MenuView.user = dao.autenticar(user.getEmail(), user.getSenha());
             } else {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Utilizador não cadastrado.\nOcorreu um erro ao guardar os dados!", Notificacao.ICONE_ERRO);
             }                           

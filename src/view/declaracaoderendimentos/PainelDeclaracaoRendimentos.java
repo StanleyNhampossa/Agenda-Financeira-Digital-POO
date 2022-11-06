@@ -464,7 +464,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
             p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
             p.setPeriodo((String) cbPeridoRendimento.getSelectedItem());
-            p.setUtilizador_fk(MenuView.user.getId());
+            p.setUtilizador_id(MenuView.user.getId());
             p.setFonteRendimento(txtFonte.getText());
             if(RendimentoDao.cadastrar(p)) {
                 limparCampos();

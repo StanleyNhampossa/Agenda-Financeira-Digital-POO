@@ -160,10 +160,11 @@ public class PainelPerfil extends javax.swing.JPanel {
         lblProfissao.setText("PROFISSÃO DO UTILIZADOR");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Actualização de Dados");
 
-        jLabel2.setText("Nome");
+        jLabel2.setText(MenuView.user.getDataNascimento().toString());
 
         javax.swing.GroupLayout colorPanel2Layout = new javax.swing.GroupLayout(colorPanel2);
         colorPanel2.setLayout(colorPanel2Layout);
