@@ -5,7 +5,14 @@
 package view;
 
 //import Backup.*;
+import Dao.EmprestimoDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.SimuladorEmprestimos;
 
 /**
@@ -19,6 +26,7 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
      */
     public PainelEmuladorDeEmprestimos() {
         initComponents();
+
     }
 
     /**
@@ -39,10 +47,22 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnSimular = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableVisaoGeral = new javax.swing.JTable();
         btnAderir = new javax.swing.JButton();
         lbDivida = new javax.swing.JLabel();
+        lbEmprestimos = new javax.swing.JLabel();
+        lbDetalhes = new javax.swing.JLabel();
+        lbParcelas = new javax.swing.JLabel();
+        lbCusto = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        lbTaxaJuros = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaEmprestimos = new javax.swing.JList<>();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        lbValorParcelas = new javax.swing.JLabel();
+        lbJuros = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
@@ -77,72 +97,136 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
             }
         });
 
-        tableVisaoGeral.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Nr Parcela", "Valor "
-            }
-        ));
-        jScrollPane1.setViewportView(tableVisaoGeral);
-
         btnAderir.setText("Aderir");
+        btnAderir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAderirActionPerformed(evt);
+            }
+        });
 
-        lbDivida.setText("Valor Total a pagar");
+        lbDivida.setText("Valor Total a pagar:");
+
+        lbEmprestimos.setText("Emprestimos");
+
+        lbDetalhes.setText("Detalhes:");
+
+        lbParcelas.setText("Número de Parcelas:");
+
+        lbCusto.setText("Custo do Emprestimo:");
+
+        lbTaxaJuros.setText("Taxa de Juros:");
+
+        jScrollPane1.setViewportView(listaEmprestimos);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        lbValorParcelas.setText("Valor das Parcelas:");
+
+        lbJuros.setText("Valor Total em Juros:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spinnerParcelas))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAderir)
+                                    .addComponent(btnSimular)))))
+                    .addComponent(lbEmprestimos)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(lbDetalhes)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spinnerParcelas))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 664, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbCusto)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbValorParcelas)
+                            .addComponent(lbTaxaJuros)
+                            .addComponent(lbParcelas)
+                            .addComponent(lbJuros)
+                            .addComponent(lbDivida)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSimular)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAderir, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbDivida, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(82, 82, 82))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbDivida)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spinnerParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimular)
-                    .addComponent(btnAderir))
-                .addGap(65, 65, 65)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addComponent(lbDetalhes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAderir)
+                    .addComponent(lbCusto))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEmprestimos)
+                    .addComponent(lbParcelas))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbValorParcelas)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbTaxaJuros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbJuros)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbDivida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Simulador", jPanel1);
@@ -180,19 +264,44 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSimularMouseEntered
 
     private void btnSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimularActionPerformed
-        //Secção de colecta de dados introduzidos nos inputs
+
+//Secção de colecta de dados introduzidos nos inputs
         double capital = Double.parseDouble(tfCapital.getText()), taxaDejuro = Double.parseDouble(tfTaxaJuros.getText());
         int nParcelas = (int) spinnerParcelas.getValue();
 
         SimuladorEmprestimos simuladorEmprestimos = new SimuladorEmprestimos(taxaDejuro, capital, nParcelas);
-        
+
+        //Declarando ArrayList para receber as parcelas.
+        ArrayList<Double> parcelas = new ArrayList<>();
         simuladorEmprestimos.simularEmprestimo();
-        
         lbDivida.setText(String.valueOf(simuladorEmprestimos.getDivida()));
-        
-        
-        
+        lbCusto.setText(lbCusto.getText() + String.valueOf(simuladorEmprestimos.getJuros()));
+        lbParcelas.setText(lbParcelas.getText() + String.valueOf(simuladorEmprestimos.getnParcelas()));
+        lbValorParcelas.setText(lbValorParcelas.getText() + String.valueOf(simuladorEmprestimos.getValorParcela()));
+        lbJuros.setText(lbJuros.getText() + String.valueOf(simuladorEmprestimos.getJuros()));
+        lbTaxaJuros.setText(lbTaxaJuros.getText() + String.valueOf(simuladorEmprestimos.getTaxaDeJuros()));
+        simuladorEmprestimos.setTitulo(JOptionPane.showInputDialog("Escolha um Título para o Emprestimo!"));
+        lbDetalhes.setText(simuladorEmprestimos.getTitulo());
+        receptaculoEmprestimos = simuladorEmprestimos;
+
+
     }//GEN-LAST:event_btnSimularActionPerformed
+
+    private void btnAderirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAderirActionPerformed
+        //Aqui guardamos os dados do recptaculo na base de dados;
+        DefaultListModel modeloListaEmprestimos = new DefaultListModel<SimuladorEmprestimos>();
+        
+       listaEmprestimos.setModel(modeloListaEmprestimos);
+       modeloListaEmprestimos.addElement(receptaculoEmprestimos);
+        EmprestimoDAO emprestimoDAO=new EmprestimoDAO();
+        try {
+            emprestimoDAO.guardar(receptaculoEmprestimos);
+        } catch (SQLException ex) {
+           throw new RuntimeException(ex);
+        }
+       JOptionPane.showMessageDialog(null,"Emprestimo registrado com sucesso");
+       
+    }//GEN-LAST:event_btnAderirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -203,13 +312,28 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbCusto;
+    private javax.swing.JLabel lbDetalhes;
     private javax.swing.JLabel lbDivida;
+    private javax.swing.JLabel lbEmprestimos;
+    private javax.swing.JLabel lbJuros;
+    private javax.swing.JLabel lbParcelas;
+    private javax.swing.JLabel lbTaxaJuros;
+    private javax.swing.JLabel lbValorParcelas;
+    private javax.swing.JList<String> listaEmprestimos;
     private javax.swing.JSpinner spinnerParcelas;
-    private javax.swing.JTable tableVisaoGeral;
     private javax.swing.JTextField tfCapital;
     private javax.swing.JTextField tfTaxaJuros;
     // End of variables declaration//GEN-END:variables
+
+    //Receptáculo para emprestimo
+    SimuladorEmprestimos receptaculoEmprestimos= new SimuladorEmprestimos();
 
     //Metodo usado para validação dos três inputs
     public void validar() {

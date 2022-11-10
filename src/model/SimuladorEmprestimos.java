@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,11 +12,23 @@ import javax.swing.JOptionPane;
  * @author berna
  */
 public class SimuladorEmprestimos {
-
-    private double taxaDeJuros, capital, juros, divida, parcelas[];
+//Declaração de variáveis
+    public double taxaDeJuros, capital, juros, divida,valorParcela;
     private int nParcelas, id;
     private String titulo;
 
+    public SimuladorEmprestimos() {
+    }
+
+    public double getValorParcela() {
+        return valorParcela;
+    }
+
+    public void setValorParcela(double valorParcela) {
+        this.valorParcela = valorParcela;
+    }
+ 
+    
     public String getTitulo() {
         return titulo;
     }
@@ -26,6 +39,8 @@ public class SimuladorEmprestimos {
         this.nParcelas = nParcelas;
 
     }
+
+    
 
     public double getTaxaDeJuros() {
         return taxaDeJuros;
@@ -43,10 +58,11 @@ public class SimuladorEmprestimos {
         return divida;
     }
 
-    public double[] getParcelas() {
-        return parcelas;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
+  
     public int getnParcelas() {
         return nParcelas;
     }
@@ -55,28 +71,17 @@ public class SimuladorEmprestimos {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return titulo;
+    }
+
     public void simularEmprestimo() {
-        //Declaração de variáveis internas do método.
-
-        double capital = this.capital, divida, parcelas[] = null, taxaDeJuros = this.taxaDeJuros, juros;
-        int nParcelas = this.nParcelas;
-
-        juros = ((capital / 100) * taxaDeJuros) * nParcelas;
-        divida = capital + juros;
-        try {
-            for (int i = 0; i < nParcelas - 1; i++) {
-
-                parcelas[i] = divida / nParcelas;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
-        //Atribuindo os resultados processados aos atributos da classe.
-        this.parcelas = parcelas;
-        this.divida = divida;
-        this.juros = juros;
-
+        
+        this.juros = ((this.capital / 100) * this.taxaDeJuros) * this.nParcelas;
+        this.divida = this.capital + this.juros;
+        this.valorParcela=divida/nParcelas;
+        //Notificação de simulação bem sucedida.
         JOptionPane.showMessageDialog(null, "Processado com sucesso");
 
     }
