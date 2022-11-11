@@ -11,7 +11,7 @@ import view.Main;
 import view.ajuda.PainelAjuda;
 import view.declaracaoderendimentos.PainelDeclaracaoRendimentos;
 import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
-import view.objectivosfinanceiros.PainelObjectivosFinanceiros;
+import view.simuladorDeGastos.SimuladorDeGastos;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
 import view.estatisticas.PainelEstatisticas;
@@ -50,7 +50,7 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelEmuladorDeEmprestimos());
                         break;
                     case 7:
-                        MenuView.exibirPainel(new PainelObjectivosFinanceiros());
+                        MenuView.exibirPainel(new SimuladorDeGastos());
                         break;
                     case 10: 
                         MenuView.exibirPainel(new PainelPerfil());

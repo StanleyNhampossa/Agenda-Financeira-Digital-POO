@@ -20,7 +20,7 @@ public class Conectar {
     
     private static final String usuario = "root";
     private static final String senha = "";
-    private static final String url = "jdbc:mysql://localhost/gestaofinanceira";
+    private static final String url = "jdbc:mysql://localhost/sgfdb";
     private static final String url2 = "jdbc:mysql://localhost/";    
     
     /**
