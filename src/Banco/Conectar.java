@@ -20,8 +20,12 @@ public class Conectar {
     
     private static final String usuario = "root";
     private static final String senha = "";
+<<<<<<< Updated upstream
     private static final String url = "jdbc:mysql://localhost/gestaofinanceira";
     private static final String url2 = "jdbc:mysql://localhost/";    
+=======
+    private static final String url = "jdbc:mysql://localhost/sgfdb";
+>>>>>>> Stashed changes
     
     /**
      * Estabelece a conexão com a base de dados do sistema.
