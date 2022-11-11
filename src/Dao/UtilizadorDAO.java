@@ -11,12 +11,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe responsável por estabelecer a comunicação entre o programa
+ * com a tabela de utilizadores na base de dados
  * @author Grácio Macuácua
  */
 public class UtilizadorDAO {
     
-    
+     /**
+     * Realiza o cadastro de utilizadores na base de dados.
+     * @param user o utilizador a ser cadastrado
+     * @return {@code true} se o cadastro for executado com êxito, 
+     * ou {@code false} se não for concluído com êxito
+     */
     public boolean criar(Utilizador user) {
         
         Connection connection = null;
@@ -47,6 +53,12 @@ public class UtilizadorDAO {
         return false;
     }
     
+    /**
+     * Realiza a actualização de dados de utilizador na base de dados.
+     * @param user objecto com os dados a serem actualizados do utilizador
+     * @return {@code true} se a ação tiver sido executada com sucesso,
+     * {@code false} se a operação não for conluída
+     */
     public boolean actualizar(Utilizador user) {
 
         Connection connection = null;
@@ -78,6 +90,12 @@ public class UtilizadorDAO {
         return false;
     }
     
+    /**
+     * Realiza a exclusão de utilizadores na base de dados
+     * @param id id do utilizador a ser excluído
+     * @return {@code true} se a ação for executada com sucesso,
+     * {@code false} caso contrário
+     */
     public boolean apagar(int id) {
         
         Connection connection = null;
@@ -98,6 +116,13 @@ public class UtilizadorDAO {
         return false;
     }
     
+    /**
+     * Realiza a autenticação de utilizadores no sistema
+     * @param userEmail o email do utilizador a ser autenticado
+     * @param senha a senha do utilizador a ser autenticado
+     * @return uma instância da classe {@code Utilizador} contendo os dados do utilizador caso a autenticação
+     * ocorra com êxito, {@code null} caso contrário
+     */
     public Utilizador autenticar(String userEmail, String senha) {
         
         Connection connection = null;

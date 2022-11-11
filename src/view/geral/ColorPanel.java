@@ -6,7 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 /**
- *
+ *Classe para gerar painéis com propriedades particulares como bordas arredondadas e
+ * background composto por uma mistura de cores
  * @author Grácio Macuácua
  */
 public class ColorPanel extends keeptoo.KGradientPanel {
@@ -35,11 +36,11 @@ public class ColorPanel extends keeptoo.KGradientPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 169, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

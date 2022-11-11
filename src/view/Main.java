@@ -1,6 +1,5 @@
 package view;
 
-import Dao.TabelasSQL;
 import com.k33ptoo.utils.ComponentMoverUtil;
 import com.k33ptoo.utils.ComponentResizerUtil;
 import java.awt.Color;
@@ -15,8 +14,8 @@ import view.entrada.PainelEntrada;
 import view.menu.MenuView;
 
 /**
- *
- * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
+ *Classe principal do sistema, responsável pela criação do frame e pela manipulação das telas
+ * @author Grácio Macuácua
  */
 public class Main extends javax.swing.JFrame {
 
@@ -30,7 +29,6 @@ public class Main extends javax.swing.JFrame {
         //redimensionarFrame(this);
         ComponentMoverUtil.moveFrame(this, false, this.getComponents());
         MenuView.user = new Utilizador();
-        TabelasSQL.criarTabelas();
     }
    
     /***
@@ -125,7 +123,7 @@ public class Main extends javax.swing.JFrame {
                 main.setVisible(true);
             }
         });
-        //main.painelInicial.iniciarContagem();
+        main.painelInicial.iniciarContagem();
         exibirPainel(new PainelEntrada());
     }
     

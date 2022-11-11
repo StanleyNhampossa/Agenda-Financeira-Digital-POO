@@ -6,12 +6,12 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import model.Utilizador;
 import view.Main;
+import view.entrada.PainelEntrada;
 import view.geral.Notificacao;
-import view.menu.MenuView;
 
 
 /**
- *
+ *Classe que define a tela de registo de utilizadores
  * @author Grácio Macuácua
  */
 public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
@@ -40,10 +40,11 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
         lblLogo = new javax.swing.JLabel();
         painelLateral = new javax.swing.JPanel();
         lblCadastre = new javax.swing.JLabel();
-        btnProsseguir = new com.k33ptoo.components.KButton();
         container = new javax.swing.JPanel();
         dadosCadastroP1 = new view.registro.DadosCadastroP1();
         dadosCadastroP2 = new view.registro.DadosCadastroP2();
+        btnProsseguir2 = new com.k33ptoo.components.KButton();
+        btnProsseguir = new com.k33ptoo.components.KButton();
         lblMinimizar = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
 
@@ -69,6 +70,30 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
         lblCadastre.setForeground(new java.awt.Color(0, 102, 102));
         lblCadastre.setText("CADASTRE-SE");
 
+        container.setOpaque(false);
+        container.setLayout(new java.awt.CardLayout());
+        container.add(dadosCadastroP1, "card3");
+        container.add(dadosCadastroP2, "card3");
+
+        btnProsseguir2.setBorder(null);
+        btnProsseguir2.setText("VOLTAR");
+        btnProsseguir2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnProsseguir2.setkBackGroundColor(new java.awt.Color(255, 255, 255));
+        btnProsseguir2.setkBorderRadius(0);
+        btnProsseguir2.setkEndColor(new java.awt.Color(0, 102, 255));
+        btnProsseguir2.setkHoverColor(new java.awt.Color(12, 91, 160));
+        btnProsseguir2.setkHoverEndColor(new java.awt.Color(12, 91, 160));
+        btnProsseguir2.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnProsseguir2.setkHoverStartColor(new java.awt.Color(12, 91, 160));
+        btnProsseguir2.setkPressedColor(new java.awt.Color(0, 102, 255));
+        btnProsseguir2.setkSelectedColor(new java.awt.Color(255, 255, 255));
+        btnProsseguir2.setkStartColor(new java.awt.Color(12, 91, 160));
+        btnProsseguir2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProsseguir2ActionPerformed(evt);
+            }
+        });
+
         btnProsseguir.setBorder(null);
         btnProsseguir.setText("PROSSEGUIR");
         btnProsseguir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -88,11 +113,6 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
             }
         });
 
-        container.setOpaque(false);
-        container.setLayout(new java.awt.CardLayout());
-        container.add(dadosCadastroP1, "card3");
-        container.add(dadosCadastroP2, "card3");
-
         javax.swing.GroupLayout painelLateralLayout = new javax.swing.GroupLayout(painelLateral);
         painelLateral.setLayout(painelLateralLayout);
         painelLateralLayout.setHorizontalGroup(
@@ -104,10 +124,13 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
                         .addComponent(lblCadastre))
                     .addGroup(painelLateralLayout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnProsseguir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelLateralLayout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(btnProsseguir2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProsseguir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         painelLateralLayout.setVerticalGroup(
             painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +140,9 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnProsseguir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProsseguir2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProsseguir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
         );
 
@@ -209,8 +234,7 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
             UtilizadorDAO dao = new UtilizadorDAO();
             if(dao.criar(user)) {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Cadastro realizado com sucesso!", Notificacao.ICONE_SUCESSO);                
-                Main.exibirPainel(new MenuView());
-                MenuView.user = dao.autenticar(user.getEmail(), user.getSenha());
+                Main.exibirPainel(new PainelEntrada());
             } else {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Utilizador não cadastrado.\nOcorreu um erro ao guardar os dados!", Notificacao.ICONE_ERRO);
             }                           
@@ -225,8 +249,21 @@ public class PainelRegistro extends javax.swing.JPanel implements KeyListener{
         System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
 
+    private void btnProsseguir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsseguir2ActionPerformed
+        if(dadosCadastroP1.isShowing())
+            Main.exibirPainel(new PainelEntrada());
+        else if(dadosCadastroP2.isShowing()) {
+            container.removeAll();
+            container.repaint();
+            container.revalidate();
+            container.add(dadosCadastroP1);                
+            btnProsseguir.setText("PROSSEGUIR");
+        }
+    }//GEN-LAST:event_btnProsseguir2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnProsseguir;
+    private com.k33ptoo.components.KButton btnProsseguir2;
     private view.geral.ColorPanel colorPanel1;
     private javax.swing.JPanel container;
     private view.registro.DadosCadastroP1 dadosCadastroP1;

@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import view.menu.MenuView;
 
 /**
- *
+ *Classe que define a tela de perfil do utilizador
  * @author Grácio Macuácua
  */
 public class PainelPerfil extends javax.swing.JPanel {
@@ -23,24 +23,8 @@ public class PainelPerfil extends javax.swing.JPanel {
      * Creates new form Perfil
      */
     public PainelPerfil() {
-        initComponents();
-        
-        File file = new File(MenuView.user.getFotoPerfil());
-        BufferedImage bffImage = null;
-        try {            
-            bffImage = new BufferedImage(100, 200, BufferedImage.TYPE_INT_ARGB);
-            bffImage = ImageIO.read(file);            
-            circulo1.setIcon(new ImageIcon(arredondar(bffImage).getScaledInstance(350, 325, 1)));
-        }catch(Exception ex) {
-            ex.printStackTrace();
-        }
-        lblNome.setText(MenuView.user.getNome().toUpperCase());
-        lblEmail.setText(MenuView.user.getEmail().toUpperCase());
-        lblGenero.setText(MenuView.user.getGenero().toUpperCase());
-        int data1 = Calendar.getInstance().getTime().getYear();
-        int data2 = MenuView.user.getDataNascimento().getYear();
-        lblIdade.setText(Integer.toString(data1 - data2) + " ANOS");
-        lblProfissao.setText(MenuView.user.getProfissao().toUpperCase());
+        initComponents();   
+        inicializarCampos();
     }
 
     /**
@@ -67,8 +51,6 @@ public class PainelPerfil extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         lblProfissao = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(957, 593));
         setMinimumSize(new java.awt.Dimension(957, 593));
@@ -159,46 +141,33 @@ public class PainelPerfil extends javax.swing.JPanel {
         lblProfissao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProfissao.setText("PROFISSÃO DO UTILIZADOR");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Actualização de Dados");
-
-        jLabel2.setText(MenuView.user.getDataNascimento().toString());
-
         javax.swing.GroupLayout colorPanel2Layout = new javax.swing.GroupLayout(colorPanel2);
         colorPanel2.setLayout(colorPanel2Layout);
         colorPanel2Layout.setHorizontalGroup(
             colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(colorPanel2Layout.createSequentialGroup()
+                .addGap(178, 178, 178)
                 .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colorPanel2Layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
+                        .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(colorPanel2Layout.createSequentialGroup()
-                                .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(colorPanel2Layout.createSequentialGroup()
-                                .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(lblProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(colorPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(colorPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(198, Short.MAX_VALUE))
         );
         colorPanel2Layout.setVerticalGroup(
@@ -226,11 +195,7 @@ public class PainelPerfil extends javax.swing.JPanel {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addContainerGap(499, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(colorPanel2);
@@ -255,7 +220,29 @@ public class PainelPerfil extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-        
+      
+    /**
+     * Realiza o preenchimento dos campos da tela com os dados do utilizador que estiver logado ao sistema
+     */
+    private void inicializarCampos() {
+        File file = new File(MenuView.user.getFotoPerfil());
+        BufferedImage bffImage = null;
+        try {            
+            bffImage = new BufferedImage(100, 200, BufferedImage.TYPE_INT_ARGB);
+            bffImage = ImageIO.read(file);            
+            circulo1.setIcon(new ImageIcon(arredondar(bffImage).getScaledInstance(350, 325, 1)));
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        lblNome.setText(MenuView.user.getNome().toUpperCase());
+        lblEmail.setText(MenuView.user.getEmail().toUpperCase());
+        lblGenero.setText(MenuView.user.getGenero().toUpperCase());
+        int data1 = Calendar.getInstance().getTime().getYear();
+        int data2 = MenuView.user.getDataNascimento().getYear();
+        lblIdade.setText(Integer.toString(data1 - data2) + " ANOS");
+        lblProfissao.setText(MenuView.user.getProfissao().toUpperCase());
+    }
+    
     /**
      * Faz o arredondamento de uma imagem qualquer
      * @param imagemInicial a imagem que deve ser arredondada
@@ -289,9 +276,7 @@ public class PainelPerfil extends javax.swing.JPanel {
     private view.geral.Circulo circulo1;
     private view.geral.ColorPanel colorPanel1;
     private view.geral.ColorPanel colorPanel2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

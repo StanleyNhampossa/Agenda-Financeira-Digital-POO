@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JLabel;
 
 /**
- *
+ *Classe que define um círculo para a classe {@code PainelEntrada}
  * @author Grácio Macuácua
  */
 public class Circulo extends JLabel {
@@ -17,6 +17,10 @@ public class Circulo extends JLabel {
         super();
     }
 
+    /**
+     * Ajusta a cor de fundo para o círculo
+     * @param corDoCirculo ou a opção {@code NADA} se a janela
+     */
     public void setCorDoCirculo(Color corDoCirculo) {
         this.corDoCirculo = corDoCirculo;
     }

@@ -211,6 +211,11 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
         }
     }
     
+    /**
+     * Efectua a validação dos dados introduzidos
+     * @return {@code true} se os dados cumprirem com as exigências do sistema,
+     * {@code false} caso contrário
+     */
     public boolean efectuarValidacao() {
         if(!txtProfissao.getText().isEmpty())
             if(!txtEmail.getText().isEmpty())
