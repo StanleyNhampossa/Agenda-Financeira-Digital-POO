@@ -100,7 +100,7 @@ public class RendimentoDao {
      * Faz a listagem com filtro por utilizador e por designação(opcional) 
      * dos rendimentos que estão na base de dados
      * @param id o id do utilizador associado
-     * @param chave a designação da despesa
+     * @param chave a designação do rendimento
      * @return a lista de rendimentos já cadastrados para o utilizador com id igual a {@code id} e chave igual ou similar a {@code chave}
      */
     public static List<Rendimento> listar(int id, String chave){        
