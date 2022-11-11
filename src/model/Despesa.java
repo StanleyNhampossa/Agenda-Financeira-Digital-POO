@@ -14,6 +14,7 @@ public class Despesa {
     private String tipoDespesa;
     private double custo;
     private String categoria;
+    private int utilizador_id;
 
     public int getId() {
         return id;
@@ -54,6 +55,13 @@ public class Despesa {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
-    
+
+    public int getUtilizador_id() {
+        return utilizador_id;
+    }
+
+    public void setUtilizador_id(int utilizador_id) {
+        this.utilizador_id = utilizador_id;
+    }
+        
 }

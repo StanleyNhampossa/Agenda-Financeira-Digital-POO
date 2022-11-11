@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe responsável por estabelecer a comunicação entre o programa
+ * com a tabela de utilizadores na base de dados
  * @author Grácio Macuácua
  */
 public class UtilizadorDAO {

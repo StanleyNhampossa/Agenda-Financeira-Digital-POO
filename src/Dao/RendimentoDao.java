@@ -9,7 +9,8 @@ import java.util.List;
 import model.Rendimento;
 
 /**
- *
+ * Classe responsável por estabelecer a comunicação entre a tela de rendimentos
+ * com a tabela de rendimentos na base de dados
  * @author Massingue
  */
 public class RendimentoDao {

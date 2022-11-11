@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Despesa;
-import model.Rendimento;
+import view.menu.MenuView;
 
 
 /**
- *
+ *Classe responsável por estabelecer a comunicação entre a tela de despesas
+ * com a tabela de despesas na base de dados
  * @author Massingue
  */
 public class DespesaDao {
@@ -26,87 +27,101 @@ public class DespesaDao {
      * Realiza o cadastro de despesas na base de dados
      * @param p a despesa a ser cadastrada
      */
-    public void cadastrar(Despesa p){
-        Connection con=Conectar.getConection();
-        String sql="INSERT INTO despesa (tipoDespesa,custo,categoria) VALUES(?,?,?)";
-        try(PreparedStatement smt= con.prepareStatement(sql)){
+    public static boolean cadastrar(Despesa p){        
+        String sql = "INSERT INTO despesas (tipoDespesa, custo, categoria, utilizador_id) VALUES(?, ?, ?, ?)";
+        
+        try{
+            Connection con=Conectar.getConection();
+            PreparedStatement smt = con.prepareStatement(sql);
             smt.setString(1, p.getTipoDespesa());
             smt.setDouble(2, p.getCusto());
-            smt.setString(3, p.getCategoria());      
+            smt.setString(3, p.getCategoria());   
+            smt.setInt(4, p.getUtilizador_id());
             smt.executeUpdate();
-            smt.close();
-            con.close();
+            Conectar.closeConnection(con, smt);
+            
+            return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao cadastrar"+ex.getMessage());            
         }
+        
+        return false;
     }
     
     /**
      * Faz a actualização de despesas na base de dados
      * @param p a despesa a ser actualizada
      */
-    public void actualizar(Despesa p){
-        Connection con=Conectar.getConection();
-        String sql="UPDATE  despesa SET tipoDespesa=?,custo=?,categoria=? WHERE id=?";
-        try(PreparedStatement smt= con.prepareStatement(sql)){
+    public static boolean actualizar(Despesa p){        
+        String sql="UPDATE  despesas SET tipoDespesa = ?, custo = ?, categoria = ? WHERE id = ? AND utilizador_id = ?";
+        
+        try{
+           Connection con=Conectar.getConection();
+           PreparedStatement smt= con.prepareStatement(sql);
            smt.setString(1, p.getTipoDespesa());
            smt.setDouble(2, p.getCusto());
            smt.setString(3, p.getCategoria());
-           smt.setInt(4,p.getId());
+           smt.setInt(4, p.getId());
+           smt.setInt(5, p.getUtilizador_id());
            smt.executeUpdate();
-           smt.close();
-           con.close();// para nao sobrecarregar o sistema
-           JOptionPane.showMessageDialog(null,"Actualizado com sucesso!");
+           Conectar.closeConnection(con, smt);
+           
+           return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"erro ao actualiar o registro"+ex.getMessage());
         }   
         
+        return false;
     }
     
     /**
      * Realiza a exclusão de despesas na base de dados
      * @param p a despesa a ser excluída
      */
-    public void excluir(Despesa p){     
-        Connection con =Conectar.getConection();
-        String sql="DELETE FROM despesa WHERE id=?";
-        int opcao=JOptionPane.showConfirmDialog(null,"Deseja exluir o rendimento "+p.getCategoria()+" ?","Exluir",JOptionPane.YES_NO_OPTION);
-        if(opcao==JOptionPane.YES_NO_OPTION){
-            try(PreparedStatement smt= con.prepareStatement(sql)){
-                smt.setInt(1,p.getId());
-                smt.executeUpdate();
-                smt.close();
-                con.close();
-                JOptionPane.showMessageDialog(null,"Excluido com sucesso");
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"Erro ao excluir o registro");
-            }
+    public static boolean excluir(Despesa p){             
+        String sql = "DELETE FROM despesas WHERE id = ?";     
+        
+        try{
+            Connection con = Conectar.getConection();
+            PreparedStatement smt = con.prepareStatement(sql);
+            smt.setInt(1,p.getId());
+            smt.executeUpdate();
+            Conectar.closeConnection(con, smt);
+            
+            return true;
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao excluir o registro");
         }
-     }
+        
+        return false;
+    }
     
     /**
      * Faz a listagem de todas as despesas que estão na base de dados
      * @return a lista de despesas cadastradas
      */
-    public List<Despesa> listar(){
-        Connection con =Conectar.getConection();
-        List<Despesa> lista=new ArrayList<>();
-
-        String sql="SELECT * FROM despesa ORDER BY categoria";// para ordenar atraves da CATEGORIA de DESPESA
-        try(PreparedStatement smt =con.prepareStatement(sql)){
-          ResultSet resulto=smt.executeQuery();
-          while (resulto.next()){
-            Despesa p =new Despesa();
-              p.setId(resulto.getInt("id"));
-              p.setTipoDespesa(resulto.getString("tipoDespesa"));
-              p.setCusto(resulto.getDouble("custo"));
-              p.setCategoria(resulto.getString("Categoria"));
-              lista.add(p);
-          }
+    public static List<Despesa> listar(){        
+        List<Despesa> lista = new ArrayList<>();
+        String sql = "SELECT * FROM despesas WHERE utilizador_id = ? ORDER BY categoria";// para ordenar atraves da CATEGORIA de DESPESA
+        
+        try{
+            Connection con = Conectar.getConection();
+            PreparedStatement smt = con.prepareStatement(sql);
+            smt.setInt(1, MenuView.user.getId());
+            ResultSet resulto = smt.executeQuery();
+            while(resulto.next()){
+                Despesa p = new Despesa();
+                p.setId(resulto.getInt("id"));
+                p.setTipoDespesa(resulto.getString("tipoDespesa"));
+                p.setCusto(resulto.getDouble("custo"));
+                p.setCategoria(resulto.getString("categoria"));
+                p.setUtilizador_id(resulto.getInt("utilizador_id"));
+                lista.add(p);
+            }
        }catch(Exception ex){
           JOptionPane.showMessageDialog(null,"Erro ao buscar o registro");  
        }
      
        return lista;//vai nos retornar a lista
-  }
+    }
 }
