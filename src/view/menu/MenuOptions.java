@@ -11,7 +11,7 @@ import view.Main;
 import view.ajuda.PainelAjuda;
 import view.declaracaoderendimentos.PainelDeclaracaoRendimentos;
 import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
-import view.objectivosfinanceiros.SimuladorDeGastos;
+import view.objectivosfinanceiros.PainelObjectivosFinanceiros;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
 import view.estatisticas.PainelEstatisticas;
@@ -44,11 +44,7 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelDespesas());
                         break;
                     case 3:
-<<<<<<< Updated upstream
                         MenuView.exibirPainel(new PainelEstatisticas());
-=======
-                        MenuView.exibirPainel(new SimuladorDeGastos());
->>>>>>> Stashed changes
                         break;
                     case 6:
                         MenuView.exibirPainel(new PainelEmuladorDeEmprestimos());

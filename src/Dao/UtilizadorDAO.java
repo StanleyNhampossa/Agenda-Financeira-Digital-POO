@@ -27,7 +27,7 @@ public class UtilizadorDAO {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "INSERT INTO `sgfdb`.`utilizadores`(`nome`, `dataNascimento`, `genero`, `profissao`, `email`, `senha`, `fotoPerfil`)"
+        String cmd = "INSERT INTO `gestaofinanceira`.`utilizadores`(`nome`, `dataNascimento`, `genero`, `profissao`, `email`, `senha`, `fotoPerfil`)"
                    + " VALUES(?, ?, ?, ?, ?, ?, ?)";        
                 
         try {
@@ -63,7 +63,7 @@ public class UtilizadorDAO {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "UPDATE `sgfdb`.`utilizadores` SET `nome` = ?, `dataNascimento` = ?, `genero` = ?, `profissao` = ?, `email` = ?,"
+        String cmd = "UPDATE `gestaofinanceira`.`utilizadores` SET `nome` = ?, `dataNascimento` = ?, `genero` = ?, `profissao` = ?, `email` = ?,"
                    + " `senha` = ?, `fotoPerfil` = ? WHERE `id` = ?";
         
         try {
@@ -100,7 +100,7 @@ public class UtilizadorDAO {
         
         Connection connection = null;
         PreparedStatement statement = null;
-        String cmd = "DELETE FROM `sgfdb`.`utilizadores` WHERE `id` = '" + id + "'";
+        String cmd = "DELETE FROM `gestaofinanceira`.`utilizadores` WHERE `id` = '" + id + "'";
                 
         try {
             connection = Conectar.getConection();
@@ -129,7 +129,7 @@ public class UtilizadorDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Utilizador user = null;
-        String cmd = "SELECT * FROM `sgfdb`.`utilizadores` WHERE `email` = '" + userEmail + "' AND `senha` = '" + senha + "'";
+        String cmd = "SELECT * FROM `gestaofinanceira`.`utilizadores` WHERE `email` = '" + userEmail + "' AND `senha` = '" + senha + "'";
                 
         try {
             connection = Conectar.getConection();

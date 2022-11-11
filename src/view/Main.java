@@ -29,10 +29,6 @@ public class Main extends javax.swing.JFrame {
         //redimensionarFrame(this);
         ComponentMoverUtil.moveFrame(this, false, this.getComponents());
         MenuView.user = new Utilizador();
-<<<<<<< Updated upstream
-=======
-       TabelasSQL.criarTabelas();
->>>>>>> Stashed changes
     }
    
     /***
