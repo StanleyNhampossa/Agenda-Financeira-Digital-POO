@@ -6,6 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
 
+/**
+ * Classe que define uma núvem sob o diálogo iniciado pela classe {@code NOTIFICACAO}
+ * @author Grácio Macuácua
+ */
 public class Glass extends JComponent {
 
     public float getAlpha() {

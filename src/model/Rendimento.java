@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ *Classe modelo para definir um rendimento
  * @author Massingue
  */
 public class Rendimento {

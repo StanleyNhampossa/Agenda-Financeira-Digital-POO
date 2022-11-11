@@ -126,6 +126,10 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permite que o utilizador escolha uma fotografia
+     * de sua preferência como fotografia de perfil
+     */
     public boolean efectuarValidacao() {
         if(!txtOutrosNomes.getText().isBlank())
             if(!txtApelido.getText().isBlank())

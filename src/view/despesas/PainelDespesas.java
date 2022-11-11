@@ -7,8 +7,6 @@ package view.despesas;
 
 import Banco.Conectar;
 import Dao.DespesaDao;
-import Dao.RendimentoDao;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -18,13 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Despesa;
-import model.Rendimento;
 import net.proteanit.sql.DbUtils;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -36,43 +28,9 @@ public class PainelDespesas extends javax.swing.JPanel {
      * Creates new form Despeza
      */
     public PainelDespesas() {
-        initComponents();
-       
+        initComponents();   
     }
-
-    
-     // grafic circular
-    public void showPieChart(){
-        
-        //create dataset
-      DefaultPieDataset barDataset = new DefaultPieDataset( );
-      barDataset.setValue( "Rendimento Fixo" , new Double( 20 ) );  
-      barDataset.setValue( "Rendimento Variavel" , new Double( 20 ) );   
-      /* barDataset.setValue( "MotoG" , new Double( 40 ) );
-      barDataset.setValue( "Nokia Lumia" , new Double( 10 ) ); */ 
-      
-      //create chart
-       JFreeChart piechart = ChartFactory.createPieChart("Rendimentos",barDataset, false,true,false);//explain
-      
-      PiePlot piePlot =(PiePlot) piechart.getPlot();
-      
-       //changing pie chart blocks colors
-       piePlot.setSectionPaint("Rendimento Fixo", new Color(255,255,102));
-        piePlot.setSectionPaint("Rendimento Variavel", new Color(102,255,102));
-        /* piePlot.setSectionPaint("MotoG", new Color(255,102,153));
-        piePlot.setSectionPaint("Nokia Lumia", new Color(0,204,204));*/
-      
-       
-        piePlot.setBackgroundPaint(Color.white);
-        
-        //create chartPanel to display chart(graph)
-        ChartPanel barChartPanel = new ChartPanel(piechart);
-        barChartPanel.setBounds(100,200,300,200);
-        graficoCircularDespesa.removeAll();
-        graficoCircularDespesa.add(barChartPanel, BorderLayout.CENTER);
-        graficoCircularDespesa.validate();
-    }
-    
+   
     // metodos 
      //metodo para preencher a tabela
     public void preencherTabela() {
@@ -98,18 +56,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         }   
     }  
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +77,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         graficoCircularDespesa = new javax.swing.JPanel();
+        grafico1 = new view.despesas.Grafico();
         lblDespesaTotal = new javax.swing.JLabel();
         lblDespesaFixa = new javax.swing.JLabel();
         lblDespesaVariavel = new javax.swing.JLabel();
@@ -185,6 +132,8 @@ public class PainelDespesas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbDespesa.setOpaque(false);
+        tbDespesa.setRowHeight(30);
         jScrollPane1.setViewportView(tbDespesa);
         tbDespesa.setRowHeight(30);
         if (tbDespesa.getColumnModel().getColumnCount() > 0) {
@@ -229,33 +178,50 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel6.setText("Despesa Fixa");
 
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Despesa Variavel");
+        jLabel7.setText("Despesa Variável");
 
         graficoCircularDespesa.setOpaque(false);
+
+        javax.swing.GroupLayout grafico1Layout = new javax.swing.GroupLayout(grafico1);
+        grafico1.setLayout(grafico1Layout);
+        grafico1Layout.setHorizontalGroup(
+            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        grafico1Layout.setVerticalGroup(
+            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout graficoCircularDespesaLayout = new javax.swing.GroupLayout(graficoCircularDespesa);
         graficoCircularDespesa.setLayout(graficoCircularDespesaLayout);
         graficoCircularDespesaLayout.setHorizontalGroup(
             graficoCircularDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(grafico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         graficoCircularDespesaLayout.setVerticalGroup(
             graficoCircularDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addComponent(grafico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lblDespesaTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDespesaTotal.setForeground(new java.awt.Color(102, 102, 102));
-        lblDespesaTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDespesaTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDespesaTotal.setText("0.0");
 
         lblDespesaFixa.setForeground(new java.awt.Color(102, 102, 102));
+        lblDespesaFixa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDespesaFixa.setText("0.0");
 
         lblDespesaVariavel.setForeground(new java.awt.Color(102, 102, 102));
+        lblDespesaVariavel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDespesaVariavel.setText("0.0");
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridLayout(1, 3, 100, 0));
 
         btnSalvarDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-botao.png"))); // NOI18N
+        btnSalvarDespesa.setContentAreaFilled(false);
         btnSalvarDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
         btnSalvarDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
         btnSalvarDespesa.addActionListener(new java.awt.event.ActionListener() {
@@ -266,6 +232,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         jPanel3.add(btnSalvarDespesa);
 
         btnActualizarDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
+        btnActualizarDespesa.setContentAreaFilled(false);
         btnActualizarDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
         btnActualizarDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
         btnActualizarDespesa.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +243,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         jPanel3.add(btnActualizarDespesa);
 
         btnExcluirDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
+        btnExcluirDespesa.setContentAreaFilled(false);
         btnExcluirDespesa.setMaximumSize(new java.awt.Dimension(30, 40));
         btnExcluirDespesa.setPreferredSize(new java.awt.Dimension(30, 40));
         btnExcluirDespesa.addActionListener(new java.awt.event.ActionListener() {
@@ -290,7 +258,6 @@ public class PainelDespesas extends javax.swing.JPanel {
 
         txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
         txtCategoria.setForeground(new java.awt.Color(51, 51, 51));
-        txtCategoria.setOpaque(false);
         txtCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCategoriaKeyPressed(evt);
@@ -328,19 +295,19 @@ public class PainelDespesas extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,11 +345,11 @@ public class PainelDespesas extends javax.swing.JPanel {
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -498,6 +465,7 @@ public class PainelDespesas extends javax.swing.JPanel {
     private javax.swing.JButton btnExcluirDespesa;
     private javax.swing.JButton btnSalvarDespesa;
     private javax.swing.JComboBox<String> cbTipoDespesa;
+    private view.despesas.Grafico grafico1;
     private javax.swing.JPanel graficoCircularDespesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

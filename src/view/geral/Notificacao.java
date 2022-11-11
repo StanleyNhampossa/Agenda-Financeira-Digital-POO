@@ -11,10 +11,9 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
-import view.geral.Glass;
 
 /**
- *
+ *Classe que define um JDialog para exibição de mensagens e alertas no sistema
  * @author Grácio Macuácua
  */
 public final class Notificacao extends javax.swing.JDialog {
@@ -56,6 +55,11 @@ public final class Notificacao extends javax.swing.JDialog {
         showMessage(mensagem);
     }
     
+    /**
+     * Faz as modificações necessárias para adequação da janela às condições fornecidas quando instanciada a classe
+     * @param icone
+     * @param tipoOpcao 
+     */
     private void init(Icone icone, TipoOpcao tipoOpcao) {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -110,18 +114,36 @@ public final class Notificacao extends javax.swing.JDialog {
         glass = new Glass();
     }
     
+    /**
+     * Inicia um diálogo associado a um frame, mostrando uma mensagem e dois botões
+     * @param frame o Frame ao qual o diálogo estará sobre
+     * @param mensagem a mensagem a ser exibida
+     * @param icone o tipo de ícone para a mensagem
+     * @return o clique sobre o botão selecionado pelo utilizador, ou a opção {@code NADA} se a janela for fechada
+     */
     public static int mostrarDialogoDeOpcaoDupla(JFrame frame, String mensagem, Icone icone) {
         notificacao = new Notificacao(frame, icone, OPCAO_DUPLA, mensagem);
         
         return getOption();
     }
     
+    /**
+     * Inicia um diálogo associado a um frame, mostrando uma mensagem e apenas um botão
+     * @param frame o Frame ao qual o diálogo estará sobre
+     * @param mensagem a mensagem a ser exibida
+     * @param icone o tipo de ícone para a mensagem
+     * @return o clique sobre o botão {@code BOTAO_OK}, ou a opção {@code NADA} se a janela for fechada
+     */
     public static int mostrarDialogoDeOpcaoSingular(JFrame frame, String mensagem, Icone icone) {
         notificacao = new Notificacao(frame, icone, OPCAO_UNICA, mensagem);
         
         return getOption();
     }
     
+    /**
+     * Exibe o diálogo com a mensagem especificada
+     * @param message a mensagem especificada
+     */
     private void showMessage(String message) {
         fram.setGlassPane(glass);
         glass.setVisible(true);
@@ -131,14 +153,25 @@ public final class Notificacao extends javax.swing.JDialog {
         setVisible(true);
     }
     
+    /**
+     * inicia o processo para finalização da exibição do diálogo
+     */
     private void closeMessage() {
         startAnimator(false);
     }
     
+    /**
+     * Recupera a opção selecionada pelo usuário
+     * @return o botão selecionado
+     */
     private static int getOption() {
         return opcaoSelecionada;
     }
     
+    /**
+     * Inicia a animação do diálogo
+     * @param show 
+     */
     private void startAnimator(boolean show) {
         if (animator.isRunning()) {
             float f = animator.getTimingFraction();
@@ -164,7 +197,7 @@ public final class Notificacao extends javax.swing.JDialog {
         lblIcone = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
         botoes1 = new javax.swing.JPanel();
-        buttonCustom1 = new view.geral.ButtonCustom();
+        btnOk = new view.geral.ButtonCustom();
         botoes2 = new javax.swing.JPanel();
         btnNao = new view.geral.ButtonCustom();
         btnSim = new view.geral.ButtonCustom();
@@ -178,27 +211,29 @@ public final class Notificacao extends javax.swing.JDialog {
         lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/info.png"))); // NOI18N
 
         painelBotoes.setBackground(new java.awt.Color(51, 51, 255));
+        painelBotoes.setMaximumSize(new java.awt.Dimension(330, 35));
         painelBotoes.setMinimumSize(new java.awt.Dimension(330, 35));
         painelBotoes.setOpaque(false);
         painelBotoes.setPreferredSize(new java.awt.Dimension(330, 35));
         painelBotoes.setLayout(new java.awt.CardLayout());
 
         botoes1.setBackground(new java.awt.Color(51, 51, 255));
+        botoes1.setMaximumSize(new java.awt.Dimension(330, 35));
         botoes1.setMinimumSize(new java.awt.Dimension(330, 35));
         botoes1.setOpaque(false);
-        botoes1.setPreferredSize(new java.awt.Dimension(330, 35));
 
-        buttonCustom1.setBackground(new java.awt.Color(153, 153, 153));
-        buttonCustom1.setText("Ok");
-        buttonCustom1.setColorHover(new java.awt.Color(204, 204, 255));
-        buttonCustom1.setColorPressed(new java.awt.Color(153, 153, 255));
-        buttonCustom1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonCustom1.setMaximumSize(new java.awt.Dimension(134, 35));
-        buttonCustom1.setMinimumSize(new java.awt.Dimension(134, 35));
-        buttonCustom1.setPreferredSize(new java.awt.Dimension(134, 35));
-        buttonCustom1.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setBackground(new java.awt.Color(153, 153, 153));
+        btnOk.setText("Ok");
+        btnOk.setColorHover(new java.awt.Color(204, 204, 255));
+        btnOk.setColorPressed(new java.awt.Color(153, 153, 255));
+        btnOk.setFocusable(false);
+        btnOk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnOk.setMaximumSize(new java.awt.Dimension(134, 35));
+        btnOk.setMinimumSize(new java.awt.Dimension(134, 35));
+        btnOk.setPreferredSize(new java.awt.Dimension(134, 35));
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCustom1ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
@@ -206,29 +241,28 @@ public final class Notificacao extends javax.swing.JDialog {
         botoes1.setLayout(botoes1Layout);
         botoes1Layout.setHorizontalGroup(
             botoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botoes1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(buttonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botoes1Layout.createSequentialGroup()
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
         );
         botoes1Layout.setVerticalGroup(
             botoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botoes1Layout.createSequentialGroup()
-                .addComponent(buttonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(btnOk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         painelBotoes.add(botoes1, "card2");
 
         botoes2.setBackground(new java.awt.Color(51, 51, 255));
+        botoes2.setMaximumSize(new java.awt.Dimension(330, 35));
         botoes2.setMinimumSize(new java.awt.Dimension(330, 35));
         botoes2.setOpaque(false);
-        botoes2.setPreferredSize(new java.awt.Dimension(330, 35));
 
         btnNao.setBackground(new java.awt.Color(245, 71, 71));
         btnNao.setText("Não");
         btnNao.setColorHover(new java.awt.Color(255, 74, 74));
         btnNao.setColorPressed(new java.awt.Color(235, 61, 61));
+        btnNao.setFocusable(false);
         btnNao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNao.setMaximumSize(new java.awt.Dimension(163, 35));
         btnNao.setMinimumSize(new java.awt.Dimension(163, 35));
@@ -240,6 +274,7 @@ public final class Notificacao extends javax.swing.JDialog {
         });
 
         btnSim.setText("Sim");
+        btnSim.setFocusable(false);
         btnSim.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSim.setMaximumSize(new java.awt.Dimension(163, 35));
         btnSim.setMinimumSize(new java.awt.Dimension(163, 35));
@@ -255,17 +290,17 @@ public final class Notificacao extends javax.swing.JDialog {
         botoes2Layout.setHorizontalGroup(
             botoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botoes2Layout.createSequentialGroup()
-                .addComponent(btnNao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSim, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         botoes2Layout.setVerticalGroup(
             botoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botoes2Layout.createSequentialGroup()
                 .addGroup(botoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSim, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -285,7 +320,7 @@ public final class Notificacao extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt))
                 .addContainerGap())
         );
@@ -330,12 +365,17 @@ public final class Notificacao extends javax.swing.JDialog {
         closeMessage();
     }//GEN-LAST:event_buttonCustom1ActionPerformed
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        opcaoSelecionada = 2;
+        closeMessage();
+    }//GEN-LAST:event_btnOkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes1;
     private javax.swing.JPanel botoes2;
     private view.geral.ButtonCustom btnNao;
+    private view.geral.ButtonCustom btnOk;
     private view.geral.ButtonCustom btnSim;
-    private view.geral.ButtonCustom buttonCustom1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblIcone;
     private javax.swing.JPanel painelBotoes;

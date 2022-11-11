@@ -21,7 +21,11 @@ import model.Rendimento;
  * @author Massingue
  */
 public class DespesaDao {
-     //metodo  que adiciona rendimento ao banco de dados
+     
+    /**
+     * Realiza o cadastro de despesas na base de dados
+     * @param p a despesa a ser cadastrada
+     */
     public void cadastrar(Despesa p){
         Connection con=Conectar.getConection();
         String sql="INSERT INTO despesa (tipoDespesa,custo,categoria) VALUES(?,?,?)";
@@ -31,14 +35,17 @@ public class DespesaDao {
             smt.setString(3, p.getCategoria());      
             smt.executeUpdate();
             smt.close();
-            con.close();// para nao sobrecarregar o sistema
+            con.close();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao cadastrar"+ex.getMessage());            
         }
     }
     
-     public void actualizar(Despesa p){
-         // metodo para actualizar 
+    /**
+     * Faz a actualização de despesas na base de dados
+     * @param p a despesa a ser actualizada
+     */
+    public void actualizar(Despesa p){
         Connection con=Conectar.getConection();
         String sql="UPDATE  despesa SET tipoDespesa=?,custo=?,categoria=? WHERE id=?";
         try(PreparedStatement smt= con.prepareStatement(sql)){
@@ -52,12 +59,15 @@ public class DespesaDao {
            JOptionPane.showMessageDialog(null,"Actualizado com sucesso!");
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"erro ao actualiar o registro"+ex.getMessage());
-    }   
+        }   
         
     }
-      public void excluir(Despesa p){
-         // metodo para excluir dados no banco de dados
-     
+    
+    /**
+     * Realiza a exclusão de despesas na base de dados
+     * @param p a despesa a ser excluída
+     */
+    public void excluir(Despesa p){     
         Connection con =Conectar.getConection();
         String sql="DELETE FROM despesa WHERE id=?";
         int opcao=JOptionPane.showConfirmDialog(null,"Deseja exluir o rendimento "+p.getCategoria()+" ?","Exluir",JOptionPane.YES_NO_OPTION);
@@ -73,7 +83,12 @@ public class DespesaDao {
             }
         }
      }
-     public List<Despesa> listar(){
+    
+    /**
+     * Faz a listagem de todas as despesas que estão na base de dados
+     * @return a lista de despesas cadastradas
+     */
+    public List<Despesa> listar(){
         Connection con =Conectar.getConection();
         List<Despesa> lista=new ArrayList<>();
 

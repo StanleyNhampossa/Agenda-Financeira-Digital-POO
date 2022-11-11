@@ -54,6 +54,10 @@ public class PainelAjuda extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
+        setOpaque(false);
+
+        jPanel4.setOpaque(false);
+
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -98,6 +102,8 @@ public class PainelAjuda extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Rendimento", jPanel4);
 
+        jPanel5.setOpaque(false);
+
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("                               Guia de Rendimento");
 
@@ -141,6 +147,8 @@ public class PainelAjuda extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Despesa", jPanel5);
+
+        jPanel6.setOpaque(false);
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -190,6 +198,8 @@ public class PainelAjuda extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Objectivo financeiro", jPanel6);
+
+        jPanel7.setOpaque(false);
 
         jTextArea4.setEditable(false);
         jTextArea4.setColumns(20);

@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ *Classe modelo para definir uma despesa
  * @author Massingue
  */
 public class Despesa {

@@ -14,6 +14,7 @@ import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
 import view.objectivosfinanceiros.PainelObjectivosFinanceiros;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
+import view.estatisticas.PainelEstatisticas;
 import view.geral.Notificacao;
 import view.perfil.PainelPerfil;
 
@@ -43,18 +44,21 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelDespesas());
                         break;
                     case 3:
-                        MenuView.exibirPainel(new PainelObjectivosFinanceiros());
+                        MenuView.exibirPainel(new PainelEstatisticas());
                         break;
-                    case 7:
+                    case 6:
                         MenuView.exibirPainel(new PainelEmuladorDeEmprestimos());
                         break;
-                    case 11: 
+                    case 7:
+                        MenuView.exibirPainel(new PainelObjectivosFinanceiros());
+                        break;
+                    case 10: 
                         MenuView.exibirPainel(new PainelPerfil());
                         break;
-                    case 12:
+                    case 11:
                         MenuView.exibirPainel(new PainelAjuda());
                         break;
-                    case 13:
+                    case 12:
                         if(Notificacao.BOTAO_SIM == Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Pretende terminar a sessão actual?", Notificacao.ICONE_QUESTAO))
                             Main.exibirPainel(new PainelEntrada());
                         break;
@@ -72,14 +76,13 @@ public class MenuOptions extends javax.swing.JPanel {
     private void init(){
         listMenu1.addItem(new Model_Menu("", "Utilitários", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("rendimentos", "Rendimentos", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("despesas", "Despesas", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("informacoes", "Objectivos Financeiros", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("despesas", "Despesas", Model_Menu.MenuType.MENU));        
         listMenu1.addItem(new Model_Menu("estatisticas", "Estatísticas", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         
         listMenu1.addItem(new Model_Menu("", "Ferramentas Financeiras", Model_Menu.MenuType.TITLE));
-        listMenu1.addItem(new Model_Menu("informacoes", "Emulador de Empréstimos", Model_Menu.MenuType.MENU));               
-        listMenu1.addItem(new Model_Menu("informacoes", "Calculadora de Juros", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("informacoes", "Emulador de Empréstimos", Model_Menu.MenuType.MENU)); 
+        listMenu1.addItem(new Model_Menu("informacoes", "Objectivos Financeiros", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         
         listMenu1.addItem(new Model_Menu("", "Outros", Model_Menu.MenuType.TITLE));
@@ -106,7 +109,7 @@ public class MenuOptions extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Aplicação");
+        jLabel1.setText("SGF");
         jLabel1.setToolTipText("");
         painelLateral.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 9, 198, 64));
 

@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 /**
- *
+ *Classe modelo para definir um utilizador do sistema
  * @author Grácio Macuácua
  */
 public class Utilizador {

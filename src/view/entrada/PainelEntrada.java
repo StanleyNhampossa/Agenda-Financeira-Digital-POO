@@ -11,7 +11,7 @@ import view.geral.Notificacao;
 import view.menu.MenuView;
 
 /**
- *
+ *Classe que define a tela de entrada ou autenticação de utilizadores do sistema
  * @author Grácio Macuácua
  */
 public class PainelEntrada extends javax.swing.JPanel implements KeyListener {

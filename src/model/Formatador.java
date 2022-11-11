@@ -9,6 +9,9 @@ import javax.swing.text.PlainDocument;
  * @author Grácio Macuácua
  */
 
+/**
+ * Esta classe contém regras de formatação para campos de entrada de texto
+ */
 public class Formatador extends PlainDocument{
     public enum TipoEntrada{
         NUMERO_INTEIRO, NUMERO_DECIMAL, TEXTO, TITULO, EMAIL, ID, ENDERECO;

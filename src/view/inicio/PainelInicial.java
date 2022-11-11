@@ -1,11 +1,12 @@
 package view.inicio;
 
+import Dao.TabelasSQL;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.Main;
 
 /**
- *
+ *Classe que define a tela inicial do sistema
  * @author Grácio Macuácua
  */
 public class PainelInicial extends javax.swing.JPanel {
@@ -32,8 +33,8 @@ public class PainelInicial extends javax.swing.JPanel {
         lblIcone = new javax.swing.JLabel();
         loadingLabel = new javax.swing.JLabel();
 
-        colorPanel1.setkEndColor(new java.awt.Color(255, 255, 255));
-        colorPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
+        colorPanel1.setkEndColor(new java.awt.Color(0, 102, 255));
+        colorPanel1.setkStartColor(new java.awt.Color(0, 102, 255));
 
         lblExit.setBackground(new java.awt.Color(153, 153, 153));
         lblExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -60,12 +61,13 @@ public class PainelInicial extends javax.swing.JPanel {
             }
         });
 
-        lblIcone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblIcone.setForeground(new java.awt.Color(153, 153, 153));
+        lblIcone.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        lblIcone.setForeground(new java.awt.Color(255, 255, 255));
         lblIcone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcone.setText("NOME DO PROGRAMA E/OU OUTROS ITENS PODERÃO FICAR AQUI");
+        lblIcone.setText("<html>SISTEMA<br>DE GESTÃO FINANCEIRA");
 
         loadingLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        loadingLabel.setForeground(new java.awt.Color(255, 255, 255));
         loadingLabel.setText("A carregar...");
 
         javax.swing.GroupLayout colorPanel1Layout = new javax.swing.GroupLayout(colorPanel1);
@@ -120,6 +122,10 @@ public class PainelInicial extends javax.swing.JPanel {
         Main.main.setState(Main.ICONIFIED);
     }//GEN-LAST:event_lblMinimizarMouseClicked
     
+    /**
+     *Inicia algumas ações necessárias para a inicialização do sistema,
+     * mas gera também um efeito de espera antes da entrada
+     */
     public void iniciarContagem() {
         try{
             
@@ -139,6 +145,7 @@ public class PainelInicial extends javax.swing.JPanel {
                   loadingLabel.setText("Verificando serviços...");
                 }else if(i==50){
                   loadingLabel.setText("Conectando ao servidor...");
+                  TabelasSQL.criarBaseDeDados();
                 }else if(i==70){
                   loadingLabel.setText("Conexão estabelecida...");
                 }else if(i==80){

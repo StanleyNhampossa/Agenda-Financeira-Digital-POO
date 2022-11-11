@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view.emuladordeemprestimos;
 
 //import Backup.*;
+
+import java.awt.Color;
+
 
 
 
@@ -47,7 +46,10 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
         setName(""); // NOI18N
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(950, 594));
+
+        jPanel1.setOpaque(false);
 
         jLabel1.setText("Valor de Empréstimo");
 
@@ -57,6 +59,15 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
 
         jButton1.setText("Prever");
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setOpaque(false);
+
+        jTable1.getTableHeader().setBackground(Color.WHITE);
+        jTable1.getTableHeader().setForeground(new Color(104,104,104));
+        jTable1.setRowHeight(30);
+        jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -68,6 +79,8 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
                 "Nr Parcela", "Valor "
             }
         ));
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(false);
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Aderir");
