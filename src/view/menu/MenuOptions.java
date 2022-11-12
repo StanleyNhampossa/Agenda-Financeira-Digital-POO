@@ -11,7 +11,7 @@ import view.Main;
 import view.ajuda.PainelAjuda;
 import view.declaracaoderendimentos.PainelDeclaracaoRendimentos;
 import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
-import view.simuladorDeGastos.SimuladorDeGastos;
+import view.EmuladorDeGastos.SimuladorDeGastos;
 import view.despesas.PainelDespesas;
 import view.entrada.PainelEntrada;
 import view.estatisticas.PainelEstatisticas;

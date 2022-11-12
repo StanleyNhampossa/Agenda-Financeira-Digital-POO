@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view.simuladorDeGastos;
+package view.EmuladorDeGastos;
 
-//import Backup.*;
-import Backup.*;
 import Dao.GastosDAO;
 import com.sun.source.tree.BreakTree;
 import java.awt.Color;
