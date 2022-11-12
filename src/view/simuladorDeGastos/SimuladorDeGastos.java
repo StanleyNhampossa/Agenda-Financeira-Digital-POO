@@ -5,11 +5,20 @@
 package view.simuladorDeGastos;
 
 //import Backup.*;
-
 import Backup.*;
-
-
-
+import Dao.GastosDAO;
+import com.sun.source.tree.BreakTree;
+import java.awt.Color;
+import java.awt.event.ItemEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Despesa;
+import model.Formatador;
+import model.Gasto;
+import model.Rendimento;
+import view.Main;
+import view.geral.Notificacao;
 
 /**
  *
@@ -21,7 +30,25 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
      * Creates new form PainelObjectivosFinanceiros
      */
     public SimuladorDeGastos() {
+
         initComponents();
+        tableModel = (DefaultTableModel) tbGastos.getModel();
+
+        GastosDAO.carregarDespesas().forEach((p) -> {
+            DefaultComboBoxModel modelCbCat = (DefaultComboBoxModel) cbCategoria.getModel();
+            modelCbCat.addElement(p);
+
+        });
+
+        GastosDAO.carregarRendimentos().forEach((p) -> {
+
+            DefaultComboBoxModel modelCbFont = (DefaultComboBoxModel) cbFonte.getModel();
+            modelCbFont.addElement(p);
+
+        });
+
+        preencherTabela();
+
     }
 
     /**
@@ -34,7 +61,6 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lbListaObjectivos = new javax.swing.JLabel();
         lbPrioridadeV = new javax.swing.JLabel();
@@ -43,111 +69,164 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
         btnAplicarValor = new javax.swing.JButton();
         lbValorDisponível = new javax.swing.JLabel();
         lbObjectivo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbCategoria = new javax.swing.JComboBox<>();
         lbDescricao = new javax.swing.JLabel();
-        taDescricao = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        tfValorGasto = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbGastos = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taDescricao = new javax.swing.JTextArea();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
         setPreferredSize(new java.awt.Dimension(950, 594));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 938, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Gerir Objectivos", jPanel2);
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         lbListaObjectivos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbListaObjectivos.setText("Lista de Gastos realizados");
-        jPanel1.add(lbListaObjectivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
         lbPrioridadeV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbPrioridadeV.setText("Prioridade do Gasto:");
-        jPanel1.add(lbPrioridadeV, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+        lbPrioridadeV.setText("Prioridade:");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Fonte de valor");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
 
         cbFonte.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbFonte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Venda de Livros", "Aulas Particulares", "Salário UEM", "Ações Cahora Bhassa" }));
-        jPanel1.add(cbFonte, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, -1));
+        cbFonte.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbFonteItemStateChanged(evt);
+            }
+        });
 
         btnAplicarValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAplicarValor.setText("Confirmar Gasto");
+        btnAplicarValor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAplicarValorMouseEntered(evt);
+            }
+        });
         btnAplicarValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAplicarValorActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAplicarValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
 
-        lbValorDisponível.setText("Valor Disponível:");
-        jPanel1.add(lbValorDisponível, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+        lbValorDisponível.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbValorDisponível.setText("Valor Disponível: ");
 
         lbObjectivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbObjectivo.setText("Categoria");
-        jPanel1.add(lbObjectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, -1, -1));
+        cbCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbCategoriaItemStateChanged(evt);
+            }
+        });
 
         lbDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbDescricao.setText("Descrição do Gasto");
-        jPanel1.add(lbDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
-
-        taDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        taDescricao.setToolTipText("Descrição do Objectivo Financeiro");
-        taDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                taDescricaoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(taDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 190, 80));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Valor Gasto");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, -1));
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setText("0,00Mt");
-        jTextField3.setToolTipText("Ex:10000");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        tfValorGasto.setDocument(new Formatador(10, Formatador.TipoEntrada.NUMERO_DECIMAL));
+        tfValorGasto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tfValorGasto.setText("0");
+        tfValorGasto.setToolTipText("Ex:10000");
+        tfValorGasto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                tfValorGastoActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbGastos.getTableHeader().setSize(tbGastos.getWidth(), 30);
+        tbGastos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbGastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Categoria", "Tipo de Gasto", "Descrição", "Valor", "Prioridade"
+                "Categoria", "Descrição", "Valor", "Prioridade", "Poupado", "Fonte"
             }
         ));
-        jScrollPane5.setViewportView(jTable1);
+        tbGastos.setRowHeight(30);
+        jScrollPane5.setViewportView(tbGastos);
 
-        jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 410, 300));
+        taDescricao.setColumns(10);
+        taDescricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        taDescricao.setLineWrap(true);
+        taDescricao.setRows(3);
+        jScrollPane1.setViewportView(taDescricao);
 
-        jTabbedPane1.addTab("Objectivos Financeiros", jPanel1);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lbPrioridadeV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbObjectivo)
+                            .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDescricao))
+                        .addGap(92, 92, 92)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(cbFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(145, 145, 145)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfValorGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAplicarValor)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                                .addComponent(lbValorDisponível)))))
+                .addGap(124, 124, 124))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbListaObjectivos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(379, 379, 379))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbObjectivo)
+                                    .addComponent(jLabel13))
+                                .addGap(0, 0, 0)
+                                .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbFonte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbDescricao)
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(lbPrioridadeV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(lbValorDisponível))
+                        .addComponent(tfValorGasto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnAplicarValor)))
+                .addGap(15, 15, 15)
+                .addComponent(lbListaObjectivos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        jTabbedPane1.addTab("Emulador de Gastos", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -167,36 +246,93 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void preencherTabela() {
+        this.tableModel.setNumRows(0);
+        GastosDAO.fillTable().forEach((p) -> {
+            this.tableModel.addRow(new Object[]{p.getCategoria(), p.getDescricao(),
+                p.getValorGasto(), p.getPrioridade(), p.getValorPoupado(), p.getFonteValor()});
+        });
+    }
+
+    private void tfValorGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorGastoActionPerformed
+    }//GEN-LAST:event_tfValorGastoActionPerformed
+
     private void btnAplicarValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarValorActionPerformed
-        // TODO add your handling code here:
+        if (!tfValorGasto.getText().isBlank()) {
+            if (Double.valueOf(tfValorGasto.getText()) > despesa.getCusto() || Double.valueOf(tfValorGasto.getText()) <= 0.0) {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "O valor gasto não deve ser menor ou igual a zero ou maior que o alocado para esta despesa", Notificacao.ICONE_ERRO);
+                tfValorGasto.setText("");
+            } else {
+                String descricao = taDescricao.getText();
+                double valorGasto = Double.valueOf(tfValorGasto.getText());
+
+                this.gasto.setDescricao(descricao);
+                this.gasto.setValorGasto(valorGasto);
+                this.gasto.setValorPoupado(despesa.getCusto() - valorGasto);
+                this.gasto.setValorGasto(Double.valueOf(tfValorGasto.getText()));
+                this.gasto.setFonteValor(this.rendimento.getFonteRendimento());
+
+                if (GastosDAO.guardar(gasto)) {
+                    preencherTabela();
+                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Gasto registado com sucesso!", Notificacao.ICONE_SUCESSO);
+                } else {
+                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A operação falhou!\nOcorreu um erro ao registar o gasto.", Notificacao.ICONE_ERRO);
+                }
+            }
+        }
     }//GEN-LAST:event_btnAplicarValorActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Despesa despesaTemp = (Despesa) cbCategoria.getSelectedItem();
+            lbValorDisponível.setText("Valor Disponível: " + String.valueOf(despesaTemp.getCusto()));
+            this.despesa.setCusto(despesaTemp.getCusto());
+            this.gasto.setPrioridade(despesaTemp.getPrioridade());
+            lbPrioridadeV.setText("Prioridade: " + despesaTemp.getPrioridade());
+            this.gasto.setCategoria(despesaTemp.getCategoria());
 
-    private void taDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_taDescricaoActionPerformed
+        }
+    }//GEN-LAST:event_cbCategoriaItemStateChanged
+
+    private void cbFonteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFonteItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Rendimento rendimentoTemp = (Rendimento) cbFonte.getSelectedItem();
+            this.rendimento.setFonteRendimento(rendimentoTemp.getFonteRendimento());
+        }
+    }//GEN-LAST:event_cbFonteItemStateChanged
+
+    private void btnAplicarValorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAplicarValorMouseEntered
+        if (!tfValorGasto.getText().isBlank())
+            if (Double.valueOf(tfValorGasto.getText()) > despesa.getCusto() || Double.valueOf(tfValorGasto.getText()) <= 0) {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "O valor gasto não deve ser menor ou igual a zero ou maior que o alocado para esta despesa", Notificacao.ICONE_ERRO);
+                tfValorGasto.setText("");
+
+            }
+    }//GEN-LAST:event_btnAplicarValorMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAplicarValor;
-    private javax.swing.JComboBox<String> cbFonte;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Despesa> cbCategoria;
+    private javax.swing.JComboBox<Rendimento> cbFonte;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbDescricao;
     private javax.swing.JLabel lbListaObjectivos;
     private javax.swing.JLabel lbObjectivo;
     private javax.swing.JLabel lbPrioridadeV;
     private javax.swing.JLabel lbValorDisponível;
-    private javax.swing.JTextField taDescricao;
+    private javax.swing.JTextArea taDescricao;
+    private javax.swing.JTable tbGastos;
+    private javax.swing.JTextField tfValorGasto;
     // End of variables declaration//GEN-END:variables
+    Gasto gasto = new Gasto();
+    Despesa despesa = new Despesa();
+    Rendimento rendimento = new Rendimento();
+    DefaultTableModel tableModel;
+
 }

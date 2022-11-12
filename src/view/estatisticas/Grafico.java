@@ -7,7 +7,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -16,6 +16,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Grafico extends javax.swing.JPanel {
 
+    public double emergencias;
+    public double muitoImportante;
+    public double importante;
+    public double lazer;
+    public double opcional;
+            
     /**
      * Creates new form Grafico
      */
@@ -47,30 +53,27 @@ public class Grafico extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(100,"Emergência", "Dado 1");
-        dataset.setValue(80,"Muito Importante", "Dado 2");
-        dataset.setValue(60, "Importante", "Dado 3");
-        dataset.setValue(40, "Lazer", "Dado 4"); 
-        dataset.setValue(20, "Opcional", "Dado 5");                     
+        dataset.setValue(emergencias, "", "Emergência");
+        dataset.setValue(muitoImportante, "", "Muito Importante");
+        dataset.setValue(importante, "", "Importante");
+        dataset.setValue(lazer, "", "Lazer");
+        dataset.setValue(opcional, "", "Opcional");
+        
+        JFreeChart chart = ChartFactory.createBarChart("Estatísticas de uso das finanças", "Prioridade", "Impacto sobre os rendimentos",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+        chart.getTitle().setPaint(new Color(153,153,153));
+        
+        CategoryPlot categoryPlot = chart.getCategoryPlot();
+        categoryPlot.setRangeGridlinePaint(Color.BLUE);
+        categoryPlot.setBackgroundPaint(Color.LIGHT_GRAY);
+        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+        Color clr3 = new Color(255,51,51);
+        renderer.setSeriesPaint(0, clr3);
 
-        //Criação do gráfico
-        JFreeChart linechart = ChartFactory.createLineChart("Estatísticas de uso das finanças", "Classificação", "Percentagem",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
-        linechart.getTitle().setPaint(new Color(153,153,153));
-        //create plot object
-        CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
-        // lineCategoryPlot.setRangeGridlinePaint(Color.BLUE);
-        lineCategoryPlot.setBackgroundPaint(Color.white);
-
-        //create render object to change the moficy the line properties like color
-        LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
-        Color lineChartColor = new Color(204, 0, 51);
-        lineRenderer.setSeriesPaint(0, lineChartColor);
-
-        //Criação do painel para exibição do gráfico
-        ChartPanel lineChartPanel = new ChartPanel(linechart);
-        lineChartPanel.setSize(getWidth(), getHeight());
-        add(lineChartPanel);
+        ChartPanel barpChartPanel = new ChartPanel(chart);
+        barpChartPanel.setSize(getWidth(), getHeight());
+        
+        add(barpChartPanel);         
     }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

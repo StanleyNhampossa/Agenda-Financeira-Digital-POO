@@ -21,6 +21,11 @@ public class Rendimento {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return  fonteRendimento;   
+    }
+
     public void setId(int id) {
         this.id = id;
     }

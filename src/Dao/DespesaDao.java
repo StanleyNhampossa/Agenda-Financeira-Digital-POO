@@ -27,7 +27,7 @@ public class DespesaDao {
      * @param p a despesa a ser cadastrada
      */
     public static boolean cadastrar(Despesa p){        
-        String sql = "INSERT INTO despesas (tipoDespesa, custo, categoria, utilizador_id) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO despesas (tipoDespesa, custo, categoria, utilizador_id,prioridade) VALUES(?, ?, ?, ?,?)";
         
         try{
             Connection con=Conectar.getConection();
@@ -36,6 +36,7 @@ public class DespesaDao {
             smt.setDouble(2, p.getCusto());
             smt.setString(3, p.getCategoria());   
             smt.setInt(4, p.getUtilizador_id());
+            smt.setString(5,p.getPrioridade());
             smt.executeUpdate();
             Conectar.closeConnection(con, smt);
             
@@ -53,7 +54,7 @@ public class DespesaDao {
      * @return 
      */
     public static boolean actualizar(Despesa p){        
-        String sql = "UPDATE  despesas SET tipoDespesa = ?, custo = ?, categoria = ? WHERE id = ? AND utilizador_id = ?";
+        String sql = "UPDATE  despesas SET tipoDespesa = ?, custo = ?, categoria = ?,prioridade=? WHERE id = ? AND utilizador_id = ?";
         
         try{
            Connection con=Conectar.getConection();
@@ -63,6 +64,7 @@ public class DespesaDao {
            smt.setString(3, p.getCategoria());
            smt.setInt(4, p.getId());
            smt.setInt(5, p.getUtilizador_id());
+           smt.setString(6, p.getPrioridade());
            smt.executeUpdate();
            Conectar.closeConnection(con, smt);
            
@@ -125,6 +127,7 @@ public class DespesaDao {
                 p.setCusto(resulto.getDouble("custo"));
                 p.setCategoria(resulto.getString("categoria"));
                 p.setUtilizador_id(resulto.getInt("utilizador_id"));
+                p.setPrioridade(resulto.getString("prioridade"));
                 lista.add(p);
             }
        }catch(Exception ex){

@@ -41,7 +41,15 @@ public class PainelDespesas extends javax.swing.JPanel {
         DefaultTableModel modeloTabela = (DefaultTableModel) tbDespesa.getModel();
         modeloTabela.setRowCount(0);
         lista.forEach((p) -> {
-            modeloTabela.addRow(new Object[]{p.getId(), p.getTipoDespesa(), p.getCusto(), p.getCategoria()});
+            modeloTabela.addRow(new Object[]{p.getId(), p.getTipoDespesa(), p.getCusto(), p.getCategoria(), p.getPrioridade()});
+            if(p.getTipoDespesa().equalsIgnoreCase("Fixa"))
+                grafico1.totalFixas += p.getCusto();
+            else
+                grafico1.totalVariaveis += p.getCusto();
+            painelGrafico.removeAll();            
+            painelGrafico.repaint();
+            painelGrafico.revalidate();
+            painelGrafico.add(grafico1);
         });        
     }
     
@@ -75,7 +83,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         graficoCircularDespesa = new javax.swing.JPanel();
-        grafico1 = new view.despesas.Grafico();
         lblDespesaTotal = new javax.swing.JLabel();
         lblDespesaFixa = new javax.swing.JLabel();
         lblDespesaVariavel = new javax.swing.JLabel();
@@ -85,6 +92,10 @@ public class PainelDespesas extends javax.swing.JPanel {
         btnExcluirDespesa = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtCategoria = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cbPrioridade = new javax.swing.JComboBox<>();
+        painelGrafico = new javax.swing.JPanel();
+        grafico1 = new view.despesas.Grafico();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
@@ -108,7 +119,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel2.setText("Custo");
 
         spCusto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        spCusto.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spCusto.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 200));
         spCusto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 spCustoKeyPressed(evt);
@@ -123,11 +134,11 @@ public class PainelDespesas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Tipo", "Custo", "Categoria"
+                "ID", "Tipo", "Custo", "Categoria", "Prioridade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,6 +159,7 @@ public class PainelDespesas extends javax.swing.JPanel {
             tbDespesa.getColumnModel().getColumn(1).setResizable(false);
             tbDespesa.getColumnModel().getColumn(2).setResizable(false);
             tbDespesa.getColumnModel().getColumn(3).setResizable(false);
+            tbDespesa.getColumnModel().getColumn(4).setResizable(false);
         }
 
         txtPesquisaDespesa.setBackground(new java.awt.Color(255, 255, 255));
@@ -193,26 +205,15 @@ public class PainelDespesas extends javax.swing.JPanel {
 
         graficoCircularDespesa.setOpaque(false);
 
-        javax.swing.GroupLayout grafico1Layout = new javax.swing.GroupLayout(grafico1);
-        grafico1.setLayout(grafico1Layout);
-        grafico1Layout.setHorizontalGroup(
-            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        grafico1Layout.setVerticalGroup(
-            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout graficoCircularDespesaLayout = new javax.swing.GroupLayout(graficoCircularDespesa);
         graficoCircularDespesa.setLayout(graficoCircularDespesaLayout);
         graficoCircularDespesaLayout.setHorizontalGroup(
             graficoCircularDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(grafico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         graficoCircularDespesaLayout.setVerticalGroup(
             graficoCircularDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(grafico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         lblDespesaTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -240,6 +241,11 @@ public class PainelDespesas extends javax.swing.JPanel {
         btnSalvarDespesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarDespesaActionPerformed(evt);
+            }
+        });
+        btnSalvarDespesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarDespesaKeyPressed(evt);
             }
         });
         jPanel3.add(btnSalvarDespesa);
@@ -279,6 +285,29 @@ public class PainelDespesas extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Prioridade");
+
+        cbPrioridade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emergencia", "Muito importante", "Importante ", "Lazer", "Opcional" }));
+
+        painelGrafico.setOpaque(false);
+        painelGrafico.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout grafico1Layout = new javax.swing.GroupLayout(grafico1);
+        grafico1.setLayout(grafico1Layout);
+        grafico1Layout.setHorizontalGroup(
+            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        grafico1Layout.setVerticalGroup(
+            grafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+
+        painelGrafico.add(grafico1, "card2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,95 +315,108 @@ public class PainelDespesas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spCusto, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                .addGap(88, 88, 88)
-                                .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(260, 260, 260))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(txtPesquisaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(90, 90, 90)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(spCusto)
+                                        .addGap(56, 56, 56)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtPesquisaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(painelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDespesaFixa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(lblDespesaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                            .addComponent(jLabel2))
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel12)))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPesquisaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblDespesaVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblDespesaTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblDespesaFixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblDespesaFixa)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(painelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarDespesaActionPerformed
         Despesa p = new Despesa();
-        p.setTipoDespesa((String) cbTipoDespesa.getSelectedItem());
+        p.setTipoDespesa( cbTipoDespesa.getSelectedItem().toString());
         p.setCusto(Double.parseDouble(spCusto.getValue().toString()));
         p.setCategoria(txtCategoria.getText());
         p.setUtilizador_id(MenuView.user.getId());
+        p.setPrioridade(cbPrioridade.getSelectedItem().toString());
         if(DespesaDao.cadastrar(p)) {
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Despesa adicionada com sucesso!", Notificacao.ICONE_SUCESSO);
             limparCampos();
@@ -387,7 +429,7 @@ public class PainelDespesas extends javax.swing.JPanel {
     private void btnActualizarDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDespesaActionPerformed
         Despesa p = new Despesa();
         p.setId(Integer.parseInt(tbDespesa.getValueAt(0, 0).toString()));
-        p.setTipoDespesa((String) cbTipoDespesa.getSelectedItem());
+        p.setTipoDespesa( cbTipoDespesa.getSelectedItem().toString());
         p.setCusto(Double.parseDouble(spCusto.getValue().toString()));
         p.setCategoria(txtCategoria.getText());
         p.setUtilizador_id(MenuView.user.getId());
@@ -405,9 +447,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         if (linha >= 0) {
             Despesa p = new Despesa();
             p.setId(Integer.parseInt(tbDespesa.getValueAt(linha, 0).toString()));
-            p.setTipoDespesa(tbDespesa.getValueAt(linha, 1).toString());
-            p.setCusto(Double.parseDouble(tbDespesa.getValueAt(linha, 2).toString()));
-            p.setCategoria(tbDespesa.getValueAt(linha, 3).toString());
             if(DespesaDao.excluir(p)) {
                 limparCampos();
                 preencherTabela();
@@ -469,7 +508,7 @@ public class PainelDespesas extends javax.swing.JPanel {
 
     private void txtCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            btnSalvarDespesa.requestFocus();
+          cbPrioridade.requestFocus();
     }//GEN-LAST:event_txtCategoriaKeyPressed
 
     private void txtPesquisaDespesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPesquisaDespesaMouseClicked
@@ -485,14 +524,21 @@ public class PainelDespesas extends javax.swing.JPanel {
         if(tbDespesa.getSelectedRow() != -1) {
             cbTipoDespesa.setSelectedItem(tbDespesa.getValueAt(tbDespesa.getSelectedRow(), 1));
             spCusto.setValue(tbDespesa.getValueAt(tbDespesa.getSelectedRow(), 2));
-            txtCategoria.setText(tbDespesa.getValueAt(tbDespesa.getSelectedRow(), 3).toString());
+            txtCategoria.setText(tbDespesa.getValueAt(tbDespesa.getSelectedRow(), 3).toString());            
+            cbPrioridade.setSelectedItem(tbDespesa.getValueAt(tbDespesa.getSelectedRow(), 4));
         }
     }//GEN-LAST:event_tbDespesaMouseClicked
+
+    private void btnSalvarDespesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarDespesaKeyPressed
+      if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+          btnSalvarDespesa.requestFocus();         
+    }//GEN-LAST:event_btnSalvarDespesaKeyPressed
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarDespesa;
     private javax.swing.JButton btnExcluirDespesa;
     private javax.swing.JButton btnSalvarDespesa;
+    private javax.swing.JComboBox<String> cbPrioridade;
     private javax.swing.JComboBox<String> cbTipoDespesa;
     private view.despesas.Grafico grafico1;
     private javax.swing.JPanel graficoCircularDespesa;
@@ -500,6 +546,7 @@ public class PainelDespesas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -508,6 +555,7 @@ public class PainelDespesas extends javax.swing.JPanel {
     private javax.swing.JLabel lblDespesaFixa;
     private javax.swing.JLabel lblDespesaTotal;
     private javax.swing.JLabel lblDespesaVariavel;
+    private javax.swing.JPanel painelGrafico;
     private javax.swing.JSpinner spCusto;
     private javax.swing.JTable tbDespesa;
     private javax.swing.JTextField txtCategoria;

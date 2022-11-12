@@ -68,8 +68,10 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Declaracao de rendimento"));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Rendimento");
 
+        spRendimentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spRendimentos.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spRendimentos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -77,6 +79,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             }
         });
 
+        cbTipoRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbTipoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Fixo", "Variavel" }));
         cbTipoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -84,6 +87,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             }
         });
 
+        cbPeridoRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbPeridoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Diario", "Semanal", "Mensal", "", "" }));
         cbPeridoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -115,38 +119,49 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Fonte de Rendimento:");
 
+        txtFonte.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Tipo");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Periodo");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Rendimento Fixo");
 
+        lblRendimentoFixo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblRendimentoFixo.setForeground(new java.awt.Color(102, 102, 102));
         lblRendimentoFixo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRendimentoFixo.setText("0");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Rendimento Variavel");
 
+        lblRendimentoVariavel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblRendimentoVariavel.setForeground(new java.awt.Color(102, 102, 102));
         lblRendimentoVariavel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRendimentoVariavel.setText("0");
         lblRendimentoVariavel.setToolTipText("");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Total");
 
+        lblRendimentoTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblRendimentoTotal.setForeground(new java.awt.Color(102, 102, 102));
         lblRendimentoTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRendimentoTotal.setText("0");
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icons8_search_15px.png"))); // NOI18N
         jLabel8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 153, 153)));
@@ -181,15 +196,15 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(27, 27, 27)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 6, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,6 +269,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 "ID", "Tipo", "Rendimento", "Periodo", "Fonte"
             }
         ));
+        tabelaRendimento.setRowHeight(30);
         tabelaRendimento.setShowGrid(false);
         tabelaRendimento.setShowVerticalLines(false);
         tabelaRendimento.getTableHeader().setBackground(Color.WHITE);
@@ -325,7 +341,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

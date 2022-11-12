@@ -64,7 +64,7 @@ public class PainelInicial extends javax.swing.JPanel {
         lblIcone.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         lblIcone.setForeground(new java.awt.Color(255, 255, 255));
         lblIcone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcone.setText("<html>SISTEMA<br>DE GESTÃO FINANCEIRA");
+        lblIcone.setText("<html>AGENDA<br>FINANCEIRA DIGITAL<html>");
 
         loadingLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         loadingLabel.setForeground(new java.awt.Color(255, 255, 255));

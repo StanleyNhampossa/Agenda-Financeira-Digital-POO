@@ -45,6 +45,7 @@ public final class TabelasSQL {
         cmds[4] = "CREATE TABLE IF NOT EXISTS despesas("
                 + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "tipoDespesa MEDIUMTEXT NOT NULL,"
+                + "  `prioridade` varchar(255) NOT NULL,"
                 + "custo DOUBLE,"
                 + "categoria MEDIUMTEXT,"
                 + "utilizador_id INT NOT NULL,"
@@ -59,7 +60,19 @@ public final class TabelasSQL {
                 + "  `Numero_de_parcelas` int(11) NOT NULL,"
                 + "  `Total_a_pagar_em_juros` double NOT NULL,"
                 + "  `Valor_da_parcela` double NOT NULL,"
-                + "  `Total_a_pagar` double NOT NULL)";
+                + "  `Total_a_pagar` double NOT NULL,"
++ "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
+        cmds[6] = "CREATE TABLE IF NOT EXISTS gastos ("
+                + "  `ID` int(11) NOT NULL,"
+                + "  `utilizador_id` int(11) NOT NULL,"
+                + "  `valor_gasto` double NOT NULL,"
+                + "  `fonte_valor` varchar(256) NOT NULL,"
+                + "  `prioridade` varchar(255) NOT NULL,"
+                + "  `descricao` varchar(255) NOT NULL,"
+                + "  `valor_poupado` double NOT NULL,"
+                + "  `categoria` varchar(256) NOT NULL,"
+                + "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
+                
 
     }
 
@@ -87,7 +100,7 @@ public final class TabelasSQL {
 
             Conectar.closeConnection(connection, statement);
 
-            for (int i = 2; i < 6; i++)
+            for (int i = 2; i < 7; i++)
                 try {
                 connection = Conectar.getConection();
                 statement = connection.prepareStatement(cmds[i]);

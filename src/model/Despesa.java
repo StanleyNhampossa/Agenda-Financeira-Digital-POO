@@ -15,7 +15,15 @@ public class Despesa {
     private double custo;
     private String categoria;
     private int utilizador_id;
+    private String prioridade;
 
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
+    }
     public int getId() {
         return id;
     }
@@ -39,6 +47,10 @@ public class Despesa {
     public void setTipoRendimento(String tipoRendimento) {
         this.tipoDespesa = tipoRendimento;
     }
+
+    @Override
+    public String toString() {
+        return categoria ;}
 
     public double getCusto() {
         return custo;

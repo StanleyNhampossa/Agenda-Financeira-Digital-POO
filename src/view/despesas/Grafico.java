@@ -49,8 +49,8 @@ public class Grafico extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
          //create dataset
         DefaultPieDataset barDataset = new DefaultPieDataset( );
-        barDataset.setValue( "Despesa Fixa" , 20);  
-        barDataset.setValue( "Despesa Variavel" , 20);   
+        barDataset.setValue( "Despesa Fixa" , totalFixas);  
+        barDataset.setValue( "Despesa Variavel" , totalVariaveis);   
 
         //create chart
         JFreeChart piechart = ChartFactory.createPieChart("Despesas", barDataset, false, true, false);//explain
@@ -66,10 +66,12 @@ public class Grafico extends javax.swing.JPanel {
 
         //create chartPanel to display chart(graph)
         ChartPanel barChartPanel = new ChartPanel(piechart);
-        barChartPanel.setSize(470, 320);
+        barChartPanel.setSize(getWidth(), getHeight());
         add(barChartPanel, BorderLayout.CENTER);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    public double totalFixas;
+    public double totalVariaveis;
 }

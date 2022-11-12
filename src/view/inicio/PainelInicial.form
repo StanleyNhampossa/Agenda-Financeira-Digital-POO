@@ -129,7 +129,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;SISTEMA&lt;br&gt;DE GEST&#xc3;O FINANCEIRA"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;AGENDA&lt;br&gt;FINANCEIRA DIGITAL&lt;html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="loadingLabel">

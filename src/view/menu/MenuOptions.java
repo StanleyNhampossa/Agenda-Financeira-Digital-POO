@@ -56,9 +56,6 @@ public class MenuOptions extends javax.swing.JPanel {
                         MenuView.exibirPainel(new PainelPerfil());
                         break;
                     case 11:
-                        MenuView.exibirPainel(new PainelAjuda());
-                        break;
-                    case 12:
                         if(Notificacao.BOTAO_SIM == Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Pretende terminar a sessão actual?", Notificacao.ICONE_QUESTAO))
                             Main.exibirPainel(new PainelEntrada());
                         break;
@@ -82,12 +79,11 @@ public class MenuOptions extends javax.swing.JPanel {
         
         listMenu1.addItem(new Model_Menu("", "Ferramentas Financeiras", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("informacoes", "Emulador de Empréstimos", Model_Menu.MenuType.MENU)); 
-        listMenu1.addItem(new Model_Menu("informacoes", "Objectivos Financeiros", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("informacoes", "Emulador de gastos", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         
         listMenu1.addItem(new Model_Menu("", "Outros", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("perfil", "Meu Perfil", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("ajuda", "Ajuda", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("logout", "Terminar Sessão", Model_Menu.MenuType.MENU));
     }
 
@@ -109,7 +105,7 @@ public class MenuOptions extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SGF");
+        jLabel1.setText("AFD");
         jLabel1.setToolTipText("");
         painelLateral.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 9, 198, 64));
 
