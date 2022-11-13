@@ -433,6 +433,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         p.setCusto(Double.parseDouble(spCusto.getValue().toString()));
         p.setCategoria(txtCategoria.getText());
         p.setPrioridade(String.valueOf(cbPrioridade.getSelectedItem()));
+        p.setUtilizador_id(MenuView.user.getId());
         if(DespesaDao.actualizar(p)){
             limparCampos();
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Actualização efectuada com sucesso!", Notificacao.ICONE_SUCESSO);

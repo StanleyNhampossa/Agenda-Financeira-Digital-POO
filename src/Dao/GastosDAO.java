@@ -118,6 +118,7 @@ public class GastosDAO {
 
             while (resulto.next()) {
                 Despesa d = new Despesa();
+                d.setId(resulto.getInt("ID"));
                 d.setCusto(resulto.getDouble("custo"));
                 d.setPrioridade(resulto.getNString("prioridade"));
                 d.setTipoDespesa(resulto.getNString("tipoDespesa"));

@@ -47,7 +47,8 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
         });
 
         preencherTabela();
-
+        despesaGasto= (Despesa) cbCategoria.getSelectedItem();
+        rendimento= (Rendimento) cbFonte.getSelectedItem();
     }
 
     /**
