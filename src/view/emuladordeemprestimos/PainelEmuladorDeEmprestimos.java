@@ -58,6 +58,7 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         lbTaxaJuros = new javax.swing.JLabel();
         lbValorParcelas = new javax.swing.JLabel();
         lbJuros = new javax.swing.JLabel();
+        btnAderir = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(950, 594));
         setMinimumSize(new java.awt.Dimension(950, 594));
@@ -66,24 +67,31 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(950, 594));
 
         jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tfCapital.setDocument(new Formatador(9, Formatador.TipoEntrada.NUMERO_DECIMAL));
         tfCapital.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tfCapital.setText("0");
+        jPanel1.add(tfCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 184, -1));
 
         tfTaxaJuros.setDocument(new Formatador(4, Formatador.TipoEntrada.NUMERO_DECIMAL));
         tfTaxaJuros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(tfTaxaJuros, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 144, -1));
 
         spinnerParcelas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(spinnerParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 122, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Valor de Empréstimo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Número de Parcelas");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Taxa de Juros");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
 
         btnSimular.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSimular.setText("Simular");
@@ -107,99 +115,52 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
                 btnSimularActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSimular, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, -1, -1));
 
         lbDivida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbDivida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones emprestimo/Total a Pagar.png"))); // NOI18N
         lbDivida.setText("Valor Total a pagar:");
+        jPanel1.add(lbDivida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, -1, -1));
 
         lbDetalhes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbDetalhes.setText("Detalhes:");
+        jPanel1.add(lbDetalhes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
 
         lbParcelas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbParcelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones emprestimo/icons8-slice-50.png"))); // NOI18N
         lbParcelas.setText("Número de Parcelas:");
+        jPanel1.add(lbParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, -1));
 
         lbCusto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbCusto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones emprestimo/Custo do Emprestimo.png"))); // NOI18N
         lbCusto.setText("Custo do Emprestimo:");
+        jPanel1.add(lbCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 261, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 610, 261, 10));
 
         lbTaxaJuros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTaxaJuros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones Gastos/icons8-priority-50.png"))); // NOI18N
         lbTaxaJuros.setText("Taxa de Juros:");
+        jPanel1.add(lbTaxaJuros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, -1));
 
         lbValorParcelas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbValorParcelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones emprestimo/Valor das Parcelas (2).png"))); // NOI18N
         lbValorParcelas.setText("Valor das Parcelas:");
+        jPanel1.add(lbValorParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, -1, -1));
 
         lbJuros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbJuros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Icones Gastos/icons8-spend-50.png"))); // NOI18N
         lbJuros.setText("Valor Total em Juros:");
+        jPanel1.add(lbJuros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spinnerParcelas))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSimular))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbDetalhes)
-                                .addGap(213, 213, 213))
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lbCusto)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbValorParcelas)
-                        .addComponent(lbTaxaJuros)
-                        .addComponent(lbParcelas)
-                        .addComponent(lbJuros)
-                        .addComponent(lbDivida)))
-                .addContainerGap(285, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinnerParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfTaxaJuros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSimular))
-                .addGap(56, 56, 56)
-                .addComponent(lbDetalhes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(lbCusto)
-                .addGap(21, 21, 21)
-                .addComponent(lbParcelas)
-                .addGap(18, 18, 18)
-                .addComponent(lbValorParcelas)
-                .addGap(18, 18, 18)
-                .addComponent(lbTaxaJuros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbJuros)
-                .addGap(18, 18, 18)
-                .addComponent(lbDivida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
-        );
+        btnAderir.setText("Aderir");
+        btnAderir.setEnabled(false);
+        btnAderir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAderirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAderir, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, 80, 30));
 
         jTabbedPane1.addTab("Simulador", jPanel1);
 
@@ -242,25 +203,38 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
         int nParcelas = (int) spinnerParcelas.getValue();
 
         SimuladorEmprestimos simuladorEmprestimos = new SimuladorEmprestimos(taxaDejuro, capital, nParcelas);
-        
+
         //Declarando ArrayList para receber as parcelas.
         ArrayList<Double> parcelas = new ArrayList<>();
         simuladorEmprestimos.simularEmprestimo();
-        lbDivida.setText("Total: "+String.valueOf(simuladorEmprestimos.getDivida()));
+        lbDivida.setText("Total: " + String.valueOf(simuladorEmprestimos.getDivida()));
         lbCusto.setText(lbCusto.getText() + String.valueOf(simuladorEmprestimos.getJuros()));
         lbParcelas.setText(lbParcelas.getText() + String.valueOf(simuladorEmprestimos.getnParcelas()));
         lbValorParcelas.setText(lbValorParcelas.getText() + String.valueOf(simuladorEmprestimos.getValorParcela()));
         lbJuros.setText(lbJuros.getText() + String.valueOf(simuladorEmprestimos.getJuros()));
         lbTaxaJuros.setText(lbTaxaJuros.getText() + String.valueOf(simuladorEmprestimos.getTaxaDeJuros()));
         simuladorEmprestimos.setTitulo(JOptionPane.showInputDialog("Escolha um Título para o Emprestimo!"));
-        lbDetalhes.setText("Detalhes: "+simuladorEmprestimos.getTitulo());
+        lbDetalhes.setText("Detalhes: " + simuladorEmprestimos.getTitulo());
         receptaculoEmprestimos = simuladorEmprestimos;
+        btnAderir.setEnabled(true);
 
 
     }//GEN-LAST:event_btnSimularActionPerformed
 
+    private void btnAderirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAderirActionPerformed
+        
+        try {
+            EmprestimoDAO.guardar(receptaculoEmprestimos);
+        } catch (SQLException ex) {
+            Logger.getLogger(PainelEmuladorDeEmprestimos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_btnAderirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAderir;
     private javax.swing.JButton btnSimular;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -282,14 +256,18 @@ public class PainelEmuladorDeEmprestimos extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     //Receptáculo para emprestimo
-    SimuladorEmprestimos receptaculoEmprestimos= new SimuladorEmprestimos();
+   public static SimuladorEmprestimos receptaculoEmprestimos = new SimuladorEmprestimos();
 
     //Metodo usado para validação dos três inputs
     public void validar() {
         if (tfCapital.getText().isBlank()
                 || tfTaxaJuros.getText().isBlank()
-                || spinnerParcelas.getValue().equals(0)) {
+                || (Integer)spinnerParcelas.getValue()<=0) {
             JOptionPane.showMessageDialog(null, "Por Favor Preencha todos os campos");
+        } else if (Double.valueOf(tfCapital.getText())<=0 ||Double.valueOf(tfTaxaJuros.getText())<=0|| (Integer)spinnerParcelas.getValue()<=0)
+        {
+            JOptionPane.showMessageDialog(null, "Por favor introduza valores maiores que 0 nos campos");
         }
+ {}
     }
 }

@@ -4,12 +4,16 @@
  */
 package Dao;
 
+import Banco.Conectar;
 import Banco.FabricaDeConexoes;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.SimuladorEmprestimos;
+import view.Main;
+import view.emuladordeemprestimos.PainelEmuladorDeEmprestimos;
+import view.menu.MenuView;
 
 /**
  *
@@ -17,23 +21,21 @@ import model.SimuladorEmprestimos;
  */
 public class EmprestimoDAO {
     
-    public void guardar(SimuladorEmprestimos emprestimo) throws SQLException {
-     Connection conexao= FabricaDeConexoes.getConnection();
+    public static void guardar(SimuladorEmprestimos emprestimo) throws SQLException  {
+     Connection conexao= Conectar.getConection();
             PreparedStatement statement = null;
         try {
            
             
-            statement= conexao.prepareStatement("INSERT INTO emprestimo (Titulo,Valor,Taxa_de_Juros,Numero_de_parcelas,Total_a_pagar_em_juros,Valor_da_parcela,Total_a_pagar)(?,?,?,?,?,?,?)");
-            statement.setString(1, emprestimo.getTitulo());
-            statement.setDouble(2, emprestimo.getCapital());
-            statement.setDouble(3, emprestimo.getTaxaDeJuros());
-            statement.setInt(4, emprestimo.getnParcelas());
-            statement.setDouble(5, emprestimo.getJuros());
-            statement.setDouble(6, emprestimo.getValorParcela());
-            statement.setDouble(7, emprestimo.getDivida());
+            statement= conexao.prepareStatement("INSERT INTO despesas (tipoDespesa,prioridade,custo,categoria,utilizador_id)VALUES(?,?,?,?,?)");
+            statement.setString(1, "Fixa");
+            statement.setString(2, "Emergencia");
+            statement.setDouble(3, PainelEmuladorDeEmprestimos.receptaculoEmprestimos.getDivida());
+            statement.setString(4, "Emprestimo - "+PainelEmuladorDeEmprestimos.receptaculoEmprestimos.getTitulo());
+            statement.setInt(5, MenuView.user.getId());
             
             statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Emprestimo salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Emprestimo adicionado as Despesas");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar"+ ex);
              }finally{
