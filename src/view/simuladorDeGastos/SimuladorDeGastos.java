@@ -5,7 +5,7 @@
 package view.simuladorDeGastos;
 
 //import Backup.*;
-import Backup.*;
+//import Backup.*;
 import Dao.GastosDAO;
 import com.sun.source.tree.BreakTree;
 import java.awt.Color;

@@ -123,7 +123,7 @@ public class Main extends javax.swing.JFrame {
                 main.setVisible(true);
             }
         });
-        //main.painelInicial.iniciarContagem();
+        main.painelInicial.iniciarContagem();
         exibirPainel(new PainelEntrada());
     }
     

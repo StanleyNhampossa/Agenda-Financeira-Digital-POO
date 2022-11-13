@@ -126,7 +126,6 @@ public class PainelDespesas extends javax.swing.JPanel {
             }
         });
 
-        tbDespesa.setBackground(new java.awt.Color(255, 255, 255));
         tbDespesa.getTableHeader().setBackground(Color.WHITE);
         tbDespesa.getTableHeader().setForeground(new Color(104,104,104));
         tbDespesa.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,7 +161,6 @@ public class PainelDespesas extends javax.swing.JPanel {
             tbDespesa.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        txtPesquisaDespesa.setBackground(new java.awt.Color(255, 255, 255));
         txtPesquisaDespesa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPesquisaDespesa.setText("Pesquisar despesas");
         txtPesquisaDespesa.setToolTipText("Pesquisar");
@@ -276,7 +274,6 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Categoria");
 
-        txtCategoria.setBackground(new java.awt.Color(255, 255, 255));
         txtCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCategoria.setForeground(new java.awt.Color(51, 51, 51));
         txtCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -401,9 +398,8 @@ public class PainelDespesas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
+                    .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(91, Short.MAX_VALUE))

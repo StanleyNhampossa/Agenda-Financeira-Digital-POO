@@ -22,16 +22,15 @@ public class RendimentoDao {
      * ou {@code false} se não for concluído com sucesso
      */
     public static boolean cadastrar(Rendimento p){        
-        String sql = "INSERT INTO `gestaofinanceira`.`rendimentos` (`tipoRendimento`, `rendimento`, `periodo`, `fonteRendimento`, `utilizador_id`) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `gestaofinanceira`.`rendimentos` (`tipoRendimento`, `rendimento`,`fonteRendimento`, `utilizador_id`) VALUES (?, ?, ?, ?)";
         
         try{
             Connection con = Conectar.getConection();
             PreparedStatement smt= con.prepareStatement(sql);
             smt.setString(1, p.getTipoRendimento());
             smt.setDouble(2, p.getRendimento());
-            smt.setString(3, p.getPeriodo());
-            smt.setString(4,p.getFonteRendimento());        
-            smt.setInt(5, p.getUtilizador_id());
+            smt.setString(3,p.getFonteRendimento());        
+            smt.setInt(4, p.getUtilizador_id());
             smt.executeUpdate();
             Conectar.closeConnection(con, smt);
             
@@ -50,16 +49,15 @@ public class RendimentoDao {
      * {@code false} se a operação não for conluída
      */
     public static boolean actualizar(Rendimento p){        
-        String sql = "UPDATE  `gestaofinanceira`.`rendimentos` SET `tipoRendimento` = ?, `rendimento` = ?, `periodo` = ?, `fonteRendimento` = ? WHERE `id` = ?";
+        String sql = "UPDATE  `gestaofinanceira`.`rendimentos` SET `tipoRendimento` = ?, `rendimento` = ?, `fonteRendimento` = ? WHERE `id` = ?";
         
         try{
            Connection con=Conectar.getConection();
            PreparedStatement smt= con.prepareStatement(sql);
            smt.setString(1, p.getTipoRendimento());
            smt.setDouble(2, p.getRendimento());
-           smt.setString(3, p.getPeriodo());
-           smt.setString(4, p.getFonteRendimento());
-           smt.setInt(5, p.getId());
+           smt.setString(3, p.getFonteRendimento());
+           smt.setInt(4, p.getId());
            smt.executeUpdate();
            Conectar.closeConnection(con, smt);
            
@@ -127,7 +125,6 @@ public class RendimentoDao {
                 p.setId(resulto.getInt("id"));
                 p.setTipoRendimento(resulto.getNString("tipoRendimento"));
                 p.setRendimento(resulto.getDouble("rendimento"));
-                p.setPeriodo(resulto.getNString("periodo"));
                 p.setFonteRendimento(resulto.getNString("fonteRendimento"));
                 p.setUtilizador_id(resulto.getInt("utilizador_id"));
                 lista.add(p);
