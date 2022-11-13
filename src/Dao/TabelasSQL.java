@@ -61,7 +61,7 @@ public final class TabelasSQL {
                 + "  `Total_a_pagar_em_juros` double NOT NULL,"
                 + "  `Valor_da_parcela` double NOT NULL,"
                 + "  `Total_a_pagar` double NOT NULL,"
-+ "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
+                + "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
         cmds[6] = "CREATE TABLE IF NOT EXISTS gastos ("
                 + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "  `utilizador_id` int(11) NOT NULL,"
@@ -72,7 +72,6 @@ public final class TabelasSQL {
                 + "  `valor_poupado` double NOT NULL,"
                 + "  `categoria` varchar(256) NOT NULL,"
                 + "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
-                
 
     }
 

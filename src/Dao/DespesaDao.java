@@ -64,9 +64,9 @@ public class DespesaDao {
            smt.setString(1, p.getTipoDespesa());
            smt.setDouble(2, p.getCusto());
            smt.setString(3, p.getCategoria());
-           smt.setInt(4, p.getId());
-           smt.setInt(5, p.getUtilizador_id());
-           smt.setString(6, p.getPrioridade());
+           smt.setString(4, p.getPrioridade());
+           smt.setInt(5, p.getId());
+           smt.setInt(6, p.getUtilizador_id());
            smt.executeUpdate();
            Conectar.closeConnection(con, smt);
            

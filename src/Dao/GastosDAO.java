@@ -55,7 +55,7 @@ public class GastosDAO {
         return true;
     }
       public static boolean actualizarCusto(Despesa p){        
-        String sql = "UPDATE  despesas SET  custo = ? WHERE id = ? AND utilizador_id = ?";
+        String sql = "UPDATE  `gestaofinanceira`.`despesas` SET `custo` = ? WHERE `id` = ? AND utilizador_id=?";
        
         try{
            Connection con=Conectar.getConection();
@@ -63,6 +63,7 @@ public class GastosDAO {
            smt.setDouble(1, p.getCusto());
            smt.setInt(2,SimuladorDeGastos.despesaGasto.getId());
            smt.setInt(3, MenuView.user.getId());
+           
              smt.executeUpdate();
            Conectar.closeConnection(con, smt);
            

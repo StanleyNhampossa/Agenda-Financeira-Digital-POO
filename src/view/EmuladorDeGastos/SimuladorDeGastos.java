@@ -271,7 +271,6 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
                 this.gasto.setValorGasto(Double.valueOf(tfValorGasto.getText()));
                 this.gasto.setFonteValor(this.rendimento.getFonteRendimento());
                 despesaGasto.setCusto(gasto.getValorPoupado());
-             //   lbValorDisponível.setText("Valor Disponível:"+ gasto.getValorPoupado());
                 GastosDAO.actualizarCusto(despesaGasto);
                 if (GastosDAO.guardar(gasto)) {
                     preencherTabela();
