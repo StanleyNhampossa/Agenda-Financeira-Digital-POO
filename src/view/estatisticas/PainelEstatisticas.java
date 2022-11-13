@@ -36,8 +36,6 @@ public final class PainelEstatisticas extends javax.swing.JPanel {
                 lazer += p.getValorGasto();
             else
                 opcional += p.getValorGasto();
-            
-            totalPoupado += p.getValorPoupado();
         });
 
         RendimentoDao.listar(MenuView.user.getId(), "").forEach((t) -> {
@@ -53,13 +51,13 @@ public final class PainelEstatisticas extends javax.swing.JPanel {
 
         lblGasto.setText(String.valueOf(totalGasto));
         
-        if ((emergencias + muitoImportante + importante + lazer + opcional) > totalRendimento) {            
-            lblEconomizado.setText(String.valueOf(0));
+        if ((totalRendimento - totalGasto) < 0.10*totalRendimento) {            
+            lblEconomizado.setText(String.valueOf(0.0));
             lblSituacao.setForeground(Color.RED);
             lblSituacao.setText("negativa");
             lblIconeSituacao.setIcon(new ImageIcon(getClass().getResource("/icones/triste.png")));
         }else {
-            lblEconomizado.setText(String.valueOf(totalPoupado));
+            lblEconomizado.setText(String.valueOf(totalRendimento - totalGasto));
             lblSituacao.setForeground(Color.GREEN);
             lblSituacao.setText("positiva");
             lblIconeSituacao.setIcon(new ImageIcon(getClass().getResource("/icones/feliz.png")));
@@ -207,5 +205,5 @@ public final class PainelEstatisticas extends javax.swing.JPanel {
     private javax.swing.JLabel lblTittleSituacao;
     private javax.swing.JPanel painelSaudeFinanceira;
     // End of variables declaration//GEN-END:variables
-    private double emergencias, muitoImportante, importante, lazer, opcional, totalPoupado, totalRendimento;
+    private double emergencias, muitoImportante, importante, lazer, opcional, totalRendimento;
 }

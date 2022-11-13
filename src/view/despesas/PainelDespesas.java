@@ -5,18 +5,14 @@
  */
 package view.despesas;
 
-import Banco.Conectar;
 import Dao.DespesaDao;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import model.Despesa;
-import net.proteanit.sql.DbUtils;
 import view.Main;
 import view.geral.Notificacao;
 import view.menu.MenuView;
@@ -36,7 +32,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         inserirValores();
     }
    
-    public void preencherTabela() {
+    private void preencherTabela() {
         List<Despesa> lista = DespesaDao.listar(MenuView.user.getId(), "");
         DefaultTableModel modeloTabela = (DefaultTableModel) tbDespesa.getModel();
         modeloTabela.setRowCount(0);
@@ -50,7 +46,7 @@ public class PainelDespesas extends javax.swing.JPanel {
             painelGrafico.repaint();
             painelGrafico.revalidate();
             painelGrafico.add(grafico1);
-        });        
+        });  
     }
     
     public void pesquisar() {
@@ -119,7 +115,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         jLabel2.setText("Custo");
 
         spCusto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        spCusto.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 200));
+        spCusto.setModel(new SpinnerNumberModel(0, 0, null, 200));
         spCusto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 spCustoKeyPressed(evt);
@@ -401,9 +397,8 @@ public class PainelDespesas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
+                    .addComponent(graficoCircularDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(91, Short.MAX_VALUE))
@@ -438,7 +433,7 @@ public class PainelDespesas extends javax.swing.JPanel {
             limparCampos();
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Actualização efectuada com sucesso!", Notificacao.ICONE_SUCESSO);
         }else
-            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A actualização falhou!\nOcorreu um erro ao actualizar a despesa.", Notificacao.ICONE_ERRO);
+            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A actualização falhou!\nOcorreu um erro ao actualizar a despesa.", Notificacao.ICONE_ERRO);        
         preencherTabela();
         inserirValores();
     }//GEN-LAST:event_btnActualizarDespesaActionPerformed
