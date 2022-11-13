@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Despesa;
+import view.EmuladorDeGastos.SimuladorDeGastos;
+import view.menu.MenuView;
 
 
 /**
@@ -55,7 +57,7 @@ public class DespesaDao {
      */
     public static boolean actualizar(Despesa p){        
         String sql = "UPDATE  despesas SET tipoDespesa = ?, custo = ?, categoria = ?,prioridade=? WHERE id = ? AND utilizador_id = ?";
-        
+       
         try{
            Connection con=Conectar.getConection();
            PreparedStatement smt= con.prepareStatement(sql);
@@ -75,7 +77,25 @@ public class DespesaDao {
         
         return false;
     }
-    
+     public static boolean actualizarCusto(Despesa p){        
+        String sql = "UPDATE  despesas SET  custo = ? WHERE id = ? AND utilizador_id = ?";
+       
+        try{
+           Connection con=Conectar.getConection();
+           PreparedStatement smt= con.prepareStatement(sql);
+           smt.setDouble(1, p.getCusto());
+           smt.setInt(2,SimuladorDeGastos.despesaGasto.getId());
+           smt.setInt(3, MenuView.user.getId());
+             smt.executeUpdate();
+           Conectar.closeConnection(con, smt);
+           
+           return true;
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"erro ao actualiar o registro"+ex.getMessage());
+        }   
+        
+        return false;
+    }
     /**
      * Realiza a exclusão de despesas na base de dados
      * @param p a despesa a ser excluída
