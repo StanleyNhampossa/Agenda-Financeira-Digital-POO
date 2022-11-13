@@ -285,13 +285,22 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            Despesa despesaTemp = (Despesa) cbCategoria.getSelectedItem();
-            lbValorDisponível.setText("Valor Disponível: " + String.valueOf(despesaTemp.getCusto()));
-            this.despesaGasto.setCusto(despesaTemp.getCusto());
-            this.gasto.setPrioridade(despesaTemp.getPrioridade());
-            lbPrioridadeV.setText("Prioridade: " + despesaTemp.getPrioridade());
-            this.gasto.setCategoria(despesaTemp.getCategoria());
-            this.despesaGasto.setId(despesaTemp.getId());
+//            Despesa despesaTemp = (Despesa) cbCategoria.getSelectedItem();
+//            lbValorDisponível.setText("Valor Disponível: " + String.valueOf(despesaTemp.getCusto()));
+//            this.despesaGasto.setCusto(despesaTemp.getCusto());
+//            this.gasto.setPrioridade(despesaTemp.getPrioridade());
+//            lbPrioridadeV.setText("Prioridade: " + despesaTemp.getPrioridade());
+//            this.gasto.setCategoria(despesaTemp.getCategoria());
+//            this.despesaGasto.setId(despesaTemp.getId());
+
+
+ despesaGasto = (Despesa) cbCategoria.getSelectedItem();
+            lbValorDisponível.setText("Valor Disponível: " + String.valueOf(despesaGasto.getCusto()));
+            this.gasto.setPrioridade(despesaGasto.getPrioridade());
+            lbPrioridadeV.setText("Prioridade: " + despesaGasto.getPrioridade());
+            this.gasto.setCategoria(despesaGasto.getCategoria());
+            
+
         }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 

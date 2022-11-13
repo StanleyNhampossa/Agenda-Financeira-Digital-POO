@@ -63,7 +63,7 @@ public final class TabelasSQL {
                 + "  `Total_a_pagar` double NOT NULL,"
 + "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
         cmds[6] = "CREATE TABLE IF NOT EXISTS gastos ("
-                + "  `ID` int(11) NOT NULL,"
+                + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "  `utilizador_id` int(11) NOT NULL,"
                 + "  `valor_gasto` double NOT NULL,"
                 + "  `fonte_valor` varchar(256) NOT NULL,"
