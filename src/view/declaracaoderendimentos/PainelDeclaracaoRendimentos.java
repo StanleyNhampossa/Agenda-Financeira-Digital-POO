@@ -4,6 +4,7 @@ import Dao.RendimentoDao;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Rendimento;
 import view.Main;
@@ -23,6 +24,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         initComponents();
         preencherTabela();
         inserirValores();
+
     }
 
     /**
@@ -71,6 +73,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         spRendimentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spRendimentos.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spRendimentos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                spRendimentosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                spRendimentosFocusLost(evt);
+            }
+        });
         spRendimentos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 spRendimentosKeyPressed(evt);
@@ -79,6 +89,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         cbTipoRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbTipoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Fixo", "Variavel" }));
+        cbTipoRendimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbTipoRendimentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbTipoRendimentoFocusLost(evt);
+            }
+        });
         cbTipoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cbTipoRendimentoKeyPressed(evt);
@@ -112,6 +130,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel4.setText("Fonte de Rendimento:");
 
         txtFonte.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFonte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFonteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFonteFocusLost(evt);
+            }
+        });
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
@@ -297,13 +323,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,30 +362,31 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPesquisaRendimentoKeyReleased
 
     private void txtPesquisaRendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoFocusLost
-        if(txtPesquisaRendimento.getText().isBlank()) {
-            txtPesquisaRendimento.setText("Pesquisar fonte de rendimento");  
+        if (txtPesquisaRendimento.getText().isBlank()) {
+            txtPesquisaRendimento.setText("Pesquisar fonte de rendimento");
             limparCampos();
         }
     }//GEN-LAST:event_txtPesquisaRendimentoFocusLost
 
     private void cbTipoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoRendimentoKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
             spRendimentos.requestFocus();
     }//GEN-LAST:event_cbTipoRendimentoKeyPressed
 
     private void spRendimentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spRendimentosKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             txtFonte.requestFocus();
-            
+        }
+
     }//GEN-LAST:event_spRendimentosKeyPressed
-  
+
     private void txtFonteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFonteKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            btnSalvarRendimento.requestFocus(); 
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            btnSalvarRendimento.requestFocus();
     }//GEN-LAST:event_txtFonteKeyPressed
 
     private void tabelaRendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRendimentoMouseClicked
-        if(tabelaRendimento.getSelectedRow() != -1) {
+        if (tabelaRendimento.getSelectedRow() != -1) {
             cbTipoRendimento.setSelectedItem(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 1));
             spRendimentos.setValue(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 2));
             txtFonte.setText(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 3).toString());
@@ -366,127 +394,169 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelaRendimentoMouseClicked
 
     private void txtPesquisaRendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoMouseClicked
-        if(txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar Fonte de Rendimento"))
+        if (txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar Fonte de Rendimento"))
             txtPesquisaRendimento.setText("");
-        else if(evt.getClickCount() == 2) {
+        else if (evt.getClickCount() == 2) {
             txtPesquisaRendimento.setText("");
             preencherTabela();
-        }            
+        }
     }//GEN-LAST:event_txtPesquisaRendimentoMouseClicked
-   
+
+    private void cbTipoRendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoRendimentoFocusLost
+        if (cbTipoRendimento.getSelectedItem().toString().isEmpty())
+            cbTipoRendimento.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_cbTipoRendimentoFocusLost
+
+    private void cbTipoRendimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoRendimentoFocusGained
+        cbTipoRendimento.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_cbTipoRendimentoFocusGained
+
+    private void spRendimentosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spRendimentosFocusLost
+        if (Double.parseDouble(spRendimentos.getValue().toString()) == 0.0||spRendimentos.getValue().toString().isEmpty()) {
+            spRendimentos.setBorder(new LineBorder(Color.RED));
+        }
+    }//GEN-LAST:event_spRendimentosFocusLost
+
+    private void spRendimentosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spRendimentosFocusGained
+//        spRendimentos.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_spRendimentosFocusGained
+
+    private void txtFonteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFonteFocusLost
+        if (txtFonte.getText().toString().isEmpty())
+            txtFonte.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_txtFonteFocusLost
+
+    private void txtFonteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFonteFocusGained
+        txtFonte.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtFonteFocusGained
+
     private void pesquisar() {
         DefaultTableModel model = (DefaultTableModel) tabelaRendimento.getModel();
         model.setNumRows(0);
         RendimentoDao.listar(MenuView.user.getId(), txtPesquisaRendimento.getText()).forEach((p) -> {
-            model.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(),p.getFonteRendimento()});
+            model.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getFonteRendimento()});
         });
-        
-        if(txtPesquisaRendimento.getText().isBlank()) 
-            limparCampos();        
+
+        if (txtPesquisaRendimento.getText().isBlank()) {
+            limparCampos();
+        }
     }
-    
-    private void inserirValores(){
+
+    private void inserirValores() {
         Double fixoRendimento = 0.0;
         Double variavelRendimento = 0.0;
         Double somaRendimento = 0.0;
-        
-        for(int i = 0; i < tabelaRendimento.getRowCount(); i++ ) {
-            if(tabelaRendimento.getValueAt(i, 1).toString().equalsIgnoreCase("Fixo"))
+
+        for (int i = 0; i < tabelaRendimento.getRowCount(); i++) {
+            if (tabelaRendimento.getValueAt(i, 1).toString().equalsIgnoreCase("Fixo")) {
                 fixoRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());
-            else
-                variavelRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());;
+            } else {
+                variavelRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());
+            };
         }
         somaRendimento = variavelRendimento + fixoRendimento;
         lblRendimentoFixo.setText(fixoRendimento.toString());
         lblRendimentoVariavel.setText(variavelRendimento.toString());
         lblRendimentoTotal.setText(somaRendimento.toString());
-    }  
-  
-    
+    }
+
     private void preencherTabela() {
         List<Rendimento> lista;
-        if(txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar fonte de rendimento"))
+        if (txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar fonte de rendimento")) {
             lista = RendimentoDao.listar(MenuView.user.getId(), "");
-        else
+        } else {
             lista = RendimentoDao.listar(MenuView.user.getId(), txtPesquisaRendimento.getText());
+        }
         DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
         modeloTabela.setRowCount(0);
         lista.forEach((p) -> {
             modeloTabela.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getFonteRendimento()});
         });
-        
-    }             
-    
+
+    }
+
     private void excluir() {
         int opcao = tabelaRendimento.getSelectedRow();
         if (opcao >= 0) {
             Rendimento p = new Rendimento();
             p.setId(Integer.parseInt(tabelaRendimento.getValueAt(opcao, 0).toString()));
             p.setTipoRendimento(tabelaRendimento.getValueAt(opcao, 1).toString());
-            p.setRendimento(Double.parseDouble(tabelaRendimento.getValueAt(opcao, 2).toString()));           
+            p.setRendimento(Double.parseDouble(tabelaRendimento.getValueAt(opcao, 2).toString()));
             p.setFonteRendimento(tabelaRendimento.getValueAt(opcao, 3).toString());
             int res = Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Deseja excluir o rendimento?", Notificacao.ICONE_QUESTAO);
-            if(res == Notificacao.BOTAO_SIM)
-                if(RendimentoDao.excluir(p)) {
+            if (res == Notificacao.BOTAO_SIM) {
+                if (RendimentoDao.excluir(p)) {
                     preencherTabela();
-                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);                    
+                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);
                     limparCampos();
                     inserirValores();
-                }else
+                } else {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A exclusão falhou!\nOcorreu um erro ao excluir o rendimento.", Notificacao.ICONE_ERRO);
+                }
+            }
         } else {
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Selecione o rendimento que deseja excluir!", Notificacao.ICONE_INFORMACAO);
         }
     }
-    
+
     private void actualizar() {
-        if(tabelaRendimento.getSelectedRow() != -1) {
-            if(Double.parseDouble(spRendimentos.getValue().toString()) != 0.0 && 
-                (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
+        if (tabelaRendimento.getSelectedRow() != -1) {
+            if (Double.parseDouble(spRendimentos.getValue().toString()) != 0.0
+                    && (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
                 Rendimento p = new Rendimento();
                 p.setId(Integer.parseInt(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 0).toString()));
                 p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
                 p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
                 p.setFonteRendimento(txtFonte.getText());
-                if(RendimentoDao.actualizar(p)) {
+                if (RendimentoDao.actualizar(p)) {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Actualização efectuada com sucesso!", Notificacao.ICONE_SUCESSO);
                     limparCampos();
                     preencherTabela();
                     limparCampos();
                     inserirValores();
-                }else
+                } else {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A actualização falhou!\nOcorreu um erro ao actualizar o rendimento.", Notificacao.ICONE_ERRO);
-            }else
-                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);        
-        } else
+                }
+            } else {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);
+            }
+        } else {
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Selecione uma linha para actualizar!", Notificacao.ICONE_INFORMACAO);
+        }
     }
-    
+
     private void adicionar() {
-        if(Double.parseDouble(spRendimentos.getValue().toString()) != 0.0 && 
-          (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
+        if (Double.parseDouble(spRendimentos.getValue().toString()) != 0.0
+                && (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
             Rendimento p = new Rendimento();
             p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
             p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
             p.setUtilizador_id(MenuView.user.getId());
             p.setFonteRendimento(txtFonte.getText());
-            if(RendimentoDao.cadastrar(p)) {
+
+            if (RendimentoDao.cadastrar(p)) {
                 limparCampos();
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento adicionado com sucesso!", Notificacao.ICONE_SUCESSO);
                 preencherTabela();
                 inserirValores();
-            }else
+
+            } else {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A operação falhou!\nOcorreu um erro ao adicionar o rendimento.", Notificacao.ICONE_ERRO);
-        } else 
-            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);        
+            }
+        } else {
+            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);
+       
+        }
+
     }
-    
+
     private void limparCampos() {
         cbTipoRendimento.setSelectedItem("");
         spRendimentos.setValue(0);
         txtFonte.setText("");
+
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
     private javax.swing.JButton btnExcluirRendimento;
