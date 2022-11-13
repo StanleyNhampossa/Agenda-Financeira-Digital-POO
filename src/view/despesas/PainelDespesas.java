@@ -432,6 +432,7 @@ public class PainelDespesas extends javax.swing.JPanel {
         p.setTipoDespesa( cbTipoDespesa.getSelectedItem().toString());
         p.setCusto(Double.parseDouble(spCusto.getValue().toString()));
         p.setCategoria(txtCategoria.getText());
+        p.setPrioridade(String.valueOf(cbPrioridade.getSelectedItem()));
         p.setUtilizador_id(MenuView.user.getId());
         if(DespesaDao.actualizar(p)){
             limparCampos();
