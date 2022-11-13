@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Grácio Macuácua
  */
-public class ListMenu<E extends Object> extends JList<E>{
+public final class ListMenu<E extends Object> extends JList<E>{
 
     private final DefaultListModel model;
     private int selectedIndex = -1;

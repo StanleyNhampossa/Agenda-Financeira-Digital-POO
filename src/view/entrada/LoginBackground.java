@@ -9,7 +9,7 @@ import java.awt.RenderingHints;
  *Classe que define o background para a tela de entrada ou autenticaçao
  * @author Grácio Macuácua
  */
-public class LoginBackground extends javax.swing.JPanel {
+public final class LoginBackground extends javax.swing.JPanel {
 
     /**
      * Creates new form Login

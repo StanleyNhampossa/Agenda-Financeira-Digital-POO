@@ -11,13 +11,14 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import model.Formatador;
 import view.perfil.PainelPerfil;
 
 /**
  *
  * @author Grácio Macuácua
  */
-public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
+public final class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form DadosCadastroP2
@@ -32,6 +33,7 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
         ImageIcon imgi = new ImageIcon(getClass().getResource("/icones/profile_picture.png"));
         imgi.setImage(imgi.getImage().getScaledInstance(70, 72, 1));
         lblImagem.setIcon(imgi);
+        txtProfissao.requestFocus();
     }
 
     /**
@@ -56,32 +58,44 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
         setBackground(new java.awt.Color(255, 255, 255));
 
         lblProfissao.setBackground(new java.awt.Color(255, 255, 255));
+        lblProfissao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblProfissao.setForeground(new java.awt.Color(0, 102, 102));
         lblProfissao.setText("Profissão");
 
-        txtProfissao.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtProfissao.setDocument(new Formatador(35, Formatador.TipoEntrada.TEXTO_COM_NUMEROS));
+        txtProfissao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtProfissao.setForeground(new java.awt.Color(102, 102, 102));
         txtProfissao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
         lblEmail.setBackground(new java.awt.Color(255, 255, 255));
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEmail.setForeground(new java.awt.Color(0, 102, 102));
         lblEmail.setText("E-mail");
 
-        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtEmail.setDocument(new Formatador(35, Formatador.TipoEntrada.EMAIL));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(102, 102, 102));
-        txtEmail.setText("ex: pessoa@teste.com");
+        txtEmail.setText("pessoa@teste.com");
         txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtEmail.setEnabled(false);
         txtEmail.setPreferredSize(new java.awt.Dimension(131, 22));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+        });
         txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtEmailMouseClicked(evt);
             }
         });
 
+        lblFoto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblFoto.setForeground(new java.awt.Color(0, 102, 102));
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setText("Fotografia de perfil");
 
+        lblAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblAlterar.setForeground(new java.awt.Color(0, 102, 102));
         lblAlterar.setText("Alterar");
         lblAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -100,12 +114,15 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
         });
 
         lblSenha.setBackground(new java.awt.Color(255, 255, 255));
+        lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSenha.setForeground(new java.awt.Color(0, 102, 102));
         lblSenha.setText("Senha");
 
-        pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        pfSenha.setDocument(new Formatador(15, Formatador.TipoEntrada.SENHA));
+        pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pfSenha.setForeground(new java.awt.Color(102, 102, 102));
         pfSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        pfSenha.setEnabled(false);
         pfSenha.setPreferredSize(new java.awt.Dimension(76, 22));
         pfSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,10 +175,10 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -189,6 +206,11 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
     private void lblAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlterarMouseClicked
         alterarImagem();
     }//GEN-LAST:event_lblAlterarMouseClicked
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if(txtEmail.getText().equalsIgnoreCase("pessoa@teste.com") && txtEmail.isEnabled())
+            txtEmail.setText("");
+    }//GEN-LAST:event_txtEmailFocusGained
     
     /**
      * Permite que o utilizador escolha uma fotografia
@@ -216,26 +238,36 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
      * @return {@code true} se os dados cumprirem com as exigências do sistema,
      * {@code false} caso contrário
      */
-    public boolean efectuarValidacao() {
-        if(!txtProfissao.getText().isEmpty())
-            if(!txtEmail.getText().isEmpty())
-                if(txtEmail.getText().contains("@"))
-                    if(!pfSenha.getText().isEmpty()) {
-                        PainelRegistro.user.setProfissao(txtProfissao.getText());
-                        PainelRegistro.user.setEmail(txtEmail.getText());
-                        PainelRegistro.user.setSenha(pfSenha.getText());
-                        
-                        return true;
-                    } else
-                         System.out.println("Por favor, introduza a sua senha!");
-                else
-                    System.out.println("E-mail inválido.\nPor favor, introduza um e-mail válido!");
-            else
-                System.out.println("Por favor, introduza o seu e-mail!");
-        else
-            System.out.println("Por favor, introduza a sua profissão!");
+    private boolean efectuarValidacao() {
+        if (txtProfissao.isEnabled() && txtEmail.isEnabled() && pfSenha.isEnabled() && pfSenha.getText().length() >= 6) {
+            PainelRegistro.user.setProfissao(txtProfissao.getText());
+            PainelRegistro.user.setEmail(txtEmail.getText());
+            PainelRegistro.user.setSenha(pfSenha.getText());
+
+            PainelRegistro.btn.setkStartColor(new Color(12, 91, 160));
+            PainelRegistro.btn.setkEndColor(new Color(0, 102, 255));
+            PainelRegistro.btn.setEnabled(true);
+            
+            return true;
+        }
+
+        PainelRegistro.btn.setkStartColor(new Color(153, 153, 153));
+        PainelRegistro.btn.setkEndColor(new Color(153, 153, 153));
+        PainelRegistro.btn.setEnabled(false);
         
         return false;
+    }
+    
+    /**
+     * Desactiva os campos do painel se algum destes ~não estiver devidamente preenchido.
+     * @param inicio a linha por onde deve começar a desactivação dos campos.
+     */
+    private void desabilitarCampos(int inicio) {
+        if(inicio == 2) {
+            txtEmail.setEnabled(false);
+            pfSenha.setEnabled(false);
+        }else
+            pfSenha.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,16 +293,32 @@ public class DadosCadastroP2 extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(txtProfissao.hasFocus()){
+            if(txtProfissao.hasFocus() && txtProfissao.getText().strip().length() >= 6){
                 txtEmail.requestFocus();
                 txtEmail.setText("");
-            } else if(txtEmail.hasFocus()){
+            } else if(txtEmail.hasFocus() && txtEmail.getText().length() >= 7 && !txtEmail.getText().equalsIgnoreCase("pessoa@teste.com")){
                 pfSenha.requestFocus();
                 pfSenha.setText("");
-            } else if(pfSenha.hasFocus()){
-                PainelRegistro.btn.requestFocus();
+            } else if(pfSenha.hasFocus() && PainelRegistro.btn.isEnabled())
                 PainelRegistro.btn.doClick();
-            }
         }
+        
+        if(txtProfissao.getText().strip().length() >= 6) {
+            txtEmail.setEnabled(true);
+        }else {
+            desabilitarCampos(2);
+        }
+        if(txtEmail.getText().contains("@") && txtEmail.getText().strip().length() >= 7 && !txtEmail.getText().equalsIgnoreCase("pessoa@teste.com") && txtEmail.isEnabled()) {
+            pfSenha.setEnabled(true);
+        }else {
+            desabilitarCampos(3);
+        }
+        if(pfSenha.getText().strip().length() >= 6 && pfSenha.isEnabled()) {
+            PainelRegistro.btn.setEnabled(true);
+        }else {
+            PainelRegistro.btn.setEnabled(false);
+        }
+        
+        efectuarValidacao();
     }
 }

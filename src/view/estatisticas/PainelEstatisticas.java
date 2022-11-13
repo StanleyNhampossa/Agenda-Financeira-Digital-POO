@@ -1,12 +1,17 @@
 package view.estatisticas;
 
 import Dao.GastosDAO;
+import Dao.RendimentoDao;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import view.menu.MenuView;
 
 /**
- *Classe que define a tela de estatísticas
+ * Classe que define a tela de estatísticas
+ *
  * @author Grácio Macuácua
  */
-public class PainelEstatisticas extends javax.swing.JPanel {
+public final class PainelEstatisticas extends javax.swing.JPanel {
 
     /**
      * Creates new form PainelEstatisticas
@@ -16,31 +21,51 @@ public class PainelEstatisticas extends javax.swing.JPanel {
         preencherGrafico();
     }
 
-    
     private void preencherGrafico() {
-        double total = 1;        
-        
+        double totalGasto = 1;
+        final double num;
+
         GastosDAO.fillTable().forEach((p) -> {
-            if(p.getPrioridade().equalsIgnoreCase("Emergência"))
+            if (p.getPrioridade().equalsIgnoreCase("Emergência"))
                 emergencias += p.getValorGasto();
-            else if(p.getPrioridade().equalsIgnoreCase("Muito Importante"))
+            else if (p.getPrioridade().equalsIgnoreCase("Muito Importante"))
                 muitoImportante += p.getValorGasto();
-            else if(p.getPrioridade().equalsIgnoreCase("Importante"))
+            else if (p.getPrioridade().equalsIgnoreCase("Importante"))
                 importante += p.getValorGasto();
-            else if(p.getPrioridade().equalsIgnoreCase("Lazer"))
+            else if (p.getPrioridade().equalsIgnoreCase("Lazer"))
                 lazer += p.getValorGasto();
             else
-                opcional += p.getValorGasto();                        
+                opcional += p.getValorGasto();
+            
+            totalPoupado += p.getValorPoupado();
         });
+
+        RendimentoDao.listar(MenuView.user.getId(), "").forEach((t) -> {
+            totalRendimento += t.getRendimento();
+        });
+
+        totalGasto = emergencias + muitoImportante + importante + lazer + opcional;
+        grafico.emergencias = (this.emergencias / totalGasto) * 100;
+        grafico.muitoImportante = (this.muitoImportante / totalGasto) * 100;
+        grafico.importante = (this.importante / totalGasto) * 100;
+        grafico.lazer = (this.lazer / totalGasto) * 100;
+        grafico.opcional = (this.opcional / totalGasto) * 100;
+
+        lblGasto.setText(String.valueOf(totalGasto));
         
-        total = emergencias + muitoImportante + importante + lazer + opcional;
-        grafico2.emergencias = (this.emergencias/total)*100;
-        grafico2.muitoImportante = (this.muitoImportante/total)*100;
-        grafico2.importante = (this.importante/total)*100;
-        grafico2.lazer = (this.lazer/total)*100;
-        grafico2.opcional = (this.opcional/total)*100;
+        if ((emergencias + muitoImportante + importante + lazer + opcional) > totalRendimento) {            
+            lblEconomizado.setText(String.valueOf(0));
+            lblSituacao.setForeground(Color.RED);
+            lblSituacao.setText("negativa");
+            lblIconeSituacao.setIcon(new ImageIcon(getClass().getResource("/icones/triste.png")));
+        }else {
+            lblEconomizado.setText(String.valueOf(totalPoupado));
+            lblSituacao.setForeground(Color.GREEN);
+            lblSituacao.setText("positiva");
+            lblIconeSituacao.setIcon(new ImageIcon(getClass().getResource("/icones/feliz.png")));
+        }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,93 +75,101 @@ public class PainelEstatisticas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        grafico2 = new view.estatisticas.Grafico();
+        painelSaudeFinanceira = new javax.swing.JPanel();
+        lblSaudeFinanceira = new javax.swing.JLabel();
+        lblTittleSituacao = new javax.swing.JLabel();
+        lblSituacao = new javax.swing.JLabel();
+        lblTittleEconomizado = new javax.swing.JLabel();
+        lblEconomizado = new javax.swing.JLabel();
+        lblTittleGasto = new javax.swing.JLabel();
+        lblGasto = new javax.swing.JLabel();
+        lblIconeSituacao = new javax.swing.JLabel();
+        grafico = new view.estatisticas.Grafico();
 
         setMaximumSize(new java.awt.Dimension(960, 593));
         setMinimumSize(new java.awt.Dimension(960, 593));
         setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Saúde Financeira");
+        lblSaudeFinanceira.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblSaudeFinanceira.setForeground(new java.awt.Color(153, 153, 153));
+        lblSaudeFinanceira.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaudeFinanceira.setText("Saúde Financeira");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Situação:");
+        lblTittleSituacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTittleSituacao.setText("Situação:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("positiva");
+        lblSituacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSituacao.setText("positiva");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Total economizado:");
+        lblTittleEconomizado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTittleEconomizado.setText("Total economizado:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("0,0");
+        lblEconomizado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEconomizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEconomizado.setText("0,0");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Total gasto:");
+        lblTittleGasto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTittleGasto.setText("Total gasto:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("0.0");
+        lblGasto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblGasto.setText("0.0");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        lblIconeSituacao.setBackground(new java.awt.Color(255, 255, 255));
+        lblIconeSituacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconeSituacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/feliz.png"))); // NOI18N
+
+        javax.swing.GroupLayout painelSaudeFinanceiraLayout = new javax.swing.GroupLayout(painelSaudeFinanceira);
+        painelSaudeFinanceira.setLayout(painelSaudeFinanceiraLayout);
+        painelSaudeFinanceiraLayout.setHorizontalGroup(
+            painelSaudeFinanceiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSaudeFinanceiraLayout.createSequentialGroup()
                 .addContainerGap(300, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSaudeFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(300, 300, 300))
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(painelSaudeFinanceiraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addComponent(lblTittleGasto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121)
-                .addComponent(jLabel4)
+                .addComponent(lblTittleEconomizado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblEconomizado, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTittleSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lblIconeSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        painelSaudeFinanceiraLayout.setVerticalGroup(
+            painelSaudeFinanceiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSaudeFinanceiraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblSaudeFinanceira)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(painelSaudeFinanceiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblIconeSituacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelSaudeFinanceiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblTittleSituacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(painelSaudeFinanceiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTittleEconomizado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEconomizado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTittleGasto)
+                            .addComponent(lblGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblSituacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout grafico2Layout = new javax.swing.GroupLayout(grafico2);
-        grafico2.setLayout(grafico2Layout);
-        grafico2Layout.setHorizontalGroup(
-            grafico2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout graficoLayout = new javax.swing.GroupLayout(grafico);
+        grafico.setLayout(graficoLayout);
+        graficoLayout.setHorizontalGroup(
+            graficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        grafico2Layout.setVerticalGroup(
-            grafico2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graficoLayout.setVerticalGroup(
+            graficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 383, Short.MAX_VALUE)
         );
 
@@ -147,31 +180,32 @@ public class PainelEstatisticas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(grafico2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelSaudeFinanceira, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(grafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(grafico2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(grafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(28, 28, 28)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelSaudeFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
     }// </editor-fold>//GEN-END:initComponents
-      
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.estatisticas.Grafico grafico2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel2;
+    private view.estatisticas.Grafico grafico;
+    private javax.swing.JLabel lblEconomizado;
+    private javax.swing.JLabel lblGasto;
+    private javax.swing.JLabel lblIconeSituacao;
+    private javax.swing.JLabel lblSaudeFinanceira;
+    private javax.swing.JLabel lblSituacao;
+    private javax.swing.JLabel lblTittleEconomizado;
+    private javax.swing.JLabel lblTittleGasto;
+    private javax.swing.JLabel lblTittleSituacao;
+    private javax.swing.JPanel painelSaudeFinanceira;
     // End of variables declaration//GEN-END:variables
-    double emergencias, muitoImportante, importante, lazer, opcional;
+    private double emergencias, muitoImportante, importante, lazer, opcional, totalPoupado, totalRendimento;
 }

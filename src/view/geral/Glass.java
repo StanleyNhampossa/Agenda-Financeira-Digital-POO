@@ -10,7 +10,7 @@ import javax.swing.JComponent;
  * Classe que define uma núvem sob o diálogo iniciado pela classe {@code NOTIFICACAO}
  * @author Grácio Macuácua
  */
-public class Glass extends JComponent {
+public final class Glass extends JComponent {
 
     public float getAlpha() {
         return alpha;

@@ -16,7 +16,7 @@ import view.geral.Notificacao;
  * 
  * @author Paulo Massingue
  */
-public class Conectar {
+public final class Conectar {
     
     private static final String usuario = "root";
     private static final String senha = "";

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * com a tabela de utilizadores na base de dados
  * @author Grácio Macuácua
  */
-public class UtilizadorDAO {
+public final class UtilizadorDAO {
     
      /**
      * Realiza o cadastro de utilizadores na base de dados.
@@ -23,7 +23,7 @@ public class UtilizadorDAO {
      * @return {@code true} se o cadastro for executado com êxito, 
      * ou {@code false} se não for concluído com êxito
      */
-    public boolean criar(Utilizador user) {
+    public static boolean criar(Utilizador user) {
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -59,7 +59,7 @@ public class UtilizadorDAO {
      * @return {@code true} se a ação tiver sido executada com sucesso,
      * {@code false} se a operação não for conluída
      */
-    public boolean actualizar(Utilizador user) {
+    public static boolean actualizar(Utilizador user) {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -96,7 +96,7 @@ public class UtilizadorDAO {
      * @return {@code true} se a ação for executada com sucesso,
      * {@code false} caso contrário
      */
-    public boolean apagar(int id) {
+    public static boolean apagar(int id) {
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -123,7 +123,7 @@ public class UtilizadorDAO {
      * @return uma instância da classe {@code Utilizador} contendo os dados do utilizador caso a autenticação
      * ocorra com êxito, {@code null} caso contrário
      */
-    public Utilizador autenticar(String userEmail, String senha) {
+    public static Utilizador autenticar(String userEmail, String senha) {
         
         Connection connection = null;
         PreparedStatement statement = null;

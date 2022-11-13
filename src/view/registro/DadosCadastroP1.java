@@ -1,18 +1,21 @@
 package view.registro;
 
+import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
 import model.Formatador;
+import view.Main;
+import view.geral.Notificacao;
 
 /**
  *
  * @author Grácio Macuácua
  */
-public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
+public final class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form ViewPerfil
@@ -23,15 +26,15 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         txtApelido.addKeyListener(this);
         jdcNascimento.addKeyListener(this);
         cbGenero.addKeyListener(this);
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy"); 
-        String data = sdf.format(Calendar.getInstance().getTime());  
-        
-        try{
-            jdcNascimento.setMaxSelectableDate(sdf.parse(data));            
-        }catch (ParseException ex){
-            JOptionPane.showMessageDialog(null, "Erro na conversão da data!");
-        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy");
+        String data = sdf.format(Calendar.getInstance().getTime());
+
+        try {
+            jdcNascimento.setMaxSelectableDate(sdf.parse(data));
+        } catch (ParseException ex) {
+            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Erro na conversão da data!", Notificacao.ICONE_ERRO);
+        }       
     }
 
     /**
@@ -55,39 +58,60 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
         setBackground(new java.awt.Color(255, 255, 255));
 
         lblNascimento.setBackground(new java.awt.Color(255, 255, 255));
+        lblNascimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNascimento.setForeground(new java.awt.Color(0, 102, 102));
         lblNascimento.setText("Data de Nascimento");
 
         lblGenero.setBackground(new java.awt.Color(255, 255, 255));
+        lblGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblGenero.setForeground(new java.awt.Color(0, 102, 102));
         lblGenero.setText("Gênero");
 
         lblApelido.setBackground(new java.awt.Color(255, 255, 255));
+        lblApelido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblApelido.setForeground(new java.awt.Color(0, 102, 102));
         lblApelido.setText("Apelido");
 
+        txtOutrosNomes.setDocument(new Formatador(35, Formatador.TipoEntrada.TEXTO));
         txtOutrosNomes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtOutrosNomes.setForeground(new java.awt.Color(102, 102, 102));
         txtOutrosNomes.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
         txtOutrosNomes.setDocument(new Formatador(40, Formatador.TipoEntrada.TEXTO));
 
         lblPNome.setBackground(new java.awt.Color(255, 255, 255));
+        lblPNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPNome.setForeground(new java.awt.Color(0, 102, 102));
         lblPNome.setText("Outros Nomes");
 
+        txtApelido.setDocument(new Formatador(20, Formatador.TipoEntrada.TEXTO));
         txtApelido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtApelido.setForeground(new java.awt.Color(102, 102, 102));
         txtApelido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtApelido.setEnabled(false);
         txtApelido.setDocument(new Formatador(15, Formatador.TipoEntrada.TEXTO));
 
         jdcNascimento.setBackground(new java.awt.Color(255, 255, 255));
         jdcNascimento.setForeground(new java.awt.Color(0, 102, 102));
+        jdcNascimento.setEnabled(false);
+        jdcNascimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jdcNascimento.setOpaque(false);
+        jdcNascimento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcNascimentoPropertyChange(evt);
+            }
+        });
 
         cbGenero.setBackground(new java.awt.Color(255, 255, 255));
+        cbGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbGenero.setForeground(new java.awt.Color(0, 102, 102));
         cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Masculino", "Feminino" }));
         cbGenero.setBorder(null);
+        cbGenero.setEnabled(false);
+        cbGenero.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbGeneroItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,41 +140,102 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(lblNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(lblNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jdcNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Permite que o utilizador escolha uma fotografia
-     * de sua preferência como fotografia de perfil
+     * 
      */
-    public boolean efectuarValidacao() {
-        if(!txtOutrosNomes.getText().isBlank())
-            if(!txtApelido.getText().isBlank())
-                if(jdcNascimento.getDate() != null) {
-                    if(cbGenero.getSelectedIndex() != 0) {
-                        PainelRegistro.user.setNome(txtOutrosNomes.getText() + " " + txtApelido.getText());
-                        PainelRegistro.user.setDataNascimento(jdcNascimento.getDate());
-                        PainelRegistro.user.setGenero(cbGenero.getSelectedItem().toString());
+    private void verificarEntrada() {
+        if (txtOutrosNomes.getText().strip().length() >= 2) {
+            txtApelido.setEnabled(true);
+        } else {
+            desabilitarCampos(2);
+        }
+        if (txtApelido.getText().strip().length() >= 2 && txtApelido.isEnabled()) {
+            jdcNascimento.setEnabled(true);
+        } else {
+            desabilitarCampos(3);
+        }
+        if (jdcNascimento.getDate() != null && jdcNascimento.isEnabled()) {
+            cbGenero.setEnabled(true);
+        } else {
+            desabilitarCampos(4);
+        }
 
-                        return true;
-                    } else
-                         System.out.println("Por favor, selecione o seu gênero!");
-                } else
-                     System.out.println("Por favor, introduza a sua data de nascimento!");
-            else
-                System.out.println("Por favor, introduza o seu apelido!");
-        else
-            System.out.println("Por favor, introduza o seu nome!");
+        efectuarValidacao();
+    }
+    
+    /** 
+     * Activa ou desactiva o botão prosseguir se os campos estiverem devidamente preenchidos
+     * ou não preenchidos, respectivamente.
+     * @return {@code true} se os campos estiverem devidamente preenchidos, {@code false} caso contrário.
+     */
+    boolean efectuarValidacao() {
+        if (txtApelido.isEnabled() && jdcNascimento.isEnabled() && cbGenero.isEnabled() && !String.valueOf(cbGenero.getSelectedItem()).equalsIgnoreCase("Selecionar")) {
+            PainelRegistro.user.setNome(txtOutrosNomes.getText() + " " + txtApelido.getText());
+            PainelRegistro.user.setDataNascimento(jdcNascimento.getDate());
+            PainelRegistro.user.setGenero(cbGenero.getSelectedItem().toString());
+
+            PainelRegistro.btn.setkStartColor(new Color(12, 91, 160));
+            PainelRegistro.btn.setkEndColor(new Color(0, 102, 255));
+            PainelRegistro.btn.setEnabled(true);
+            
+            return true;
+        }
+
+        PainelRegistro.btn.setkStartColor(new Color(153, 153, 153));
+        PainelRegistro.btn.setkEndColor(new Color(153, 153, 153));
+        PainelRegistro.btn.setEnabled(false);
         
         return false;
     }
+    
+    /**
+     * Desactiva os campos do painel se algum destes não estiver devidamente preenchido.
+     * @param inicio a linha por onde deve começar a desactivação dos campos.
+     */
+    private void desabilitarCampos(int inicio) {
+        switch (inicio) {
+            case 2 -> {
+                txtApelido.setEnabled(false);
+                jdcNascimento.setEnabled(false);
+                cbGenero.setEnabled(false);
+            }
+            case 3 -> {
+                jdcNascimento.setEnabled(false);
+                cbGenero.setEnabled(false);
+            }
+            default ->
+                cbGenero.setEnabled(false);
+        }        
+    }
+            
+    private void jdcNascimentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcNascimentoPropertyChange
+        if (jdcNascimento.getDate() != null)
+            cbGenero.setEnabled(true);
+        else
+            cbGenero.setEnabled(false);
+    }//GEN-LAST:event_jdcNascimentoPropertyChange
+
+    private void cbGeneroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGeneroItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if ("Masculino".equals(evt.getItem().toString()) || "Feminino".equals(evt.getItem().toString())) {
+                efectuarValidacao();
+            } else {
+                PainelRegistro.btn.setkStartColor(new Color(153, 153, 153));
+                PainelRegistro.btn.setkEndColor(new Color(153, 153, 153));
+                PainelRegistro.btn.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_cbGeneroItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbGenero;
@@ -163,7 +248,6 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtOutrosNomes;
     // End of variables declaration//GEN-END:variables
     
-    
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -174,17 +258,17 @@ public class DadosCadastroP1 extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(txtOutrosNomes.hasFocus())
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtOutrosNomes.hasFocus() && txtApelido.isEnabled()) {
                 txtApelido.requestFocus();
-            else if(txtApelido.hasFocus())
+            } else if (txtApelido.hasFocus() && jdcNascimento.isEnabled()) {
                 jdcNascimento.requestFocus();
-            else if(jdcNascimento.hasFocus())
+            } else if (jdcNascimento.hasFocus() && jdcNascimento.getDate() != null) {
                 cbGenero.requestFocus();
-            else if(cbGenero.hasFocus()){
-                PainelRegistro.btn.requestFocus();
-                PainelRegistro.btn.doClick();                
-            }                
-        }
-    }
+            } else if (cbGenero.hasFocus() && PainelRegistro.btn.isEnabled())
+                PainelRegistro.btn.doClick();            
+        }   
+        
+        verificarEntrada();
+    }        
 }

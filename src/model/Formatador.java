@@ -12,9 +12,9 @@ import javax.swing.text.PlainDocument;
 /**
  * Esta classe contém regras de formatação para campos de entrada de texto
  */
-public class Formatador extends PlainDocument{
+public final class Formatador extends PlainDocument{
     public enum TipoEntrada{
-        NUMERO_INTEIRO, NUMERO_DECIMAL, TEXTO, TITULO, EMAIL, ID, ENDERECO;
+        NUMERO_INTEIRO, NUMERO_DECIMAL, TEXTO, EMAIL, SENHA, TEXTO_COM_NUMEROS;
     };
     
     private int qtdCaracteres;
@@ -37,13 +37,12 @@ public class Formatador extends PlainDocument{
         String regex = "";
         
         switch(tipoEntrada){
-            case NUMERO_INTEIRO: regex = "[^0-9]";break;
-            case NUMERO_DECIMAL: regex = "[^0-9.]";break;
-            case TEXTO:          regex = "[^\\p{IsLatin} ]";break;
-            case TITULO:         regex = "[^\\p{IsLatin} .;,?!#%$*/+&()-]";break;
-            case ID:             regex = "[^0-9A-Z]";break;
-            case EMAIL:          regex = "[^0-9a-zA-Z@._-]";break;
-            case ENDERECO:       regex = "[^\\p{IsLatin} /-]";break;
+            case NUMERO_INTEIRO:    regex = "[^0-9]";break;
+            case NUMERO_DECIMAL:    regex = "[^0-9.]";break;
+            case TEXTO:             regex = "[^\\p{IsLatin} ]";break;
+            case TEXTO_COM_NUMEROS: regex = "[^\\p{IsLatin} 0-9 -+/*<>!/]";break;
+            case EMAIL:             regex = "[^0-9a-zA-Z@._-]";break;
+            case SENHA:             regex = "[^0-9a-zA-Z?!#%$*&-@]";break;
         }
         
         //SUBSTITUICAO

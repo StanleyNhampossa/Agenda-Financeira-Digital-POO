@@ -6,7 +6,7 @@ import java.util.Date;
  *Classe modelo para definir um utilizador do sistema
  * @author Grácio Macuácua
  */
-public class Utilizador {
+public final class Utilizador {
     
     private int id;
     private String nome = "";//

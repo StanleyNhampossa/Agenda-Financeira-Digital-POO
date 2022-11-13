@@ -9,7 +9,7 @@ import view.Main;
  *Classe que define a tela inicial do sistema
  * @author Grácio Macuácua
  */
-public class PainelInicial extends javax.swing.JPanel {
+public final class PainelInicial extends javax.swing.JPanel {
 
     /**
      * Creates new form PainelInicial

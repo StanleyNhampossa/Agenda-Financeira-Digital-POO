@@ -12,7 +12,7 @@ import view.Main;
  *
  * @author Grácio Macuácua
  */
-public class MenuView extends javax.swing.JPanel {
+public final class MenuView extends javax.swing.JPanel {
 
     /**
      * Creates new form MenuView

@@ -14,7 +14,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *Classe que faz o desenho do gráfico da tela de estatísticas
  * @author Grácio Macuácua
  */
-public class Grafico extends javax.swing.JPanel {
+public final class Grafico extends javax.swing.JPanel {
 
     public double emergencias;
     public double muitoImportante;
@@ -59,7 +59,7 @@ public class Grafico extends javax.swing.JPanel {
         dataset.setValue(lazer, "", "Lazer");
         dataset.setValue(opcional, "", "Opcional");
         
-        JFreeChart chart = ChartFactory.createBarChart("Estatísticas de uso das finanças", "Prioridade", "Impacto sobre os rendimentos",
+        JFreeChart chart = ChartFactory.createBarChart("Estatísticas de uso das finanças", "Prioridade", "Impacto sobre os gastos",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
         chart.getTitle().setPaint(new Color(153,153,153));
         

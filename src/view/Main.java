@@ -17,7 +17,7 @@ import view.menu.MenuView;
  *Classe principal do sistema, responsável pela criação do frame e pela manipulação das telas
  * @author Grácio Macuácua
  */
-public class Main extends javax.swing.JFrame {
+public final class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
@@ -123,7 +123,7 @@ public class Main extends javax.swing.JFrame {
                 main.setVisible(true);
             }
         });
-        //main.painelInicial.iniciarContagem();
+        main.painelInicial.iniciarContagem();
         exibirPainel(new PainelEntrada());
     }
     

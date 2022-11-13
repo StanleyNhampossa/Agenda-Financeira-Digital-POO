@@ -22,7 +22,7 @@ import view.perfil.PainelPerfil;
  *
  * @author Grácio Macuácua, Bernabé Bila e Paulo Massingue
  */
-public class MenuOptions extends javax.swing.JPanel {
+public final class MenuOptions extends javax.swing.JPanel {
 
     /**
      * Creates new form Menu

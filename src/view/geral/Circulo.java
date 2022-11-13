@@ -9,7 +9,7 @@ import javax.swing.JLabel;
  *Classe que define um círculo para a classe {@code PainelEntrada}
  * @author Grácio Macuácua
  */
-public class Circulo extends JLabel {
+public final class Circulo extends JLabel {
     
     private Color corDoCirculo = getBackground();
     

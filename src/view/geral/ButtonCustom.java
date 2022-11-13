@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
-public class ButtonCustom extends JButton {
+public final class ButtonCustom extends JButton {
 
     private Color background = new Color(69, 191, 71);
     private Color colorHover = new Color(76, 206, 78);

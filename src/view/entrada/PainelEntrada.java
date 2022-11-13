@@ -11,10 +11,12 @@ import view.geral.Notificacao;
 import view.menu.MenuView;
 
 /**
- *Classe que define a tela de entrada ou autenticação de utilizadores do sistema
+ * Classe que define a tela de entrada ou autenticação de utilizadores do
+ * sistema
+ *
  * @author Grácio Macuácua
  */
-public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
+public final class PainelEntrada extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form PainelLogin
@@ -25,6 +27,7 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         pfSenha.addKeyListener(this);
         btnEntrar.addKeyListener(this);
         charset = pfSenha.getEchoChar();
+        inicio = true;
     }
 
     /**
@@ -56,6 +59,14 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         txtUsuario.setForeground(new java.awt.Color(102, 102, 102));
         txtUsuario.setText("email do usuário");
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 102, 255)));
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusLost(evt);
+            }
+        });
         txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtUsuarioMouseClicked(evt);
@@ -90,16 +101,17 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         });
 
         btnEntrar.setText("ENTRAR");
+        btnEntrar.setEnabled(false);
         btnEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEntrar.setkBackGroundColor(new java.awt.Color(255, 255, 255));
-        btnEntrar.setkEndColor(new java.awt.Color(0, 102, 255));
+        btnEntrar.setkEndColor(new java.awt.Color(153, 153, 153));
         btnEntrar.setkHoverColor(new java.awt.Color(12, 90, 160));
         btnEntrar.setkHoverEndColor(new java.awt.Color(12, 91, 160));
         btnEntrar.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         btnEntrar.setkHoverStartColor(new java.awt.Color(12, 91, 160));
         btnEntrar.setkPressedColor(new java.awt.Color(0, 102, 255));
         btnEntrar.setkSelectedColor(new java.awt.Color(255, 255, 255));
-        btnEntrar.setkStartColor(new java.awt.Color(12, 91, 160));
+        btnEntrar.setkStartColor(new java.awt.Color(153, 153, 153));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -141,9 +153,18 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
         pfSenha.setBackground(new java.awt.Color(255, 255, 255));
         pfSenha.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         pfSenha.setForeground(new java.awt.Color(102, 102, 102));
-        pfSenha.setText("suassenha");
+        pfSenha.setText("suasenha");
         pfSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 102, 255)));
+        pfSenha.setEnabled(false);
         pfSenha.setPreferredSize(new java.awt.Dimension(76, 22));
+        pfSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pfSenhaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pfSenhaFocusLost(evt);
+            }
+        });
         pfSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pfSenhaMouseClicked(evt);
@@ -254,11 +275,11 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblEsqueciSenhaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueciSenhaMouseExited
-        lblEsqueciSenha.setForeground(new Color(0,102,255));
+        lblEsqueciSenha.setForeground(new Color(0, 102, 255));
     }//GEN-LAST:event_lblEsqueciSenhaMouseExited
 
     private void lblEsqueciSenhaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueciSenhaMouseMoved
-        lblEsqueciSenha.setForeground(new Color(0,153,255));        
+        lblEsqueciSenha.setForeground(new Color(0, 153, 255));
     }//GEN-LAST:event_lblEsqueciSenhaMouseMoved
 
     private void lblEsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueciSenhaMouseClicked
@@ -266,32 +287,36 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_lblEsqueciSenhaMouseClicked
 
     private void pfSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfSenhaMouseClicked
-        if(evt.getClickCount() == 2)
-        pfSenha.setText("");
+        if(evt.getClickCount() == 2 && pfSenha.isEnabled())
+            pfSenha.setText("");
     }//GEN-LAST:event_pfSenhaMouseClicked
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
-        if(jLabel1.getIcon() == new ImageIcon(getClass().getResource("/icones/visivel.png"))) {
+        if (jLabel1.getIcon() == new ImageIcon(getClass().getResource("/icones/visivel.png"))) {
             jLabel1.setToolTipText("Mostrar senha");
-        } else if(jLabel1.getIcon() == new ImageIcon(getClass().getResource("/icones/invisivel.png")))
+        } else if (jLabel1.getIcon() == new ImageIcon(getClass().getResource("/icones/invisivel.png")))
             jLabel1.setToolTipText("Ocultar senha");
     }//GEN-LAST:event_jLabel1MouseEntered
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
-        if(evt.getClickCount() == 2)
+        if(evt.getClickCount() == 1 && txtUsuario.getText().equalsIgnoreCase("email do usuário"))
             txtUsuario.setText("");
+        else if(evt.getClickCount() == 2) {
+            txtUsuario.setText("");
+            inicio = false;
+        }
     }//GEN-LAST:event_txtUsuarioMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        if(jLabel1.getToolTipText().equalsIgnoreCase("mostrar senha")) {
+        if (jLabel1.getToolTipText().equalsIgnoreCase("mostrar senha")) {
             pfSenha.setEchoChar((char) 0);
             jLabel1.setIcon(new ImageIcon(getClass().getResource("/icones/invisivel.png")));
             jLabel1.setToolTipText("Ocultar senha");
-        } else if(jLabel1.getToolTipText().equalsIgnoreCase("ocultar senha")) {
+        } else if (jLabel1.getToolTipText().equalsIgnoreCase("ocultar senha")) {
             pfSenha.setEchoChar(charset);
             jLabel1.setIcon(new ImageIcon(getClass().getResource("/icones/visivel.png")));
             jLabel1.setToolTipText("Mostrar senha");
-        }           
+        }
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistarActionPerformed
@@ -309,11 +334,35 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         UtilizadorDAO dao = new UtilizadorDAO();
         MenuView.user = dao.autenticar(txtUsuario.getText(), pfSenha.getText());
-        if(MenuView.user != null) {
+        if (MenuView.user != null) {
             Main.exibirPainel(new MenuView());
         } else
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Usuário ou senha incorrectos!", Notificacao.ICONE_ERRO);
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void pfSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfSenhaFocusGained
+        if (pfSenha.getText().equalsIgnoreCase("suasenha"))
+            pfSenha.setText("");
+    }//GEN-LAST:event_pfSenhaFocusGained
+
+    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+        if (txtUsuario.getText().equalsIgnoreCase("email do usuário") && !inicio)
+            txtUsuario.setText("");
+    }//GEN-LAST:event_txtUsuarioFocusGained
+
+    private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
+        if (txtUsuario.getText().isBlank()) {
+            txtUsuario.setText("email do usuário");
+            pfSenha.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void pfSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfSenhaFocusLost
+        if (pfSenha.getText().isBlank()) {
+            pfSenha.setText("suasenha");
+            btnEntrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_pfSenhaFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnEntrar;
@@ -330,7 +379,8 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
     private char charset;
-    
+    private boolean inicio;
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -341,14 +391,29 @@ public class PainelEntrada extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(txtUsuario.hasFocus()){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtUsuario.hasFocus() && pfSenha.isEnabled()) {
                 pfSenha.requestFocus();
-                pfSenha.setText("");
-            } else if(pfSenha.hasFocus()){
-                btnEntrar.requestFocus();
+            } else if (pfSenha.hasFocus() && btnEntrar.isEnabled())
                 btnEntrar.doClick();
-            }
         }
+
+        if (txtUsuario.getText().strip().length() >= 7 && txtUsuario.getText().contains("@")) {
+            pfSenha.setEnabled(true);
+        } else {
+            pfSenha.setEnabled(false);
+            btnEntrar.setEnabled(false);
+        }
+        if (pfSenha.getText().strip().length() >= 5 && pfSenha.isEnabled() && !pfSenha.getText().equals("suasenha")) {
+            btnEntrar.setEnabled(true);
+            btnEntrar.setkEndColor(new Color(0,102,255));
+            btnEntrar.setkStartColor(new Color(12,91,160));
+        } else {
+            btnEntrar.setEnabled(false);
+            btnEntrar.setkEndColor(new Color(153, 153, 153));
+            btnEntrar.setkStartColor(new Color(153, 153, 153));
+        }
+        
+        inicio = false;
     }
 }

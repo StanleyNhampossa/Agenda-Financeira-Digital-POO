@@ -17,7 +17,7 @@ import view.menu.MenuView;
  *Classe que define a tela de perfil do utilizador
  * @author Grácio Macuácua
  */
-public class PainelPerfil extends javax.swing.JPanel {
+public final class PainelPerfil extends javax.swing.JPanel {
 
     /**
      * Creates new form Perfil

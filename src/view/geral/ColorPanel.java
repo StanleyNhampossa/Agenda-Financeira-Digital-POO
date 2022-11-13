@@ -10,7 +10,7 @@ import java.awt.RenderingHints;
  * background composto por uma mistura de cores
  * @author Grácio Macuácua
  */
-public class ColorPanel extends keeptoo.KGradientPanel {
+public final class ColorPanel extends keeptoo.KGradientPanel {
 
     /**
      * Creates new form LoginForm

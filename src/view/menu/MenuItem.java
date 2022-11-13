@@ -11,7 +11,7 @@ import java.awt.RenderingHints;
  *
  * @author Grácio Macuácua
  */
-public class MenuItem extends javax.swing.JPanel {
+public final class MenuItem extends javax.swing.JPanel {
 
     /**
      * @param selected the selected to set
