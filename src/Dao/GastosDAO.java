@@ -45,8 +45,6 @@ public class GastosDAO {
             
             statement.executeUpdate();
             
-
-            JOptionPane.showMessageDialog(null, "Gasto  salvo com sucesso!");
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;

@@ -344,6 +344,7 @@ public class PainelDespesas extends javax.swing.JPanel {
                 btnExcluirDespesaActionPerformed(evt);
             }
         });
+        btnExcluirDespesa.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

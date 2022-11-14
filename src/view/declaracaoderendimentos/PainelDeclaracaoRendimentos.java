@@ -359,6 +359,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 btnExcluirRendimentoActionPerformed(evt);
             }
         });
+        btnExcluirRendimento.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -370,7 +371,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addContainerGap())
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

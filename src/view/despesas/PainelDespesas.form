@@ -563,6 +563,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirDespesaActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="btnExcluirDespesa.setVisible(false);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
