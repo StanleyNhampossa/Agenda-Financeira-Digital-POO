@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.CriptografiaSHA256;
 
 /**
  * Classe responsável por estabelecer a comunicação entre o programa
@@ -129,6 +130,7 @@ public final class UtilizadorDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Utilizador user = null;
+        senha = CriptografiaSHA256.criptografar(senha);
         String cmd = "SELECT * FROM `gestaofinanceira`.`utilizadores` WHERE `email` = '" + userEmail + "' AND `senha` = '" + senha + "'";
                 
         try {

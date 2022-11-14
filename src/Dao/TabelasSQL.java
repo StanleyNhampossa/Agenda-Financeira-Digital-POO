@@ -30,7 +30,7 @@ public final class TabelasSQL {
                 + "genero VARCHAR(9) NOT NULL,"
                 + "profissao MEDIUMTEXT NOT NULL,"
                 + "email MEDIUMTEXT NOT NULL UNIQUE,"
-                + "senha VARCHAR(15) NOT NULL,"
+                + "senha MEDIUMTEXT NOT NULL,"
                 + "fotoPerfil MEDIUMTEXT NOT NULL)";
 
         cmds[3] = "CREATE TABLE IF NOT EXISTS rendimentos("
@@ -45,7 +45,7 @@ public final class TabelasSQL {
         cmds[4] = "CREATE TABLE IF NOT EXISTS despesas("
                 + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "tipoDespesa MEDIUMTEXT NOT NULL,"
-                + "  `prioridade` varchar(255) NOT NULL,"
+                + "`prioridade` varchar(255) NOT NULL,"
                 + "custo DOUBLE,"
                 + "categoria MEDIUMTEXT,"
                 + "utilizador_id INT NOT NULL,"
@@ -62,6 +62,7 @@ public final class TabelasSQL {
                 + "  `Valor_da_parcela` double NOT NULL,"
                 + "  `Total_a_pagar` double NOT NULL,"
                 + "FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE ON UPDATE CASCADE)";
+        
         cmds[6] = "CREATE TABLE IF NOT EXISTS gastos ("
                 + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "  `utilizador_id` int(11) NOT NULL,"
