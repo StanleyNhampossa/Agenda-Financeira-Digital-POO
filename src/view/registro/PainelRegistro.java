@@ -23,6 +23,7 @@ public final class PainelRegistro extends javax.swing.JPanel implements KeyListe
         initComponents();
         btnProsseguir.addKeyListener(this);
         btn = btnProsseguir;
+        user = new Utilizador();
     }
 
     /**
@@ -281,7 +282,7 @@ public final class PainelRegistro extends javax.swing.JPanel implements KeyListe
     private javax.swing.JPanel painelLateral;
     // End of variables declaration//GEN-END:variables
     public static KButton btn;
-    public static Utilizador user = new Utilizador();
+    public static Utilizador user;
 
     @Override
     public void keyTyped(KeyEvent e) {

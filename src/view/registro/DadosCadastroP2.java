@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import model.CriptografiaSHA256;
 import model.Formatador;
 import view.perfil.PainelPerfil;
 
@@ -242,7 +243,7 @@ public final class DadosCadastroP2 extends javax.swing.JPanel implements KeyList
         if (txtProfissao.isEnabled() && txtEmail.isEnabled() && pfSenha.isEnabled() && pfSenha.getText().length() >= 6) {
             PainelRegistro.user.setProfissao(txtProfissao.getText());
             PainelRegistro.user.setEmail(txtEmail.getText());
-            PainelRegistro.user.setSenha(pfSenha.getText());
+            PainelRegistro.user.setSenha(CriptografiaSHA256.criptografar(pfSenha.getText()));
 
             PainelRegistro.btn.setkStartColor(new Color(12, 91, 160));
             PainelRegistro.btn.setkEndColor(new Color(0, 102, 255));
