@@ -93,7 +93,7 @@ public class GastosDAO {
                 p.setId(resulto.getInt("id"));
                 p.setTipoRendimento(resulto.getNString("tipoRendimento"));
                 p.setRendimento(resulto.getDouble("rendimento"));
-                p.setPeriodo(resulto.getNString("periodo"));
+               
                 p.setFonteRendimento(resulto.getNString("fonteRendimento"));
                 listaRendimento.add(p);
             }
