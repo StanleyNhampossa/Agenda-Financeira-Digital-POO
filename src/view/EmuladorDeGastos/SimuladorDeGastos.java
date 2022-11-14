@@ -9,6 +9,9 @@ import Dao.GastosDAO;
 import com.sun.source.tree.BreakTree;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -47,8 +50,8 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
         });
 
         preencherTabela();
-        despesaGasto= (Despesa) cbCategoria.getSelectedItem();
-        rendimento= (Rendimento) cbFonte.getSelectedItem();
+        despesaGasto = (Despesa) cbCategoria.getSelectedItem();
+        rendimento = (Rendimento) cbFonte.getSelectedItem();
     }
 
     /**
@@ -147,7 +150,7 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Categoria", "Descrição", "Valor", "Prioridade", "Poupado", "Fonte"
+                "Categoria", "Descrição", "Valor", "Prioridade", "Poupado", "Fonte", "Data"
             }
         ));
         tbGastos.setRowHeight(30);
@@ -250,7 +253,7 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
         this.tableModel.setNumRows(0);
         GastosDAO.fillTable().forEach((p) -> {
             this.tableModel.addRow(new Object[]{p.getCategoria(), p.getDescricao(),
-                p.getValorGasto(), p.getPrioridade(), p.getValorPoupado(), p.getFonteValor()});
+                p.getValorGasto(), p.getPrioridade(), p.getValorPoupado(), p.getFonteValor(),p.getData()});
         });
     }
 
@@ -258,6 +261,12 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
     }//GEN-LAST:event_tfValorGastoActionPerformed
 
     private void btnAplicarValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarValorActionPerformed
+
+        LocalDate data= LocalDate.now();
+        
+        gasto.setData(String.valueOf(data));
+        
+        
         if (!tfValorGasto.getText().isBlank()) {
             if (Double.valueOf(tfValorGasto.getText()) > despesaGasto.getCusto() || Double.valueOf(tfValorGasto.getText()) <= 0.0) {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "O valor gasto não deve ser menor ou igual a zero ou maior que o alocado para esta despesa", Notificacao.ICONE_ERRO);
@@ -293,13 +302,11 @@ public class SimuladorDeGastos extends javax.swing.JPanel {
 //            this.gasto.setCategoria(despesaTemp.getCategoria());
 //            this.despesaGasto.setId(despesaTemp.getId());
 
-
- despesaGasto = (Despesa) cbCategoria.getSelectedItem();
+            despesaGasto = (Despesa) cbCategoria.getSelectedItem();
             lbValorDisponível.setText("Valor Disponível: " + String.valueOf(despesaGasto.getCusto()));
             this.gasto.setPrioridade(despesaGasto.getPrioridade());
             lbPrioridadeV.setText("Prioridade: " + despesaGasto.getPrioridade());
             this.gasto.setCategoria(despesaGasto.getCategoria());
-            
 
         }
     }//GEN-LAST:event_cbCategoriaItemStateChanged

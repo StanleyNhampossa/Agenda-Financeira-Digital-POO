@@ -16,7 +16,19 @@ public class Gasto {
     private String categoria,prioridade, descricao,fonteValor;
     private double valorPoupado,valorGasto ;
     private int id,idUtilizador;
+    private String data;
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+  
+
+    
     public String getCategoria() {
         return categoria;
     }

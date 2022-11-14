@@ -31,15 +31,17 @@ public class GastosDAO {
         PreparedStatement statement1 = null;
         try {
           
+           
            //Query para inserir dados na tabela de gastos
-            statement = conexao.prepareStatement("INSERT INTO gastos (utilizador_id,valor_gasto,fonte_valor,prioridade,descricao,valor_poupado,categoria)VALUES(?,?,?,?,?,?,?)");
+            statement = conexao.prepareStatement("INSERT INTO gastos (utilizador_id,Data,valor_gasto,fonte_valor,prioridade,descricao,valor_poupado,categoria)VALUES(?,?,?,?,?,?,?,?)");
             statement.setInt(1, MenuView.user.getId());
-            statement.setDouble(2, gasto.getValorGasto());
-            statement.setString(3, gasto.getFonteValor());
-            statement.setString(4, gasto.getPrioridade());
-            statement.setString(5, gasto.getDescricao());
-            statement.setDouble(6, gasto.getValorPoupado());
-            statement.setString(7, gasto.getCategoria());
+            statement.setString(2,gasto.getData());
+            statement.setDouble(3, gasto.getValorGasto());
+            statement.setString(4, gasto.getFonteValor());
+            statement.setString(5, gasto.getPrioridade());
+            statement.setString(6, gasto.getDescricao());
+            statement.setDouble(7, gasto.getValorPoupado());
+            statement.setString(8, gasto.getCategoria());
             
             statement.executeUpdate();
             
@@ -154,7 +156,7 @@ public class GastosDAO {
                 gasto.setPrioridade(rs.getNString("prioridade"));
                 gasto.setValorGasto(rs.getDouble("valor_gasto"));
                 gasto.setValorPoupado(rs.getDouble("valor_poupado"));
-
+                gasto.setData(rs.getString("Data"));
                 gastos.add(gasto);
             }
         } catch (SQLException ex) {
