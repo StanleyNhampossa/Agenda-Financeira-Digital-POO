@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/view/despesas/PainelDespesas.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/Dao/RendimentoDao.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/view/Main.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/Dao/DespesaDao.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/Dao/GastosDAO.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/Dao/TabelasSQL.java</file>
-            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/view/EmuladorDeGastos/SimuladorDeGastos.java</file>
+            <file>file:/C:/Users/berna/Desktop/Bernabé/Faculdade/POO/Sistema-de-Gest-o-Financeira/src/view/emuladordeemprestimos/PainelEmuladorDeEmprestimos.java</file>
         </group>
     </open-files>
 </project-private>
