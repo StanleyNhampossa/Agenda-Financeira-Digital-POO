@@ -4,6 +4,7 @@ import Dao.RendimentoDao;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Rendimento;
 import view.Main;
@@ -23,6 +24,7 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         initComponents();
         preencherTabela();
         inserirValores();
+
     }
 
     /**
@@ -38,12 +40,10 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         spRendimentos = new javax.swing.JSpinner();
         cbTipoRendimento = new javax.swing.JComboBox<>();
-        cbPeridoRendimento = new javax.swing.JComboBox<>();
         txtPesquisaRendimento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtFonte = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblRendimentoFixo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -51,6 +51,10 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         lblRendimentoTotal = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaRendimento = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -73,6 +77,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         spRendimentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spRendimentos.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spRendimentos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                spRendimentosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                spRendimentosFocusLost(evt);
+            }
+        });
         spRendimentos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 spRendimentosKeyPressed(evt);
@@ -81,21 +93,25 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         cbTipoRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbTipoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Fixo", "Variavel" }));
+        cbTipoRendimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbTipoRendimentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbTipoRendimentoFocusLost(evt);
+            }
+        });
+        cbTipoRendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoRendimentoActionPerformed(evt);
+            }
+        });
         cbTipoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cbTipoRendimentoKeyPressed(evt);
             }
         });
 
-        cbPeridoRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbPeridoRendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Diario", "Semanal", "Mensal", "", "" }));
-        cbPeridoRendimento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cbPeridoRendimentoKeyPressed(evt);
-            }
-        });
-
-        txtPesquisaRendimento.setBackground(new java.awt.Color(255, 255, 255));
         txtPesquisaRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPesquisaRendimento.setForeground(new java.awt.Color(153, 153, 153));
         txtPesquisaRendimento.setText("Pesquisar fonte de rendimento");
@@ -120,9 +136,17 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Fonte de Rendimento:");
+        jLabel4.setText("Fonte de Rendimento");
 
         txtFonte.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFonte.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFonteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFonteFocusLost(evt);
+            }
+        });
         txtFonte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFonteKeyPressed(evt);
@@ -131,9 +155,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Tipo");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Periodo");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Rendimento Fixo");
@@ -167,6 +188,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         jLabel8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 153, 153)));
         jLabel8.setOpaque(true);
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/emprestimo (1).png"))); // NOI18N
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lucro (6) (1).png"))); // NOI18N
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/analitico (2).png"))); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/money-bag (4).png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,83 +204,101 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(spRendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbTipoRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(103, 103, 103)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(133, 133, 133)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbTipoRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spRendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
-                                .addComponent(cbPeridoRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(103, 103, 103)
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(133, 133, 133)
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(127, 127, 127)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(27, 27, 27)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)))
+                        .addGap(26, 26, 26))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbTipoRendimento)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spRendimentos)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFonte)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(txtFonte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbPeridoRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbTipoRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(1, 1, 1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel11)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRendimentoVariavel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRendimentoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(1, 1, 1))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(spRendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(35, 35, 35)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPesquisaRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblRendimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
@@ -259,14 +306,13 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
         tabelaRendimento.getTableHeader().setBackground(Color.WHITE);
         tabelaRendimento.getTableHeader().setForeground(new Color(104,104,104));
         tabelaRendimento.setRowHeight(30);
-        tabelaRendimento.setBackground(new java.awt.Color(255, 255, 255));
         //tabelaRendimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelaRendimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Tipo", "Rendimento", "Periodo", "Fonte"
+                "ID", "Tipo", "Rendimento", "Fonte"
             }
         ));
         tabelaRendimento.setRowHeight(30);
@@ -293,7 +339,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 btnSalvarRendimentoActionPerformed(evt);
             }
         });
-        jPanel3.add(btnSalvarRendimento);
 
         btnActualizarRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/atualizar-pares-de-setas-em-circulo.png"))); // NOI18N
         btnActualizarRendimento.setContentAreaFilled(false);
@@ -304,7 +349,6 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 btnActualizarRendimentoActionPerformed(evt);
             }
         });
-        jPanel3.add(btnActualizarRendimento);
 
         btnExcluirRendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/excluir.png"))); // NOI18N
         btnExcluirRendimento.setContentAreaFilled(false);
@@ -315,22 +359,29 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 btnExcluirRendimentoActionPerformed(evt);
             }
         });
-        jPanel3.add(btnExcluirRendimento);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvarRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(btnActualizarRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(btnExcluirRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,9 +390,14 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalvarRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluirRendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -362,94 +418,123 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPesquisaRendimentoKeyReleased
 
     private void txtPesquisaRendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoFocusLost
-        if(txtPesquisaRendimento.getText().isBlank()) {
-            txtPesquisaRendimento.setText("Pesquisar fonte de rendimento");  
+        if (txtPesquisaRendimento.getText().isBlank()) {
+            txtPesquisaRendimento.setText("Pesquisar fonte de rendimento");
             limparCampos();
         }
     }//GEN-LAST:event_txtPesquisaRendimentoFocusLost
 
     private void cbTipoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoRendimentoKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
             spRendimentos.requestFocus();
     }//GEN-LAST:event_cbTipoRendimentoKeyPressed
 
     private void spRendimentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spRendimentosKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            cbPeridoRendimento.requestFocus();
-            
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtFonte.requestFocus();
+        }
+
     }//GEN-LAST:event_spRendimentosKeyPressed
-  
-    private void cbPeridoRendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbPeridoRendimentoKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            txtFonte.requestFocus(); 
-    }//GEN-LAST:event_cbPeridoRendimentoKeyPressed
 
     private void txtFonteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFonteKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            btnSalvarRendimento.requestFocus(); 
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            btnSalvarRendimento.requestFocus();
     }//GEN-LAST:event_txtFonteKeyPressed
 
     private void tabelaRendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRendimentoMouseClicked
-        if(tabelaRendimento.getSelectedRow() != -1) {
+        if (tabelaRendimento.getSelectedRow() != -1) {
             cbTipoRendimento.setSelectedItem(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 1));
             spRendimentos.setValue(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 2));
-            cbPeridoRendimento.setSelectedItem(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 3));
-            txtFonte.setText(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 4).toString());
+            txtFonte.setText(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 3).toString());
         }
     }//GEN-LAST:event_tabelaRendimentoMouseClicked
 
     private void txtPesquisaRendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPesquisaRendimentoMouseClicked
-        if(txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar Fonte de Rendimento"))
+        if (txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar Fonte de Rendimento"))
             txtPesquisaRendimento.setText("");
-        else if(evt.getClickCount() == 2) {
+        else if (evt.getClickCount() == 2) {
             txtPesquisaRendimento.setText("");
             preencherTabela();
-        }            
+        }
     }//GEN-LAST:event_txtPesquisaRendimentoMouseClicked
-   
+
+    private void cbTipoRendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoRendimentoFocusLost
+        if (cbTipoRendimento.getSelectedItem().toString().isEmpty())
+            cbTipoRendimento.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_cbTipoRendimentoFocusLost
+
+    private void cbTipoRendimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoRendimentoFocusGained
+        cbTipoRendimento.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_cbTipoRendimentoFocusGained
+
+    private void spRendimentosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spRendimentosFocusLost
+        if (Double.parseDouble(spRendimentos.getValue().toString()) == 0.0||spRendimentos.getValue().toString().isEmpty()) {
+            spRendimentos.setBorder(new LineBorder(Color.RED));
+        }
+    }//GEN-LAST:event_spRendimentosFocusLost
+
+    private void spRendimentosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spRendimentosFocusGained
+//        spRendimentos.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_spRendimentosFocusGained
+
+    private void txtFonteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFonteFocusLost
+        if (txtFonte.getText().toString().isEmpty())
+            txtFonte.setBorder(new LineBorder(Color.RED));
+    }//GEN-LAST:event_txtFonteFocusLost
+
+    private void txtFonteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFonteFocusGained
+        txtFonte.setBorder(new LineBorder(Color.white));
+    }//GEN-LAST:event_txtFonteFocusGained
+
+    private void cbTipoRendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoRendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoRendimentoActionPerformed
+
     private void pesquisar() {
         DefaultTableModel model = (DefaultTableModel) tabelaRendimento.getModel();
         model.setNumRows(0);
         RendimentoDao.listar(MenuView.user.getId(), txtPesquisaRendimento.getText()).forEach((p) -> {
-            model.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getPeriodo(), p.getFonteRendimento()});
+            model.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getFonteRendimento()});
         });
-        
-        if(txtPesquisaRendimento.getText().isBlank()) 
-            limparCampos();        
+
+        if (txtPesquisaRendimento.getText().isBlank()) {
+            limparCampos();
+        }
     }
-    
-    private void inserirValores(){
+
+    private void inserirValores() {
         Double fixoRendimento = 0.0;
         Double variavelRendimento = 0.0;
         Double somaRendimento = 0.0;
-        
-        for(int i = 0; i < tabelaRendimento.getRowCount(); i++ ) {
-            if(tabelaRendimento.getValueAt(i, 1).toString().equalsIgnoreCase("Fixo"))
+
+        for (int i = 0; i < tabelaRendimento.getRowCount(); i++) {
+            if (tabelaRendimento.getValueAt(i, 1).toString().equalsIgnoreCase("Fixo")) {
                 fixoRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());
-            else
-                variavelRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());;
+            } else {
+                variavelRendimento += Double.parseDouble(tabelaRendimento.getValueAt(i, 2).toString());
+            };
         }
         somaRendimento = variavelRendimento + fixoRendimento;
         lblRendimentoFixo.setText(fixoRendimento.toString());
         lblRendimentoVariavel.setText(variavelRendimento.toString());
         lblRendimentoTotal.setText(somaRendimento.toString());
-    }  
-  
-    
+    }
+
     private void preencherTabela() {
         List<Rendimento> lista;
-        if(txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar fonte de rendimento"))
+        if (txtPesquisaRendimento.getText().equalsIgnoreCase("Pesquisar fonte de rendimento")) {
             lista = RendimentoDao.listar(MenuView.user.getId(), "");
-        else
+        } else {
             lista = RendimentoDao.listar(MenuView.user.getId(), txtPesquisaRendimento.getText());
+        }
         DefaultTableModel modeloTabela = (DefaultTableModel) tabelaRendimento.getModel();
         modeloTabela.setRowCount(0);
         lista.forEach((p) -> {
-            modeloTabela.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getPeriodo(), p.getFonteRendimento()});
+            modeloTabela.addRow(new Object[]{p.getId(), p.getTipoRendimento(), p.getRendimento(), p.getFonteRendimento()});
         });
-        
-    }             
-    
+
+    }
+
     private void excluir() {
         int opcao = tabelaRendimento.getSelectedRow();
         if (opcao >= 0) {
@@ -457,80 +542,89 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
             p.setId(Integer.parseInt(tabelaRendimento.getValueAt(opcao, 0).toString()));
             p.setTipoRendimento(tabelaRendimento.getValueAt(opcao, 1).toString());
             p.setRendimento(Double.parseDouble(tabelaRendimento.getValueAt(opcao, 2).toString()));
-            p.setPeriodo(tabelaRendimento.getValueAt(opcao, 3).toString());
-            p.setFonteRendimento(tabelaRendimento.getValueAt(opcao, 4).toString());
+            p.setFonteRendimento(tabelaRendimento.getValueAt(opcao, 3).toString());
             int res = Notificacao.mostrarDialogoDeOpcaoDupla(Main.main, "Deseja excluir o rendimento?", Notificacao.ICONE_QUESTAO);
-            if(res == Notificacao.BOTAO_SIM)
-                if(RendimentoDao.excluir(p)) {
+            if (res == Notificacao.BOTAO_SIM) {
+                if (RendimentoDao.excluir(p)) {
                     preencherTabela();
-                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);                    
+                    Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento excluído com sucesso!!", Notificacao.ICONE_SUCESSO);
                     limparCampos();
                     inserirValores();
-                }else
+                } else {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A exclusão falhou!\nOcorreu um erro ao excluir o rendimento.", Notificacao.ICONE_ERRO);
+                }
+            }
         } else {
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Selecione o rendimento que deseja excluir!", Notificacao.ICONE_INFORMACAO);
         }
     }
-    
+
     private void actualizar() {
-        if(tabelaRendimento.getSelectedRow() != -1) {
-            if(Double.parseDouble(spRendimentos.getValue().toString()) != 0.0 && 
-                (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals("") && !cbPeridoRendimento.getSelectedItem().equals(""))) {
+        if (tabelaRendimento.getSelectedRow() != -1) {
+            if (Double.parseDouble(spRendimentos.getValue().toString()) != 0.0
+                    && (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
                 Rendimento p = new Rendimento();
                 p.setId(Integer.parseInt(tabelaRendimento.getValueAt(tabelaRendimento.getSelectedRow(), 0).toString()));
                 p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
                 p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
-                p.setPeriodo((String)cbPeridoRendimento.getSelectedItem());
                 p.setFonteRendimento(txtFonte.getText());
-                if(RendimentoDao.actualizar(p)) {
+                if (RendimentoDao.actualizar(p)) {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Actualização efectuada com sucesso!", Notificacao.ICONE_SUCESSO);
                     limparCampos();
                     preencherTabela();
                     limparCampos();
                     inserirValores();
-                }else
+                } else {
                     Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A actualização falhou!\nOcorreu um erro ao actualizar o rendimento.", Notificacao.ICONE_ERRO);
-            }else
-                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);        
-        } else
+                }
+            } else {
+                Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);
+            }
+        } else {
             Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Selecione uma linha para actualizar!", Notificacao.ICONE_INFORMACAO);
+        }
     }
-    
+
     private void adicionar() {
-        if(Double.parseDouble(spRendimentos.getValue().toString()) != 0.0 && 
-          (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals("") && !cbPeridoRendimento.getSelectedItem().equals(""))) {
+        if (Double.parseDouble(spRendimentos.getValue().toString()) != 0.0
+                && (!txtFonte.getText().isBlank() && !cbTipoRendimento.getSelectedItem().equals(""))) {
             Rendimento p = new Rendimento();
             p.setTipoRendimento((String) cbTipoRendimento.getSelectedItem());
             p.setRendimento(Double.parseDouble(spRendimentos.getValue().toString()));
-            p.setPeriodo((String) cbPeridoRendimento.getSelectedItem());
             p.setUtilizador_id(MenuView.user.getId());
             p.setFonteRendimento(txtFonte.getText());
-            if(RendimentoDao.cadastrar(p)) {
+
+            if (RendimentoDao.cadastrar(p)) {
                 limparCampos();
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Rendimento adicionado com sucesso!", Notificacao.ICONE_SUCESSO);
                 preencherTabela();
                 inserirValores();
-            }else
+
+            } else {
                 Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "A operação falhou!\nOcorreu um erro ao adicionar o rendimento.", Notificacao.ICONE_ERRO);
-        } else 
-            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);        
+            }
+        } else {
+            Notificacao.mostrarDialogoDeOpcaoSingular(Main.main, "Preencha todos os campos para prosseguir!", Notificacao.ICONE_INFORMACAO);
+       
+        }
+
     }
-    
+
     private void limparCampos() {
         cbTipoRendimento.setSelectedItem("");
         spRendimentos.setValue(0);
-        cbPeridoRendimento.setSelectedItem("");
         txtFonte.setText("");
+
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarRendimento;
     private javax.swing.JButton btnExcluirRendimento;
     private javax.swing.JButton btnSalvarRendimento;
-    private javax.swing.JComboBox<String> cbPeridoRendimento;
     private javax.swing.JComboBox<String> cbTipoRendimento;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -538,11 +632,12 @@ public class PainelDeclaracaoRendimentos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblRendimentoFixo;
-    private javax.swing.JLabel lblRendimentoTotal;
+    public javax.swing.JLabel lblRendimentoTotal;
     private javax.swing.JLabel lblRendimentoVariavel;
     private javax.swing.JSpinner spRendimentos;
     private javax.swing.JTable tabelaRendimento;

@@ -13,7 +13,6 @@ public class Rendimento {
     private int id;
     public String tipoRendimento;
     private double rendimento;
-    private String periodo;
     private String fonteRendimento;
     private int utilizador_id;    
 
@@ -28,14 +27,6 @@ public class Rendimento {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
     }
 
     public String getTipoRendimento() {
